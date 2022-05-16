@@ -6,13 +6,54 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class LoginViewController: UIViewController {
+    
+    @IBOutlet weak var emailAddressText: UITextField!
+    @IBOutlet weak var passwordText: UITextField!
+    @IBOutlet weak var errorLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        //hide error message during initial load
+        errorLabel.alpha = 0
+        
+        //for testing purposes only
+        emailAddressText.text = "test1@gmail.com"
+        passwordText.text = "Test@1234"
+        
+    }
+    
+    @IBAction func loginAction(_ sender: UIButton) {
+        
+        // validate text fields
+        let email = emailAddressText.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        let password = passwordText.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        if email == "" || password == "" {
+            self.errorLabel.text = "Please fill in all fields"
+            self.errorLabel.alpha = 1
+            return
+        }
+        
+        // signing in the user (firebase authentication)
+        Auth.auth().signIn(withEmail: email, password: password)
+        { (result, error) in
+            if let error = error {
+                self.errorLabel.text = error.localizedDescription
+                self.errorLabel.alpha = 1
+            } else {
+                self.transitionToHome()
+            }
+        }
+    }
+    
+    func transitionToHome() {
+//        let rootTabBarController = storyboard?.instantiateViewController(withIdentifier: Constants.Storyboard.rootTabBarController) as? RootTabBarController
+//        view.window?.rootViewController = rootTabBarController
+//        view.window?.makeKeyAndVisible()
     }
     
 

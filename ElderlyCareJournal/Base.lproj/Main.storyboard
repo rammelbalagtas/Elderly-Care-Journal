@@ -17,26 +17,26 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="Hcj-QK-rv0">
-                                <rect key="frame" x="20" y="323.5" width="374" height="249"/>
+                                <rect key="frame" x="20" y="320.5" width="374" height="255.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Elderly Care Journal" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FF7-d2-0yL">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="109"/>
-                                        <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="115.5"/>
+                                        <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="50"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="IIh-rC-yJh">
-                                        <rect key="frame" x="0.0" y="159" width="374" height="90"/>
+                                        <rect key="frame" x="0.0" y="165.5" width="374" height="90"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yxh-W4-ll5">
                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="Jln-4q-z9c"/>
                                                 </constraints>
-                                                <color key="tintColor" systemColor="systemGreenColor"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="filled" title="Login (via Email)">
                                                     <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="18"/>
+                                                    <color key="baseBackgroundColor" systemColor="systemGreenColor"/>
                                                 </buttonConfiguration>
                                                 <connections>
                                                     <segue destination="cRg-Nu-5Ul" kind="show" id="VwY-qI-1wc"/>
@@ -44,10 +44,10 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lot-uI-341">
                                                 <rect key="frame" x="0.0" y="50" width="374" height="40"/>
-                                                <color key="tintColor" systemColor="systemCyanColor"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="filled" title="Sign Up (via Email)">
                                                     <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="18"/>
+                                                    <color key="baseBackgroundColor" systemColor="systemCyanColor"/>
                                                 </buttonConfiguration>
                                                 <connections>
                                                     <segue destination="23L-Xr-kKT" kind="show" id="25x-Da-yoQ"/>
@@ -92,20 +92,23 @@
                                             <constraint firstAttribute="height" constant="40" id="tL6-2F-d2G"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" textContentType="email"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kgr-n9-QXF">
                                         <rect key="frame" x="0.0" y="50" width="374" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" textContentType="password"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5u5-i3-8C3">
                                         <rect key="frame" x="0.0" y="100" width="374" height="40"/>
-                                        <color key="tintColor" systemColor="systemGreenColor"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Login">
                                             <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="18"/>
+                                            <color key="baseBackgroundColor" systemColor="systemGreenColor"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="loginAction:" destination="cRg-Nu-5Ul" eventType="touchUpInside" id="OAd-ez-Upq"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rbc-4O-wHR">
                                         <rect key="frame" x="0.0" y="150" width="374" height="40"/>
@@ -130,6 +133,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Login" id="7Ay-DC-jqy"/>
+                    <connections>
+                        <outlet property="emailAddressText" destination="Cqn-U6-Pz1" id="Irn-o7-lop"/>
+                        <outlet property="errorLabel" destination="rbc-4O-wHR" id="3cM-iw-TDe"/>
+                        <outlet property="passwordText" destination="kgr-n9-QXF" id="esX-vs-aYa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TmI-rc-aGu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -152,43 +160,49 @@
                                             <constraint firstAttribute="height" constant="40" id="4FD-ok-1s7"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" textContentType="name"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yHx-Xn-HO4">
                                         <rect key="frame" x="0.0" y="50" width="374" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" textContentType="name"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p4n-EE-rRh">
                                         <rect key="frame" x="0.0" y="100" width="374" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" textContentType="email"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bJc-Bx-7gG">
                                         <rect key="frame" x="0.0" y="150" width="374" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" textContentType="password"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Re-type Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zf3-6e-IvR">
                                         <rect key="frame" x="0.0" y="200" width="374" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" textContentType="password"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Myc-PC-bye">
                                         <rect key="frame" x="0.0" y="250" width="374" height="40"/>
-                                        <color key="tintColor" systemColor="systemTealColor"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Sign Up (as Guardian)">
                                             <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="18"/>
+                                            <color key="baseBackgroundColor" systemColor="systemCyanColor"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="signUpAsGuardian:" destination="23L-Xr-kKT" eventType="touchUpInside" id="z6R-0p-UIo"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eO1-jJ-bMC">
                                         <rect key="frame" x="0.0" y="300" width="374" height="40"/>
-                                        <color key="tintColor" systemColor="systemYellowColor"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Sign Up (as Care Provider)">
                                             <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="18"/>
+                                            <color key="baseBackgroundColor" systemColor="systemYellowColor"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="signUpAsCareProvider:" destination="23L-Xr-kKT" eventType="touchUpInside" id="ewk-J0-oZ8"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fE3-dT-sz2">
                                         <rect key="frame" x="0.0" y="350" width="374" height="40"/>
@@ -217,6 +231,14 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Sign Up" id="pxW-jp-PfP"/>
+                    <connections>
+                        <outlet property="emailAddressText" destination="p4n-EE-rRh" id="Sv2-S4-xm6"/>
+                        <outlet property="errorLabel" destination="fE3-dT-sz2" id="1xc-Cm-GbO"/>
+                        <outlet property="firstNameText" destination="zFC-DX-cfD" id="0Me-hg-cHm"/>
+                        <outlet property="lastNameText" destination="yHx-Xn-HO4" id="lle-Ly-V9m"/>
+                        <outlet property="passwordText" destination="bJc-Bx-7gG" id="Vf5-tn-YUM"/>
+                        <outlet property="retypePasswordText" destination="zf3-6e-IvR" id="JtM-QP-7t5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aZg-OF-7fh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -253,9 +275,6 @@
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemTealColor">
-            <color red="0.18823529411764706" green="0.69019607843137254" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
