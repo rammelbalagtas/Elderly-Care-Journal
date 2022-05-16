@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>651572546664-vk33bav97d7voe5bagdfi18eumb4f3lt.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.651572546664-vk33bav97d7voe5bagdfi18eumb4f3lt</string>
+	<key>API_KEY</key>
+	<string>AIzaSyB85sgwqjAc4UXHSRtSoAIP3bVbYODhoNQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>651572546664</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.rammelbalagtas.ElderlyCareJournal</string>
+	<key>PROJECT_ID</key>
+	<string>capstone-project-350413</string>
+	<key>STORAGE_BUCKET</key>
+	<string>capstone-project-350413.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:651572546664:ios:464b89cda9856937dc7fdd</string>
+</dict>
+</plist>
