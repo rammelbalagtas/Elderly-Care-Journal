@@ -10,7 +10,7 @@ import Foundation
 struct Constants {
     
     struct Storyboard {
-        static let rootTabBarController = "RootTabBarController"
+        static let familyMemberListNavVC = "FamilyMemberListNavVC"
     }
     
     struct Database {
@@ -19,12 +19,12 @@ struct Constants {
     
     //reuse identifier for custom nibs
     struct ReuseIdentifier {
-
+        static let familyMemberTableViewCell = "FamilyMember"
     }
     
     //custom nib for table view/collection view cells
     struct NibName {
-        
+        static let nibFamilyMemberTable = "FamilyMemberTableViewCell"
     }
 }
 

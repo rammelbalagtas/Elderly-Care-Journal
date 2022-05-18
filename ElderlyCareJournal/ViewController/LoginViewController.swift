@@ -51,11 +51,10 @@ class LoginViewController: UIViewController {
     }
     
     func transitionToHome() {
-//        let rootTabBarController = storyboard?.instantiateViewController(withIdentifier: Constants.Storyboard.rootTabBarController) as? RootTabBarController
-//        view.window?.rootViewController = rootTabBarController
-//        view.window?.makeKeyAndVisible()
+        let familyMemberListNavVC = storyboard?.instantiateViewController(withIdentifier: Constants.Storyboard.familyMemberListNavVC) as? UINavigationController
+        view.window?.rootViewController = familyMemberListNavVC
+        view.window?.makeKeyAndVisible()
     }
-    
 
     /*
     // MARK: - Navigation

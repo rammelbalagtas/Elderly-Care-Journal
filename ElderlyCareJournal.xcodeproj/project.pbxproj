@@ -18,6 +18,11 @@
 		6EED3EB42832AF2E00481EF7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6EED3EB32832AF2E00481EF7 /* GoogleService-Info.plist */; };
 		6EED3EB72832E44700481EF7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EED3EB62832E44700481EF7 /* Constants.swift */; };
 		6EED3EB92832E52400481EF7 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EED3EB82832E52400481EF7 /* Utilities.swift */; };
+		6EED3EBF28352D7D00481EF7 /* FamilyMemberListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EED3EBE28352D7D00481EF7 /* FamilyMemberListController.swift */; };
+		6EED3EC22835320B00481EF7 /* FamilyMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EED3EC12835320B00481EF7 /* FamilyMember.swift */; };
+		6EED3EC42835338B00481EF7 /* Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EED3EC32835338B00481EF7 /* Gender.swift */; };
+		6EED3EC82835382F00481EF7 /* FamilyMemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EED3EC62835382F00481EF7 /* FamilyMemberTableViewCell.swift */; };
+		6EED3EC92835382F00481EF7 /* FamilyMemberTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6EED3EC72835382F00481EF7 /* FamilyMemberTableViewCell.xib */; };
 		CDEAA23D60C7EFA3B721A081 /* Pods_ElderlyCareJournal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFDDD401A84513A1D3A0E8BC /* Pods_ElderlyCareJournal.framework */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +40,11 @@
 		6EED3EB32832AF2E00481EF7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6EED3EB62832E44700481EF7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		6EED3EB82832E52400481EF7 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		6EED3EBE28352D7D00481EF7 /* FamilyMemberListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMemberListController.swift; sourceTree = "<group>"; };
+		6EED3EC12835320B00481EF7 /* FamilyMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMember.swift; sourceTree = "<group>"; };
+		6EED3EC32835338B00481EF7 /* Gender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
+		6EED3EC62835382F00481EF7 /* FamilyMemberTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMemberTableViewCell.swift; sourceTree = "<group>"; };
+		6EED3EC72835382F00481EF7 /* FamilyMemberTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FamilyMemberTableViewCell.xib; sourceTree = "<group>"; };
 		A082A6A5131A76C0030AB8F4 /* Pods-ElderlyCareJournal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ElderlyCareJournal.release.xcconfig"; path = "Target Support Files/Pods-ElderlyCareJournal/Pods-ElderlyCareJournal.release.xcconfig"; sourceTree = "<group>"; };
 		A8D07080012FB5629C7D73FF /* Pods-ElderlyCareJournal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ElderlyCareJournal.debug.xcconfig"; path = "Target Support Files/Pods-ElderlyCareJournal/Pods-ElderlyCareJournal.debug.xcconfig"; sourceTree = "<group>"; };
 		FFDDD401A84513A1D3A0E8BC /* Pods_ElderlyCareJournal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ElderlyCareJournal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,6 +91,8 @@
 		6EED3E9428328E7F00481EF7 /* ElderlyCareJournal */ = {
 			isa = PBXGroup;
 			children = (
+				6EED3EC5283537F500481EF7 /* View */,
+				6EED3EC0283531F300481EF7 /* Model */,
 				6EED3EB52832E43D00481EF7 /* Helper */,
 				6EED3EB32832AF2E00481EF7 /* GoogleService-Info.plist */,
 				6EED3EAE2832A75700481EF7 /* ViewController */,
@@ -100,6 +112,7 @@
 				6EED3E9928328E7F00481EF7 /* MainViewController.swift */,
 				6EED3EAF2832A77500481EF7 /* LoginViewController.swift */,
 				6EED3EB12832A78800481EF7 /* SignUpViewController.swift */,
+				6EED3EBE28352D7D00481EF7 /* FamilyMemberListController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -111,6 +124,24 @@
 				6EED3EB82832E52400481EF7 /* Utilities.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		6EED3EC0283531F300481EF7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6EED3EC12835320B00481EF7 /* FamilyMember.swift */,
+				6EED3EC32835338B00481EF7 /* Gender.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6EED3EC5283537F500481EF7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6EED3EC62835382F00481EF7 /* FamilyMemberTableViewCell.swift */,
+				6EED3EC72835382F00481EF7 /* FamilyMemberTableViewCell.xib */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		B9918E707F611D2132F21C87 /* Pods */ = {
@@ -185,6 +216,7 @@
 				6EED3EA228328E8400481EF7 /* LaunchScreen.storyboard in Resources */,
 				6EED3EB42832AF2E00481EF7 /* GoogleService-Info.plist in Resources */,
 				6EED3E9F28328E8400481EF7 /* Assets.xcassets in Resources */,
+				6EED3EC92835382F00481EF7 /* FamilyMemberTableViewCell.xib in Resources */,
 				6EED3E9D28328E7F00481EF7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -238,9 +270,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6EED3EC82835382F00481EF7 /* FamilyMemberTableViewCell.swift in Sources */,
 				6EED3EB02832A77600481EF7 /* LoginViewController.swift in Sources */,
+				6EED3EC22835320B00481EF7 /* FamilyMember.swift in Sources */,
 				6EED3E9A28328E7F00481EF7 /* MainViewController.swift in Sources */,
+				6EED3EBF28352D7D00481EF7 /* FamilyMemberListController.swift in Sources */,
 				6EED3EB92832E52400481EF7 /* Utilities.swift in Sources */,
+				6EED3EC42835338B00481EF7 /* Gender.swift in Sources */,
 				6EED3E9628328E7F00481EF7 /* AppDelegate.swift in Sources */,
 				6EED3E9828328E7F00481EF7 /* SceneDelegate.swift in Sources */,
 				6EED3EB22832A78800481EF7 /* SignUpViewController.swift in Sources */,
