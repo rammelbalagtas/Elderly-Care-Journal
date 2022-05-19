@@ -8,6 +8,9 @@
 import UIKit
 import FirebaseAuth
 import Firebase
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 class SignUpViewController: UIViewController {
     
@@ -25,42 +28,61 @@ class SignUpViewController: UIViewController {
     }
     
     @IBAction func signUpAsGuardian(_ sender: UIButton) {
-        signUp()
+        signUp(as: .Guardian)
     }
     
     @IBAction func signUpAsCareProvider(_ sender: UIButton) {
-        signUp()
+        signUp(as: .CareProvider)
     }
     
-    func signUp() {
+    func signUp(as userType: UserType) {
         //validate fields
         let error = validateFields()
 
         if let error = error {
             showError(error)
         } else {
+            
             //proceed with user creation
             let firstName = firstNameText.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             let lastName = lastNameText.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             let password = passwordText.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             let emailAddress = emailAddressText.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            
             //create user
             Auth.auth().createUser(withEmail: emailAddress, password: password)
             { (result, err) in
-                if let _ = err {
-                    self.showError("Error creating user")
+                if let err = err {
+                    self.showError("\(err.localizedDescription)")
                 } else {
+                    guard
+                        let result = result
+                    else{
+                        self.showError("User data couldn't be created")
+                        return
+                    }
+                    
                     //create document and add to database
                     let db = Firestore.firestore()
-                    db.collection(Constants.Database.users).addDocument(data: ["first_name": firstName,
-                                                                               "last_name": lastName,
-                                                                               "email_address": emailAddress,
-                                                                               "uid": result!.user.uid])
-                    { (error) in
-                        if let _ = error {
-                            self.showError("User data couldn't be created")
-                        }
-                        self.transitionToHome()
+                    let uid = result.user.uid as String
+                    let user = User(uid: uid,
+                                    emailAddress: emailAddress,
+                                    userType: userType.rawValue,
+                                    firstName: firstName,
+                                    lastName: lastName)
+                    
+                    do {
+                        let encoder = Firestore.Encoder()
+                        try db.collection(Constants.Database.users).document(uid).setData(from: user, encoder: encoder, completion:
+                        { (error) in
+                            if let _ = error {
+                                self.showError("User data couldn't be created")
+                                return
+                            }
+                            self.transitionToHome(user: user)
+                        })
+                    } catch let error {
+                        print("Error writing city to database: \(error)")
                     }
                 }
             }
@@ -98,9 +120,16 @@ class SignUpViewController: UIViewController {
         errorLabel.alpha = 1
     }
     
-    //set HomeViewController as root controller after successful signup
-    func transitionToHome() {
-    
+    func transitionToHome(user: User) {
+        if user.userType == UserType.Guardian.rawValue {
+            let familyMemberListNavVC = storyboard?.instantiateViewController(withIdentifier: Constants.Storyboard.familyMemberListNavVC) as? UINavigationController
+            let familyMemberListVC = familyMemberListNavVC?.topViewController as! FamilyMemberListController
+            familyMemberListVC.user = user
+            view.window?.rootViewController = familyMemberListNavVC
+            view.window?.makeKeyAndVisible()
+        } else {
+            
+        }
     }
     
 

@@ -9,6 +9,7 @@ import UIKit
 
 class FamilyMemberListController: UIViewController, UITableViewDelegate {
     
+    var user: User?
     var familyMembers = [FamilyMember]()
     
     @IBOutlet weak var tableView: UITableView!
@@ -21,20 +22,18 @@ class FamilyMemberListController: UIViewController, UITableViewDelegate {
         tableView.delegate = self
         tableView.dataSource = self
         
-//        tableView.estimatedRowHeight = 200
-        tableView.rowHeight = UITableView.automaticDimension
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         loadData()
+        tableView.reloadData()
     }
     
     func loadData() {
-        familyMembers.append(FamilyMember(firstName: "Mary", lastName: "Collins"))
-        familyMembers.append(FamilyMember(firstName: "Mary", lastName: "Collins"))
-        familyMembers.append(FamilyMember(firstName: "Mary", lastName: "Collins"))
+        familyMembers.append(FamilyMember(firstName: "Mary", lastName: "Collins", age: 64, gender: .Female, street: "21 Gosford Blvd", provinceCity: "North York, Ontario this is a address text", postalCode: "M3N 2G7", country: "Canada", emergencyContactName: "Rammel Balagtas", emergencyContactNumber: "123-456-789", photo: nil))
+        familyMembers.append(FamilyMember(firstName: "Mary", lastName: "Collins", age: 64, gender: .Female, street: "21 Gosford Blvd", provinceCity: "North York, Ontario", postalCode: "M3N 2G7", country: "Canada", emergencyContactName: "Rammel Balagtas", emergencyContactNumber: "123-456-789", photo: nil))
+        familyMembers.append(FamilyMember(firstName: "Mary", lastName: "Collins", age: 64, gender: .Female, street: "21 Gosford Blvd", provinceCity: "North York, Ontario", postalCode: "M3N 2G7", country: "Canada", emergencyContactName: "Rammel Balagtas", emergencyContactNumber: "123-456-789", photo: nil))
     }
     
     //Register nib for collection view and table view cells
@@ -43,15 +42,25 @@ class FamilyMemberListController: UIViewController, UITableViewDelegate {
         tableView.register(nibTable, forCellReuseIdentifier: Constants.ReuseIdentifier.familyMemberTableViewCell)
     }
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        if let destination = segue.destination as? FamilyMemberDetailController {
+            if segue.identifier == "ViewMemberInformation" {
+                if let indexPaths = tableView.indexPathsForSelectedRows {
+                    destination.familyMember = familyMembers[indexPaths[0].row]
+                }
+            }
+        }
     }
-    */
+    
+    @IBAction func unwindToFamilyMemberList( _ seg: UIStoryboardSegue) {
+        familyMembers.append(FamilyMember(firstName: "Mary", lastName: "Collins", age: 64, gender: .Female, street: "21 Gosford Blvd", provinceCity: "North York, Ontario this is a address text", postalCode: "M3N 2G7", country: "Canada", emergencyContactName: "Rammel Balagtas", emergencyContactNumber: "123-456-789", photo: nil))
+    }
 
 }
 
@@ -68,6 +77,10 @@ extension FamilyMemberListController: UITableViewDataSource {
         let familyMember = familyMembers[indexPath.row]
         cell.configureCell(using: familyMember)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "ViewMemberInformation", sender: self)
     }
     
 }

@@ -7,6 +7,10 @@
 
 import UIKit
 import FirebaseAuth
+import Firebase
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 class LoginViewController: UIViewController {
     
@@ -21,7 +25,7 @@ class LoginViewController: UIViewController {
         errorLabel.alpha = 0
         
         //for testing purposes only
-        emailAddressText.text = "test1@gmail.com"
+        emailAddressText.text = "test2@gmail.com"
         passwordText.text = "Test@1234"
         
     }
@@ -42,18 +46,46 @@ class LoginViewController: UIViewController {
         Auth.auth().signIn(withEmail: email, password: password)
         { (result, error) in
             if let error = error {
-                self.errorLabel.text = error.localizedDescription
-                self.errorLabel.alpha = 1
+                self.showError(error.localizedDescription)
             } else {
-                self.transitionToHome()
+                guard
+                    let result = result
+                else{
+                    self.showError("User data couldn't be created")
+                    return
+                }
+                let db = Firestore.firestore()
+                let uid = result.user.uid as String
+                let docRef = db.collection(Constants.Database.users).document("\(uid)")
+                docRef.getDocument(as: User.self) { result in
+                    switch result {
+                    case .success(let user):
+                        self.transitionToHome(user: user)
+                    case .failure(let error):
+                        self.showError(error.localizedDescription)
+                    }
+                }
+                
             }
         }
     }
     
-    func transitionToHome() {
-        let familyMemberListNavVC = storyboard?.instantiateViewController(withIdentifier: Constants.Storyboard.familyMemberListNavVC) as? UINavigationController
-        view.window?.rootViewController = familyMemberListNavVC
-        view.window?.makeKeyAndVisible()
+    func transitionToHome(user: User) {
+        if user.userType == UserType.Guardian.rawValue {
+            let familyMemberListNavVC = storyboard?.instantiateViewController(withIdentifier: Constants.Storyboard.familyMemberListNavVC) as? UINavigationController
+            let familyMemberListVC = familyMemberListNavVC?.topViewController as! FamilyMemberListController
+            familyMemberListVC.user = user
+            view.window?.rootViewController = familyMemberListNavVC
+            view.window?.makeKeyAndVisible()
+        } else {
+            
+        }
+    }
+    
+    //make error label visible to show error message
+    func showError(_ message:String) {
+        errorLabel.text = message
+        errorLabel.alpha = 1
     }
 
     /*

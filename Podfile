@@ -10,5 +10,6 @@ target 'ElderlyCareJournal' do
   pod 'Firebase/Auth'
   pod 'Firebase/Core'
   pod 'Firebase/Firestore'
+  pod 'FirebaseFirestoreSwift'
 
 end
