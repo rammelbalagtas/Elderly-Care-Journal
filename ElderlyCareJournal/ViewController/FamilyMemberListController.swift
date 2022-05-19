@@ -9,7 +9,7 @@ import UIKit
 
 class FamilyMemberListController: UIViewController, UITableViewDelegate {
     
-    var user: User?
+    var user: User!
     var familyMembers = [FamilyMember]()
     
     @IBOutlet weak var tableView: UITableView!
@@ -31,9 +31,8 @@ class FamilyMemberListController: UIViewController, UITableViewDelegate {
     }
     
     func loadData() {
-        familyMembers.append(FamilyMember(firstName: "Mary", lastName: "Collins", age: 64, gender: .Female, street: "21 Gosford Blvd", provinceCity: "North York, Ontario this is a address text", postalCode: "M3N 2G7", country: "Canada", emergencyContactName: "Rammel Balagtas", emergencyContactNumber: "123-456-789", photo: nil))
-        familyMembers.append(FamilyMember(firstName: "Mary", lastName: "Collins", age: 64, gender: .Female, street: "21 Gosford Blvd", provinceCity: "North York, Ontario", postalCode: "M3N 2G7", country: "Canada", emergencyContactName: "Rammel Balagtas", emergencyContactNumber: "123-456-789", photo: nil))
-        familyMembers.append(FamilyMember(firstName: "Mary", lastName: "Collins", age: 64, gender: .Female, street: "21 Gosford Blvd", provinceCity: "North York, Ontario", postalCode: "M3N 2G7", country: "Canada", emergencyContactName: "Rammel Balagtas", emergencyContactNumber: "123-456-789", photo: nil))
+//        familyMembers.append(FamilyMember(firstName: "Mary", lastName: "Collins", age: 64, gender: "Female", street: "21 Gosford Blvd", provinceCity: "North York, Ontario this is a address text", postalCode: "M3N 2G7", country: "Canada", emergencyContactName: "Rammel Balagtas", emergencyContactNumber: "123-456-789", photo: nil))
+//        familyMembers.append(FamilyMember(firstName: "Mary", lastName: "Collins", age: 64, gender: "Female", street: "21 Gosford Blvd", provinceCity: "North York, Ontario", postalCode: "M3N 2G7", country: "Canada", emergencyContactName: "Rammel Balagtas", emergencyContactNumber: "123-456-789", photo: nil))
     }
     
     //Register nib for collection view and table view cells
@@ -53,13 +52,16 @@ class FamilyMemberListController: UIViewController, UITableViewDelegate {
             if segue.identifier == "ViewMemberInformation" {
                 if let indexPaths = tableView.indexPathsForSelectedRows {
                     destination.familyMember = familyMembers[indexPaths[0].row]
+                    destination.uid = user.uid
+                    if user.userType != UserType.Guardian.rawValue {
+                        destination.isEditable = false
+                    }
                 }
             }
         }
     }
     
     @IBAction func unwindToFamilyMemberList( _ seg: UIStoryboardSegue) {
-        familyMembers.append(FamilyMember(firstName: "Mary", lastName: "Collins", age: 64, gender: .Female, street: "21 Gosford Blvd", provinceCity: "North York, Ontario this is a address text", postalCode: "M3N 2G7", country: "Canada", emergencyContactName: "Rammel Balagtas", emergencyContactNumber: "123-456-789", photo: nil))
     }
 
 }

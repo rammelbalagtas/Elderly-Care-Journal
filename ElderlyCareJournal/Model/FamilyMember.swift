@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct FamilyMember {
+struct FamilyMember: Encodable {
     
-//    let uid: String
+    let uid: String
 //    let memberId: Int
     var firstName: String
     var lastName: String
     var age: Int
-    var gender: Gender
+    var gender: Gender.RawValue
     var street: String
     var provinceCity: String
     var postalCode: String
@@ -22,5 +22,20 @@ struct FamilyMember {
     var emergencyContactName: String
     var emergencyContactNumber: String
     var photo: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case uid
+        case firstName
+        case lastName
+        case age
+        case gender
+        case street
+        case provinceCity
+        case postalCode
+        case country
+        case emergencyContactName
+        case emergencyContactNumber
+//        case photo
+    }
     
 }

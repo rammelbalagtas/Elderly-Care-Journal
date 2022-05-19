@@ -6,10 +6,16 @@
 //
 
 import UIKit
+import FirebaseAuth
+import Firebase
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 class FamilyMemberDetailController: UITableViewController {
     
     var isEditable: Bool = true
+    var uid: String!
     var familyMember: FamilyMember?
     
     @IBOutlet weak var firstNameText: UITextField!
@@ -77,24 +83,39 @@ class FamilyMemberDetailController: UITableViewController {
             familyMember?.emergencyContactName = emergencyContactName
             familyMember?.emergencyContactNumber = emergencyContactNumber
         } else {
-            let familyMember = FamilyMember(firstName: firstName,
-                                            lastName: lastName,
-                                            age: age,
-                                            gender: .Male,
-                                            street: street,
-                                            provinceCity: province,
-                                            postalCode: postalCode,
-                                            country: country,
-                                            emergencyContactName: emergencyContactName,
-                                            emergencyContactNumber: emergencyContactNumber,
-                                            photo: nil)
+            self.familyMember = FamilyMember(uid: self.uid
+                                             firstName: firstName,
+                                             lastName: lastName,
+                                             age: age,
+                                             gender: Gender.Male.rawValue,
+                                             street: street,
+                                             provinceCity: province,
+                                             postalCode: postalCode,
+                                             country: country,
+                                             emergencyContactName: emergencyContactName,
+                                             emergencyContactNumber: emergencyContactNumber,
+                                             photo: nil)
         }
         
-        //navigate up to previous screen
-        self.performSegue(withIdentifier: "unwindToFamilyMemberList", sender: self)
-    }
-    
-    @IBAction func unwindToFamilyMemberDetail( _ seg: UIStoryboardSegue) {
+        //create document and add to database
+        let db = Firestore.firestore()
+        
+        do {
+            let encoder = Firestore.Encoder()
+            try db.collection(Constants.Database.familyMembers).document("test").setData(from: familyMember, encoder: encoder, completion:
+            { (error) in
+                if let _ = error {
+                    //show error
+                    return
+                }
+                //navigate up to previous screen
+                self.performSegue(withIdentifier: "unwindToFamilyMemberList", sender: self)
+            })
+        } catch let error {
+            //show error message
+            print("Error saving family member information: \(error.localizedDescription)")
+        }
+        
     }
     
 }
