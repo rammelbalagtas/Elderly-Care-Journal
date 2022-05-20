@@ -31,21 +31,22 @@ class FamilyMemberDetailController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        loadData()
+        setupView()
+    }
+    
+    private func setupView() {
         tableView.estimatedRowHeight = 50
         tableView.rowHeight = UITableView.automaticDimension
         
-        loadData()
-        
         //assign placeholders for text views (not supported by storyboard)
-        streetText.placeholder = "Street"
-        provinceText.placeholder = "City/Province"
-        
+        if !streetText.text.isEmpty {
+            streetText.placeholder = "Street"
+        }
+        if !provinceText.text.isEmpty {
+            provinceText.placeholder = "City/Province"
+        }
         memberImage.maskCircle()
-        
-//        memberImage.layer.cornerRadius = memberImage.frame.height / 2
-//        memberImage.layer.masksToBounds = false
-//        memberImage.clipsToBounds = true
     }
     
     //load data from dependency
@@ -54,6 +55,7 @@ class FamilyMemberDetailController: UITableViewController {
             firstNameText.text = familyMember.firstName
             lastNameText.text = familyMember.lastName
             ageText.text = String(familyMember.age)
+            genderText.text = familyMember.gender
             streetText.text = familyMember.street
             provinceText.text = familyMember.provinceCity
             postalCodeText.text = familyMember.postalCode
@@ -76,6 +78,7 @@ class FamilyMemberDetailController: UITableViewController {
         let firstName = firstNameText.text ?? ""
         let lastName = lastNameText.text ?? ""
         let age = Int(ageText.text!) ?? 0
+        let gender = genderText.text ?? ""
         let street = streetText.text ?? ""
         let province = provinceText.text ?? ""
         let postalCode = postalCodeText.text ?? ""
@@ -92,6 +95,7 @@ class FamilyMemberDetailController: UITableViewController {
             familyMember?.firstName = firstName
             familyMember?.lastName = lastName
             familyMember?.age = age
+            familyMember?.gender = gender
             familyMember?.street = street
             familyMember?.provinceCity = province
             familyMember?.postalCode = postalCode
@@ -105,7 +109,7 @@ class FamilyMemberDetailController: UITableViewController {
                                              firstName: firstName,
                                              lastName: lastName,
                                              age: age,
-                                             gender: Gender.Male.rawValue,
+                                             gender: gender,
                                              street: street,
                                              provinceCity: province,
                                              postalCode: postalCode,
@@ -134,6 +138,19 @@ class FamilyMemberDetailController: UITableViewController {
             print("Error saving family member information: \(error.localizedDescription)")
         }
         
+    }
+    
+    @IBAction func unwindFromGenderTableToFamilyMemberDetail( _ seg: UIStoryboardSegue) {
+    }
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+        if let destination = segue.destination as? GenderTableViewController {
+            destination.isEditable = self.isEditable
+            destination.gender = genderText.text
+        }
     }
     
 }
