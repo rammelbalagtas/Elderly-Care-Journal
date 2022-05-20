@@ -36,8 +36,8 @@ class FamilyMemberDetailController: UITableViewController {
     }
     
     private func setupView() {
-        tableView.estimatedRowHeight = 50
-        tableView.rowHeight = UITableView.automaticDimension
+//        tableView.estimatedRowHeight = 50
+//        tableView.rowHeight = UITableView.automaticDimension
         
         //assign placeholders for text views (not supported by storyboard)
         if !streetText.text.isEmpty {
@@ -140,7 +140,34 @@ class FamilyMemberDetailController: UITableViewController {
         
     }
     
+    @IBAction func deleteAction(_ sender: UIButton) {
+        guard
+            let familyMember = familyMember
+        else {return}
+        //create document and delete record from database
+        let db = Firestore.firestore()
+        
+        db.collection(Constants.Database.familyMembers).document(familyMember.memberId).delete
+        { (error) in
+            if let _ = error {
+                //show error
+                return
+            }
+            //navigate up to previous screen
+            self.performSegue(withIdentifier: "unwindToFamilyMemberList", sender: self)
+        }
+    }
+    
     @IBAction func unwindFromGenderTableToFamilyMemberDetail( _ seg: UIStoryboardSegue) {
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        //hide delete button when adding family members
+        if let _ = familyMember {
+            return 5
+        } else {
+            return 4
+        }
     }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
