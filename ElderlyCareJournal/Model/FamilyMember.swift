@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct FamilyMember: Encodable {
+struct FamilyMember: Codable {
     
     let uid: String
-//    let memberId: Int
+    let memberId: String
     var firstName: String
     var lastName: String
     var age: Int
@@ -25,6 +25,7 @@ struct FamilyMember: Encodable {
     
     enum CodingKeys: String, CodingKey {
         case uid
+        case memberId
         case firstName
         case lastName
         case age
@@ -35,7 +36,7 @@ struct FamilyMember: Encodable {
         case country
         case emergencyContactName
         case emergencyContactNumber
-//        case photo
+        case photo
     }
     
 }

@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import FirebaseAuth
 import Firebase
 import FirebaseCore
 import FirebaseFirestore
@@ -68,11 +67,13 @@ class FamilyMemberDetailController: UITableViewController {
         let country = countryText.text ?? ""
         let emergencyContactName = emergencyContactNameText.text ?? ""
         let emergencyContactNumber = emergencyContactNumber.text ?? ""
-        
+
         //add data validation
         
         //update firestore with new information
+        var memberId = ""
         if let _ = familyMember {
+            memberId = familyMember!.memberId
             familyMember?.firstName = firstName
             familyMember?.lastName = lastName
             familyMember?.age = age
@@ -83,7 +84,9 @@ class FamilyMemberDetailController: UITableViewController {
             familyMember?.emergencyContactName = emergencyContactName
             familyMember?.emergencyContactNumber = emergencyContactNumber
         } else {
-            self.familyMember = FamilyMember(uid: self.uid
+            memberId = UUID().uuidString
+            self.familyMember = FamilyMember(uid: self.uid,
+                                             memberId: memberId,
                                              firstName: firstName,
                                              lastName: lastName,
                                              age: age,
@@ -102,7 +105,7 @@ class FamilyMemberDetailController: UITableViewController {
         
         do {
             let encoder = Firestore.Encoder()
-            try db.collection(Constants.Database.familyMembers).document("test").setData(from: familyMember, encoder: encoder, completion:
+            try db.collection(Constants.Database.familyMembers).document(memberId).setData(from: familyMember, encoder: encoder, completion:
             { (error) in
                 if let _ = error {
                     //show error

@@ -6,6 +6,10 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 class FamilyMemberListController: UIViewController, UITableViewDelegate {
     
@@ -27,12 +31,27 @@ class FamilyMemberListController: UIViewController, UITableViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         loadData()
-        tableView.reloadData()
     }
     
     func loadData() {
-//        familyMembers.append(FamilyMember(firstName: "Mary", lastName: "Collins", age: 64, gender: "Female", street: "21 Gosford Blvd", provinceCity: "North York, Ontario this is a address text", postalCode: "M3N 2G7", country: "Canada", emergencyContactName: "Rammel Balagtas", emergencyContactNumber: "123-456-789", photo: nil))
-//        familyMembers.append(FamilyMember(firstName: "Mary", lastName: "Collins", age: 64, gender: "Female", street: "21 Gosford Blvd", provinceCity: "North York, Ontario", postalCode: "M3N 2G7", country: "Canada", emergencyContactName: "Rammel Balagtas", emergencyContactNumber: "123-456-789", photo: nil))
+        familyMembers = [FamilyMember]()
+        let db = Firestore.firestore()
+        db.collection(Constants.Database.familyMembers).whereField("uid", isEqualTo: user.uid)
+            .getDocuments() { (querySnapshot, error) in
+                if let error = error {
+                    print("Error getting documents: \(error.localizedDescription)")
+                } else {
+                    for document in querySnapshot!.documents {
+                        do {
+                            let familyMember = try document.data(as: FamilyMember.self)
+                            self.familyMembers.append(familyMember)
+                        } catch let error {
+                            print("Error retrieving data: \(error.localizedDescription)")
+                        }
+                    }
+                }
+                self.tableView.reloadData()
+        }
     }
     
     //Register nib for collection view and table view cells
@@ -49,10 +68,10 @@ class FamilyMemberListController: UIViewController, UITableViewDelegate {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
         if let destination = segue.destination as? FamilyMemberDetailController {
+            destination.uid = user.uid
             if segue.identifier == "ViewMemberInformation" {
                 if let indexPaths = tableView.indexPathsForSelectedRows {
                     destination.familyMember = familyMembers[indexPaths[0].row]
-                    destination.uid = user.uid
                     if user.userType != UserType.Guardian.rawValue {
                         destination.isEditable = false
                     }
