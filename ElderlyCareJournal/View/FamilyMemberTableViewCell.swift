@@ -15,6 +15,7 @@ class FamilyMemberTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        familyMemberImage.maskCircle()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

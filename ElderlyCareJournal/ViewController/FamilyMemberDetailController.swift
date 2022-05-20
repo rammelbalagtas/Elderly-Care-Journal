@@ -17,6 +17,7 @@ class FamilyMemberDetailController: UITableViewController {
     var uid: String!
     var familyMember: FamilyMember?
     
+    @IBOutlet weak var memberImage: UIImageView!
     @IBOutlet weak var firstNameText: UITextField!
     @IBOutlet weak var lastNameText: UITextField!
     @IBOutlet weak var ageText: UITextField!
@@ -38,7 +39,13 @@ class FamilyMemberDetailController: UITableViewController {
         
         //assign placeholders for text views (not supported by storyboard)
         streetText.placeholder = "Street"
-        provinceText.placeholder = "Province/City"
+        provinceText.placeholder = "City/Province"
+        
+        memberImage.maskCircle()
+        
+//        memberImage.layer.cornerRadius = memberImage.frame.height / 2
+//        memberImage.layer.masksToBounds = false
+//        memberImage.clipsToBounds = true
     }
     
     //load data from dependency
@@ -54,6 +61,14 @@ class FamilyMemberDetailController: UITableViewController {
             emergencyContactNameText.text = familyMember.emergencyContactName
             emergencyContactNumber.text = familyMember.emergencyContactNumber
         }
+    }
+    
+    @IBAction func addChangePhotoAction(_ sender: UIButton) {
+        let vc = UIImagePickerController()
+        vc.sourceType = .photoLibrary
+        vc.allowsEditing = true
+        vc.delegate = self
+        present(vc, animated: true)
     }
     
     @IBAction func saveAction(_ sender: UIBarButtonItem) {
@@ -118,6 +133,22 @@ class FamilyMemberDetailController: UITableViewController {
             //show error message
             print("Error saving family member information: \(error.localizedDescription)")
         }
+        
+    }
+    
+}
+
+extension FamilyMemberDetailController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true)
+
+        guard let image = info[.editedImage] as? UIImage else {
+            print("No image found")
+            return
+        }
+        
+        self.memberImage.image = image
         
     }
     
