@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import FirebaseStorage
 import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
@@ -16,6 +17,9 @@ class FamilyMemberDetailController: UITableViewController {
     var isEditable: Bool = true
     var uid: String!
     var familyMember: FamilyMember?
+    var shouldSavePhoto: Bool = false
+    
+    private let storage = Storage.storage().reference()
     
     @IBOutlet weak var memberImage: UIImageView!
     @IBOutlet weak var firstNameText: UITextField!
@@ -90,6 +94,7 @@ class FamilyMemberDetailController: UITableViewController {
         
         //update firestore with new information
         var memberId = ""
+        var path: String?
         if let _ = familyMember {
             memberId = familyMember!.memberId
             familyMember?.firstName = firstName
@@ -102,8 +107,19 @@ class FamilyMemberDetailController: UITableViewController {
             familyMember?.country = country
             familyMember?.emergencyContactName = emergencyContactName
             familyMember?.emergencyContactNumber = emergencyContactNumber
+            if shouldSavePhoto {
+                path = "images/familymember/\(memberId).png"
+            } else {
+                path = nil
+            }
+            familyMember?.photo = path
         } else {
             memberId = UUID().uuidString
+            if shouldSavePhoto {
+                path = "images/familymember/\(memberId).png"
+            } else {
+                path = nil
+            }
             self.familyMember = FamilyMember(uid: self.uid,
                                              memberId: memberId,
                                              firstName: firstName,
@@ -116,7 +132,7 @@ class FamilyMemberDetailController: UITableViewController {
                                              country: country,
                                              emergencyContactName: emergencyContactName,
                                              emergencyContactNumber: emergencyContactNumber,
-                                             photo: nil)
+                                             photo: path)
         }
         
         //create document and add to database
@@ -136,6 +152,11 @@ class FamilyMemberDetailController: UITableViewController {
         } catch let error {
             //show error message
             print("Error saving family member information: \(error.localizedDescription)")
+        }
+        
+        //store image
+        if let image = self.memberImage.image, let path = path {
+            ImageStorageService.uploadImage(path: path, image: image, storage: storage)
         }
         
     }
@@ -191,9 +212,13 @@ extension FamilyMemberDetailController: UINavigationControllerDelegate, UIImageP
             print("No image found")
             return
         }
-        
         self.memberImage.image = image
+        shouldSavePhoto = true
         
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
     }
     
 }
