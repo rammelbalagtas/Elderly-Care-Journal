@@ -33,8 +33,6 @@ class FamilyMemberDetailController: UITableViewController {
     @IBOutlet weak var emergencyContactNameText: UITextField!
     @IBOutlet weak var emergencyContactNumber: UITextField!
     
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadData()
@@ -69,7 +67,8 @@ class FamilyMemberDetailController: UITableViewController {
             emergencyContactNameText.text = familyMember.emergencyContactName
             emergencyContactNumber.text = familyMember.emergencyContactNumber
             memberImage.image = nil
-            ImageStorageService.downloadImage(path: familyMember.photo!, storage: storage)
+            let path = "images/familymember/\(familyMember.memberId).png"
+            ImageStorageService.downloadImage(path: path, storage: storage)
             { result in
                 switch result {
                 case .success(let data):
@@ -173,7 +172,10 @@ class FamilyMemberDetailController: UITableViewController {
                             //show error message
                             print(error.localizedDescription)
                         }
+                        //navigate up to previous screen
+                        self.performSegue(withIdentifier: "unwindToFamilyMemberList", sender: self)
                     }
+                } else {
                     //navigate up to previous screen
                     self.performSegue(withIdentifier: "unwindToFamilyMemberList", sender: self)
                 }
