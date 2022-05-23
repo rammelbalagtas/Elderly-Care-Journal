@@ -153,7 +153,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="zFo-sQ-9V5">
-                                <rect key="frame" x="8" y="96" width="398" height="766"/>
+                                <rect key="frame" x="8" y="96" width="398" height="717"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="1MA-EC-0NH">
                                         <rect key="frame" x="0.0" y="0.0" width="398" height="24"/>
@@ -167,10 +167,10 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="GAy-I2-Gj4">
-                                        <rect key="frame" x="0.0" y="34" width="398" height="732"/>
+                                        <rect key="frame" x="0.0" y="34" width="398" height="683"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="13C-AI-bSR">
-                                                <rect key="frame" x="0.0" y="0.0" width="398" height="732"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="398" height="683"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </tableView>
                                         </subviews>
@@ -852,13 +852,17 @@
         <!--Navigation Controller-->
         <scene sceneID="Gpp-N3-kov">
             <objects>
-                <navigationController storyboardIdentifier="FamilyMemberListNavVC" automaticallyAdjustsScrollViewInsets="NO" id="6Vv-fO-DOP" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="FamilyMemberListNavVC" automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="6Vv-fO-DOP" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="7hl-3u-Rec">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jDg-Dg-ATL">
+                        <rect key="frame" x="0.0" y="813" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="Seb-GA-6vD" kind="relationship" relationship="rootViewController" id="M7s-l2-mWO"/>
                     </connections>

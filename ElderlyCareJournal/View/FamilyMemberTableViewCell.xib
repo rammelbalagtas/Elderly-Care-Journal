@@ -17,13 +17,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="qdx-47-E6G">
-                        <rect key="frame" x="0.0" y="0.0" width="434.5" height="70"/>
+                        <rect key="frame" x="0.0" y="10" width="434.5" height="70"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="MCK-hn-ZlL">
                                 <rect key="frame" x="0.0" y="0.0" width="434.5" height="70"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pencil.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="hKH-Rw-1Wg">
-                                        <rect key="frame" x="0.0" y="0.5" width="70" height="69"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hKH-Rw-1Wg">
+                                        <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="70" id="xVh-aO-4qy"/>
                                         </constraints>
@@ -44,8 +44,8 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="qdx-47-E6G" secondAttribute="trailing" id="rs9-It-F5B"/>
-                    <constraint firstItem="qdx-47-E6G" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="ssG-9y-qyr"/>
-                    <constraint firstAttribute="bottom" secondItem="qdx-47-E6G" secondAttribute="bottom" id="yEe-VV-Bke"/>
+                    <constraint firstItem="qdx-47-E6G" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="ssG-9y-qyr"/>
+                    <constraint firstAttribute="bottom" secondItem="qdx-47-E6G" secondAttribute="bottom" constant="10" id="yEe-VV-Bke"/>
                     <constraint firstItem="qdx-47-E6G" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="zfJ-Jy-Jo1"/>
                 </constraints>
             </tableViewCellContentView>
@@ -57,7 +57,4 @@
             <point key="canvasLocation" x="106.5217391304348" y="16.741071428571427"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="pencil.circle.fill" catalog="system" width="128" height="121"/>
-    </resources>
 </document>

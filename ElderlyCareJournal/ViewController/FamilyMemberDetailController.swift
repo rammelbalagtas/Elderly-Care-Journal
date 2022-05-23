@@ -33,6 +33,8 @@ class FamilyMemberDetailController: UITableViewController {
     @IBOutlet weak var emergencyContactNameText: UITextField!
     @IBOutlet weak var emergencyContactNumber: UITextField!
     
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadData()
@@ -66,6 +68,19 @@ class FamilyMemberDetailController: UITableViewController {
             countryText.text = familyMember.country
             emergencyContactNameText.text = familyMember.emergencyContactName
             emergencyContactNumber.text = familyMember.emergencyContactNumber
+            memberImage.image = nil
+            ImageStorageService.downloadImage(path: familyMember.photo!, storage: storage)
+            { result in
+                switch result {
+                case .success(let data):
+                    DispatchQueue.main.async {
+                        self.memberImage.image = data
+                    }
+                case .failure(let error):
+                    //show error message
+                    print(error.localizedDescription)
+                }
+            }
         }
     }
     
@@ -146,17 +161,26 @@ class FamilyMemberDetailController: UITableViewController {
                     //show error
                     return
                 }
-                //navigate up to previous screen
-                self.performSegue(withIdentifier: "unwindToFamilyMemberList", sender: self)
+                
+                //store image
+                if let image = self.memberImage.image, let path = path {
+                    ImageStorageService.uploadImage(path: path, image: image, storage: self.storage)
+                    { result in
+                        switch result {
+                        case .success(_):
+                            return
+                        case .failure(let error):
+                            //show error message
+                            print(error.localizedDescription)
+                        }
+                    }
+                    //navigate up to previous screen
+                    self.performSegue(withIdentifier: "unwindToFamilyMemberList", sender: self)
+                }
             })
         } catch let error {
             //show error message
             print("Error saving family member information: \(error.localizedDescription)")
-        }
-        
-        //store image
-        if let image = self.memberImage.image, let path = path {
-            ImageStorageService.uploadImage(path: path, image: image, storage: storage)
         }
         
     }

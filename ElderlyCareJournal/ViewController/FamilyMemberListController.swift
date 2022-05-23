@@ -9,12 +9,14 @@ import UIKit
 import Firebase
 import FirebaseCore
 import FirebaseFirestore
+import FirebaseStorage
 import FirebaseFirestoreSwift
 
 class FamilyMemberListController: UIViewController, UITableViewDelegate {
     
     var user: User!
     var familyMembers = [FamilyMember]()
+    private let storage = Storage.storage().reference()
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -96,7 +98,7 @@ extension FamilyMemberListController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.ReuseIdentifier.familyMemberTableViewCell, for: indexPath) as? FamilyMemberTableViewCell
         else{preconditionFailure("unable to dequeue reusable cell")}
         let familyMember = familyMembers[indexPath.row]
-        cell.configureCell(using: familyMember)
+        cell.configureCell(using: familyMember, storage: storage)
         return cell
     }
     
