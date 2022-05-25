@@ -89,8 +89,14 @@ class FamilyMemberDetailController: UITableViewController {
         }
     }
     
+    private func promptMessage(message: String, handler: ((UIAlertAction) -> Void)?) {
+        let alert = UIAlertController(title: "", message: message , preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: handler)
+        alert.addAction(okAction)
+        self.present(alert, animated: true)
+    }
     
-    @IBAction func switchAddAction(_ sender: UIBarButtonItem) {
+    private func navigateToMainList() {
         if user.userType == UserType.Guardian.rawValue {
             let familyMemberListNavVC = storyboard?.instantiateViewController(withIdentifier: Constants.Storyboard.familyMemberListNavVC) as? UINavigationController
             let familyMemberListVC = familyMemberListNavVC?.topViewController as! FamilyMemberListController
@@ -100,6 +106,10 @@ class FamilyMemberDetailController: UITableViewController {
         } else {
             
         }
+    }
+    
+    @IBAction func switchAddAction(_ sender: UIBarButtonItem) {
+        navigateToMainList()
     }
     
     @IBAction func addChangePhotoAction(_ sender: UIButton) {
@@ -128,6 +138,8 @@ class FamilyMemberDetailController: UITableViewController {
         //update firestore with new information
         var memberId = ""
         var path: String?
+        var isExisting = true
+        
         if let _ = familyMember {
             memberId = familyMember!.memberId
             familyMember?.firstName = firstName
@@ -147,6 +159,7 @@ class FamilyMemberDetailController: UITableViewController {
             }
             familyMember?.photo = path
         } else {
+            isExisting = false
             memberId = UUID().uuidString
             if shouldSavePhoto {
                 path = "images/familymember/\(memberId).png"
@@ -175,8 +188,8 @@ class FamilyMemberDetailController: UITableViewController {
             let encoder = Firestore.Encoder()
             try db.collection(Constants.Database.familyMembers).document(memberId).setData(from: familyMember, encoder: encoder, completion:
             { (error) in
-                if let _ = error {
-                    //show error
+                if let error = error {
+                    self.promptMessage(message: error.localizedDescription, handler: nil)
                     return
                 }
                 
@@ -186,42 +199,57 @@ class FamilyMemberDetailController: UITableViewController {
                     { result in
                         switch result {
                         case .success(_):
-                            self.performSegue(withIdentifier: "unwindToFamilyMemberList", sender: self)
-                            return
+                            if isExisting {
+                                self.promptMessage(message: "Family Member record is updated", handler: nil)
+                            } else {
+                                //navigate up to previous screen after prompting message
+                                self.promptMessage(message: "Family Member record is created") { _ in
+                                    self.performSegue(withIdentifier: "unwindToFamilyMemberList", sender: self)
+                                }
+                            }
                         case .failure(let error):
                             //show error message
                             print(error.localizedDescription)
+                            self.promptMessage(message: error.localizedDescription, handler: nil)
                         }
-                        //navigate up to previous screen
-                        self.performSegue(withIdentifier: "unwindToFamilyMemberList", sender: self)
                     }
                 } else {
-                    //navigate up to previous screen
-                    self.performSegue(withIdentifier: "unwindToFamilyMemberList", sender: self)
+                    if isExisting {
+                        self.promptMessage(message: "Family Member record is updated", handler: nil)
+                    } else {
+                        //navigate up to previous screen after prompting message
+                        self.promptMessage(message: "Family Member record is created") { _ in
+                            self.performSegue(withIdentifier: "unwindToFamilyMemberList", sender: self)
+                        }
+                    }
                 }
             })
         } catch let error {
             //show error message
             print("Error saving family member information: \(error.localizedDescription)")
+            self.promptMessage(message: error.localizedDescription, handler: nil)
         }
-        
     }
     
     @IBAction func deleteAction(_ sender: UIButton) {
         guard
             let familyMember = familyMember
         else {return}
+        
         //create document and delete record from database
         let db = Firestore.firestore()
         
         db.collection(Constants.Database.familyMembers).document(familyMember.memberId).delete
         { (error) in
-            if let _ = error {
+            if let error = error {
                 //show error
+                self.promptMessage(message: error.localizedDescription, handler: nil)
                 return
             }
-            //navigate up to previous screen
-            self.performSegue(withIdentifier: "unwindToFamilyMemberList", sender: self)
+            //navigate to family member list
+            self.promptMessage(message: "Family Member record is removed") { _ in
+                self.navigateToMainList()
+            }
         }
     }
     
