@@ -70,7 +70,7 @@ class FamilyMemberListController: UIViewController, UITableViewDelegate {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
         if let destination = segue.destination as? FamilyMemberDetailController {
-            destination.uid = user.uid
+            destination.user = user
             if segue.identifier == "ViewMemberInformation" {
                 if let indexPaths = tableView.indexPathsForSelectedRows {
                     destination.familyMember = familyMembers[indexPaths[0].row]
@@ -80,6 +80,14 @@ class FamilyMemberListController: UIViewController, UITableViewDelegate {
                 }
             }
         }
+    }
+    
+    
+    @IBAction func addFamilyMember(_ sender: UIBarButtonItem) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let familyMemberDetailController = storyboard.instantiateViewController(identifier: "FamilyMemberDetailController") as FamilyMemberDetailController
+        familyMemberDetailController.user = user
+        show(familyMemberDetailController, sender: self)
     }
     
     @IBAction func unwindToFamilyMemberList( _ seg: UIStoryboardSegue) {
@@ -103,7 +111,20 @@ extension FamilyMemberListController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "ViewMemberInformation", sender: self)
+        let familyMemberTabBarController = storyboard?.instantiateViewController(withIdentifier: "FamilyMemberGuardian") as? UITabBarController
+        view.window?.rootViewController = familyMemberTabBarController
+        view.window?.makeKeyAndVisible()
+        
+        let navControllers = familyMemberTabBarController?.viewControllers
+        let memberDetailNavVC = navControllers?[0] as? UINavigationController
+        let memberDetailVC = memberDetailNavVC?.topViewController as! FamilyMemberDetailController
+        memberDetailVC.user = user
+        if let indexPaths = tableView.indexPathsForSelectedRows {
+            memberDetailVC.familyMember = familyMembers[indexPaths[0].row]
+            if user.userType != UserType.Guardian.rawValue {
+                memberDetailVC.isEditable = false
+            }
+        }
     }
     
 }

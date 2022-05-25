@@ -15,9 +15,9 @@ import FirebaseFirestoreSwift
 class FamilyMemberDetailController: UITableViewController {
     
     var isEditable: Bool = true
-    var uid: String!
+    var user: User!
     var familyMember: FamilyMember?
-    var shouldSavePhoto: Bool = false
+    private var shouldSavePhoto: Bool = false
     
     private let storage = Storage.storage().reference()
     
@@ -32,6 +32,7 @@ class FamilyMemberDetailController: UITableViewController {
     @IBOutlet weak var countryText: UITextField!
     @IBOutlet weak var emergencyContactNameText: UITextField!
     @IBOutlet weak var emergencyContactNumber: UITextField!
+    @IBOutlet weak var switchAddButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,8 +41,6 @@ class FamilyMemberDetailController: UITableViewController {
     }
     
     private func setupView() {
-//        tableView.estimatedRowHeight = 50
-//        tableView.rowHeight = UITableView.automaticDimension
         
         //assign placeholders for text views (not supported by storyboard)
         if !streetText.text.isEmpty {
@@ -50,7 +49,14 @@ class FamilyMemberDetailController: UITableViewController {
         if !provinceText.text.isEmpty {
             provinceText.placeholder = "City/Province"
         }
+        
         memberImage.maskCircle()
+        
+        if let _ = familyMember {
+            self.navigationItem.leftBarButtonItem = switchAddButton
+        } else {
+            self.navigationItem.leftBarButtonItem = nil
+        }
     }
     
     //load data from dependency
@@ -80,6 +86,19 @@ class FamilyMemberDetailController: UITableViewController {
                     print(error.localizedDescription)
                 }
             }
+        }
+    }
+    
+    
+    @IBAction func switchAddAction(_ sender: UIBarButtonItem) {
+        if user.userType == UserType.Guardian.rawValue {
+            let familyMemberListNavVC = storyboard?.instantiateViewController(withIdentifier: Constants.Storyboard.familyMemberListNavVC) as? UINavigationController
+            let familyMemberListVC = familyMemberListNavVC?.topViewController as! FamilyMemberListController
+            familyMemberListVC.user = user
+            view.window?.rootViewController = familyMemberListNavVC
+            view.window?.makeKeyAndVisible()
+        } else {
+            
         }
     }
     
@@ -134,7 +153,7 @@ class FamilyMemberDetailController: UITableViewController {
             } else {
                 path = nil
             }
-            self.familyMember = FamilyMember(uid: self.uid,
+            self.familyMember = FamilyMember(uid: self.user.uid,
                                              memberId: memberId,
                                              firstName: firstName,
                                              lastName: lastName,
@@ -167,6 +186,7 @@ class FamilyMemberDetailController: UITableViewController {
                     { result in
                         switch result {
                         case .success(_):
+                            self.performSegue(withIdentifier: "unwindToFamilyMemberList", sender: self)
                             return
                         case .failure(let error):
                             //show error message
