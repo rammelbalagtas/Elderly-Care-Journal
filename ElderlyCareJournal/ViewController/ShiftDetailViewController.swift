@@ -59,18 +59,23 @@ class ShiftDetailViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        tasks.append(Task(description: "task 1", status: "new"))
-        tasks.append(Task(description: "task 2", status: "new"))
-        tasks.append(Task(description: "task 3", status: "new"))
-        
-        numberOfTaskText.text = String(tasks.count)
-
+        if let shift = shift {
+            tasks = shift.tasks
+        } else {
+            tasks.append(Task(description: "task 1", status: "new"))
+            tasks.append(Task(description: "task 2", status: "new"))
+            tasks.append(Task(description: "task 3", status: "new"))
+        }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        numberOfTaskText.text = String(tasks.count)
     }
 
     // MARK: - Table view data source
@@ -138,8 +143,14 @@ class ShiftDetailViewController: UITableViewController {
         // Pass the selected object to the new view controller.
         if let destination = segue.destination as? TaskListViewController {
             destination.tasks = self.tasks
+            destination.delegate = self
         }
     }
-    
+}
 
+extension ShiftDetailViewController: TaskListDelegate {
+    func updateTaskList(tasks: [Task]) {
+        self.tasks = tasks
+        tableView.reloadData()
+    }
 }

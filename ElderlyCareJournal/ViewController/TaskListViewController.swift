@@ -7,9 +7,14 @@
 
 import UIKit
 
+protocol TaskListDelegate {
+    func updateTaskList(tasks: [Task])
+}
+
 class TaskListViewController: UIViewController, UITableViewDelegate {
     
     var tasks = [Task]()
+    var delegate: TaskListDelegate!
 
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
@@ -25,7 +30,6 @@ class TaskListViewController: UIViewController, UITableViewDelegate {
         self.performSegue(withIdentifier: "ViewTask", sender: self)
     }
 
-    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -33,6 +37,7 @@ class TaskListViewController: UIViewController, UITableViewDelegate {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
         if let destination = segue.destination as? TaskDetailViewController {
+            destination.delegate = self
             if let indexPaths = tableView.indexPathsForSelectedRows {
                 destination.task = tasks[indexPaths[0].row]
             }
@@ -56,5 +61,12 @@ extension TaskListViewController: UITableViewDataSource {
         return cell
     }
     
-    
+}
+
+extension TaskListViewController: TaskDetailDelegate {
+    func addTask(description: String) {
+        self.tasks.append(Task(description: description, status: "New"))
+        self.delegate.updateTaskList(tasks: tasks)
+        self.tableView.reloadData()
+    }
 }

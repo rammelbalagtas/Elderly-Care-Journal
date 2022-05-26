@@ -7,8 +7,12 @@
 
 import Foundation
 
-struct Task: Codable {
+class Task: Codable {
+    init(description: String, status: String) {
+        self.description = description
+        self.status = status
+    }
+    
     var description: String
     var status: String
-//    let updateDateTime: String
 }

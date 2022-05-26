@@ -7,13 +7,22 @@
 
 import UIKit
 
+protocol TaskDetailDelegate {
+    func addTask(description: String)
+}
+
 class TaskDetailViewController: UIViewController {
     
     var task: Task?
+    var delegate: TaskDetailDelegate?
     
     @IBOutlet weak var taskDescriptionText: UITextView!
     
     @IBAction func saveAction(_ sender: UIBarButtonItem) {
+        guard let taskDescription = taskDescriptionText.text, taskDescriptionText.hasText else {
+            return
+        }
+        delegate?.addTask(description: taskDescription)
         self.performSegue(withIdentifier: "unwindToTaskList", sender: self)
     }
     
@@ -30,6 +39,7 @@ class TaskDetailViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        
     }
 
 }
