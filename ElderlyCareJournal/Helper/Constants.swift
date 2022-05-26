@@ -16,6 +16,7 @@ struct Constants {
     struct Database {
         static let users = "users"
         static let familyMembers = "familymembers"
+        static let shifts = "shifts"
     }
     
     //reuse identifier for custom nibs

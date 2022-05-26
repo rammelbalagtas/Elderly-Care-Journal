@@ -8,8 +8,8 @@
 import Foundation
 
 struct Shift: Codable {
-    let id: String
-    let memberId: String
+    var id: String
+    var memberId: String
     var description: String
     var fromDateTime: String
     var toDateTime: String
