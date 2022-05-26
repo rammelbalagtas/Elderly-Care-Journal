@@ -8,8 +8,7 @@
 import Foundation
 
 struct Task: Codable {
-    let id: String
-    let title: String
-    let status: String
+    var title: String
+    var status: String
 //    let updateDateTime: String
 }

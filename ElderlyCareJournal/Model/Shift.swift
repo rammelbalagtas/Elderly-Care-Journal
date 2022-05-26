@@ -15,4 +15,13 @@ struct Shift: Codable {
     var toDateTime: String
     var tasks: [Task]
     var uid: String
+//    enum CodingKeys: String, CodingKey {
+//        case id
+//        case memberId
+//        case description
+//        case fromDateTime
+//        case toDateTime
+//        case tasks
+//        case uid
+//    }
 }

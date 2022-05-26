@@ -16,7 +16,7 @@ struct ShiftNetworkService {
     public static func createShift(shift: Shift, callback: @escaping (Result<Shift, Error>) -> Void) {
         do {
             let encoder = Firestore.Encoder()
-            try db.collection(Constants.Database.shifts).document(shift.id).setData(from: shift.id, encoder: encoder, completion:
+            try db.collection(Constants.Database.shifts).document(shift.id).setData(from: shift, encoder: encoder, completion:
             { (error) in
                 if let error = error {
                     callback(.failure(error))
@@ -35,7 +35,7 @@ struct ShiftNetworkService {
     public static func updateShift(shift: Shift, callback: @escaping (Result<Shift, Error>) -> Void) {
         do {
             let encoder = Firestore.Encoder()
-            try db.collection(Constants.Database.shifts).document(shift.id).setData(from: shift.id, encoder: encoder, completion:
+            try db.collection(Constants.Database.shifts).document(shift.id).setData(from: shift, encoder: encoder, completion:
             { (error) in
                 if let error = error {
                     callback(.failure(error))
