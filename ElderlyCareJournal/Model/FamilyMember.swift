@@ -9,8 +9,8 @@ import Foundation
 
 struct FamilyMember: Codable {
     
-    let uid: String
     let memberId: String
+    let uid: String
     var firstName: String
     var lastName: String
     var age: Int
@@ -24,8 +24,8 @@ struct FamilyMember: Codable {
     var photo: String?
     
     enum CodingKeys: String, CodingKey {
-        case uid
         case memberId
+        case uid
         case firstName
         case lastName
         case age

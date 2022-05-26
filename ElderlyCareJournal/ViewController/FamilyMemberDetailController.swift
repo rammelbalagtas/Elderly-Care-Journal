@@ -166,8 +166,8 @@ class FamilyMemberDetailController: UITableViewController {
             } else {
                 path = nil
             }
-            self.familyMember = FamilyMember(uid: self.user.uid,
-                                             memberId: memberId,
+            self.familyMember = FamilyMember(memberId: memberId,
+                                             uid: self.user.uid,
                                              firstName: firstName,
                                              lastName: lastName,
                                              age: age,
