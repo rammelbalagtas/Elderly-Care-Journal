@@ -7,9 +7,12 @@
 
 import UIKit
 
-class ShiftDetailTableViewController: UITableViewController {
+class ShiftDetailViewController: UITableViewController {
     
     var shift: Shift?
+    var uid: String!
+    var memberId: String!
+    var tasks = [Task]()
     
     @IBOutlet weak var shiftDescriptionText: UITextView!
     @IBOutlet weak var fromDateTime: UIDatePicker!
@@ -29,7 +32,7 @@ class ShiftDetailTableViewController: UITableViewController {
     }
     
     @IBAction func saveAction(_ sender: UIButton) {
-        let description = shiftDescriptionText.text
+        let description = shiftDescriptionText.text ?? ""
         let fromDateTime = Utilities.extractDateTimeComponents(using: fromDateTime.date)
         let toDateTime = Utilities.extractDateTimeComponents(using: toDateTime.date)
         
@@ -39,11 +42,7 @@ class ShiftDetailTableViewController: UITableViewController {
         } else {
             shiftId = UUID().uuidString
         }
-
-        var tasks = [Task]()
-        tasks.append(Task(title: "title 1", status: "status 1"))
-        tasks.append(Task(title: "title 2", status: "status 2"))
-        let shift = Shift(id: "1", memberId: "1", description: "description", fromDateTime: "10.10.10", toDateTime: "10.10.10", tasks: tasks, uid: "1")
+        let shift = Shift(id: shiftId, memberId: memberId, description: description, fromDateTime: fromDateTime, toDateTime: toDateTime, tasks: tasks, status: "New", uid: uid)
         ShiftNetworkService.createShift(shift: shift) { result in
             switch result {
             case .success(_):
@@ -60,6 +59,12 @@ class ShiftDetailTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tasks.append(Task(description: "task 1", status: "new"))
+        tasks.append(Task(description: "task 2", status: "new"))
+        tasks.append(Task(description: "task 3", status: "new"))
+        
+        numberOfTaskText.text = String(tasks.count)
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -124,14 +129,17 @@ class ShiftDetailTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        if let destination = segue.destination as? TaskListViewController {
+            destination.tasks = self.tasks
+        }
     }
-    */
+    
 
 }
