@@ -56,15 +56,10 @@ class CareProviderListController: UIViewController, UITableViewDelegate {
     }
     
     private func setupSearchBarController() {
-        // 1
         searchController.searchResultsUpdater = self
-        // 2
         searchController.obscuresBackgroundDuringPresentation = false
-        // 3
         searchController.searchBar.placeholder = "Search Care Provider"
-        // 4
         navigationItem.searchController = searchController
-        // 5
         definesPresentationContext = true
     }
     

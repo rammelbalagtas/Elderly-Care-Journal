@@ -40,6 +40,7 @@
 		6EF8ADFE2840219E00EA002E /* UserDbService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF8ADFD2840219E00EA002E /* UserDbService.swift */; };
 		6EF8AE00284024BD00EA002E /* FamilyMemberDbService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF8ADFF284024BD00EA002E /* FamilyMemberDbService.swift */; };
 		6EF8AE022841233200EA002E /* CareProviderListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF8AE012841233200EA002E /* CareProviderListController.swift */; };
+		6EF8AE04284145A100EA002E /* ShiftStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF8AE03284145A100EA002E /* ShiftStatus.swift */; };
 		CDEAA23D60C7EFA3B721A081 /* Pods_ElderlyCareJournal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFDDD401A84513A1D3A0E8BC /* Pods_ElderlyCareJournal.framework */; };
 /* End PBXBuildFile section */
 
@@ -79,6 +80,7 @@
 		6EF8ADFD2840219E00EA002E /* UserDbService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDbService.swift; sourceTree = "<group>"; };
 		6EF8ADFF284024BD00EA002E /* FamilyMemberDbService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMemberDbService.swift; sourceTree = "<group>"; };
 		6EF8AE012841233200EA002E /* CareProviderListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareProviderListController.swift; sourceTree = "<group>"; };
+		6EF8AE03284145A100EA002E /* ShiftStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftStatus.swift; sourceTree = "<group>"; };
 		A082A6A5131A76C0030AB8F4 /* Pods-ElderlyCareJournal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ElderlyCareJournal.release.xcconfig"; path = "Target Support Files/Pods-ElderlyCareJournal/Pods-ElderlyCareJournal.release.xcconfig"; sourceTree = "<group>"; };
 		A8D07080012FB5629C7D73FF /* Pods-ElderlyCareJournal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ElderlyCareJournal.debug.xcconfig"; path = "Target Support Files/Pods-ElderlyCareJournal/Pods-ElderlyCareJournal.debug.xcconfig"; sourceTree = "<group>"; };
 		FFDDD401A84513A1D3A0E8BC /* Pods_ElderlyCareJournal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ElderlyCareJournal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -178,6 +180,7 @@
 				6EED3ED52836780300481EF7 /* User.swift */,
 				6EF8ADF2283F150100EA002E /* Shift.swift */,
 				6EF8ADF4283F15EE00EA002E /* Task.swift */,
+				6EF8AE03284145A100EA002E /* ShiftStatus.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -355,6 +358,7 @@
 				6EED3E9628328E7F00481EF7 /* AppDelegate.swift in Sources */,
 				6EF8ADF3283F150100EA002E /* Shift.swift in Sources */,
 				6EED3E9828328E7F00481EF7 /* SceneDelegate.swift in Sources */,
+				6EF8AE04284145A100EA002E /* ShiftStatus.swift in Sources */,
 				6EF8ADF7283F180600EA002E /* ShiftDbService.swift in Sources */,
 				6EED3ED22835D7B700481EF7 /* GenderTableViewController.swift in Sources */,
 				6EED3ED42836779A00481EF7 /* UserType.swift in Sources */,

@@ -28,8 +28,25 @@ struct ShiftDbService {
         }
     }
     
-    public static func readAll() {
-        
+    public static func readAll(memberId: String, status: String, callback: @escaping (Result<[Shift], Error>) -> Void) {
+        var shifts = [Shift]()
+        let db = Firestore.firestore()
+        db.collection(Constants.Database.shifts).whereField("memberId", isEqualTo: memberId).getDocuments()
+        { (querySnapshot, error) in
+            if let error = error {
+                callback(.failure(error))
+            } else {
+                for document in querySnapshot!.documents {
+                    do {
+                        let shift = try document.data(as: Shift.self)
+                        shifts.append(shift)
+                    } catch let error {
+                        print("Error converting data: \(error.localizedDescription)")
+                    }
+                }
+                callback(.success(shifts))
+            }
+        }
     }
     
     public static func read() {

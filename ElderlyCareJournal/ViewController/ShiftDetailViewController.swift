@@ -13,8 +13,9 @@ class ShiftDetailViewController: UITableViewController {
     var uid: String!
     var memberId: String!
     var tasks = [Task]()
-    var careProviderId: String?
-    var careProviderName: String?
+    private var careProviderId = ""
+    private var careProviderName = ""
+    private var isExisting: Bool?
     
     @IBOutlet weak var shiftDescriptionText: UITextView!
     @IBOutlet weak var fromDateTime: UIDatePicker!
@@ -28,13 +29,11 @@ class ShiftDetailViewController: UITableViewController {
     @IBOutlet weak var deleteBtn: UIButton!
     
     @IBAction func addTaskAction(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "ViewTasks", sender: self)
     }
     
     @IBAction func assignCareProviderAction(_ sender: UIButton) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let careProviderListController = storyboard.instantiateViewController(identifier: "CareProviderList") as CareProviderListController
-        careProviderListController.delegate = self
-        show(careProviderListController, sender: self)
+        assignCareProvider()
     }
     
     @IBAction func saveAction(_ sender: UIButton) {
@@ -48,32 +47,48 @@ class ShiftDetailViewController: UITableViewController {
         } else {
             shiftId = UUID().uuidString
         }
-        let shift = Shift(id: shiftId, memberId: memberId, description: description, fromDateTime: fromDateTime, toDateTime: toDateTime, tasks: tasks, status: "New", uid: uid)
-        ShiftDbService.create(shift: shift) { result in
+        let shift = Shift(id: shiftId, memberId: memberId, description: description, fromDateTime: fromDateTime, toDateTime: toDateTime, tasks: tasks, careProviderId: careProviderId, careProviderName: careProviderName, status: ShiftStatus.New.rawValue, uid: uid)
+        ShiftDbService.create(shift: shift)
+        { result in
             switch result {
             case .success(_):
-                //unwind to task list
-                return
+                self.promptMessage(message: "Shift record is created") { _ in
+                    self.performSegue(withIdentifier: "unwindToShiftList", sender: self)
+                }
             case .failure(let error):
                 print(error.localizedDescription)
+                self.promptMessage(message: error.localizedDescription, handler: nil)
             }
         }
     }
     
     @IBAction func deleteAction(_ sender: UIButton) {
+        if let shift = shift {
+            ShiftDbService.delete(shiftId: shift.id)
+            { result in
+                switch result {
+                case .success(_):
+                    self.promptMessage(message: "Shift record is deleted") { _ in
+                        self.performSegue(withIdentifier: "unwindToShiftList", sender: self)
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    self.promptMessage(message: error.localizedDescription, handler: nil)
+                }
+            }
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         if let shift = shift {
-            tasks = shift.tasks
+            isExisting = true
+            displayDetail(shift)
         } else {
-            tasks.append(Task(description: "task 1", status: "new"))
-            tasks.append(Task(description: "task 2", status: "new"))
-            tasks.append(Task(description: "task 3", status: "new"))
+            isExisting = false
         }
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        
+        self.clearsSelectionOnViewWillAppear = true
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
@@ -82,10 +97,10 @@ class ShiftDetailViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         numberOfTaskText.text = String(tasks.count)
-        if let careProviderName = careProviderName {
-            careProviderText.text = careProviderName
-        } else {
+        if careProviderName.isEmpty {
             careProviderText.text = "Care Provider"
+        } else {
+            careProviderText.text = careProviderName
         }
     }
 
@@ -98,53 +113,54 @@ class ShiftDetailViewController: UITableViewController {
         return 0
     }
     
-    func setDatePicker(using dateString: String) -> UIDatePicker {
+    private func displayDetail(_ shift: Shift) {
+        shiftDescriptionText.text = shift.description
+        if let fromDate = buildDateTime(using: shift.fromDateTime) {
+            fromDateTime.setDate(fromDate, animated: .random())
+        }
+        if let toDate = buildDateTime(using: shift.toDateTime) {
+            toDateTime.setDate(toDate, animated: .random())
+        }
+        tasks = shift.tasks
+        numberOfTaskText.text = String(tasks.count)
+        careProviderId = shift.careProviderId
+        careProviderName = shift.careProviderName
+    }
+    
+    private func buildDateTime(using dateString: String) -> Date? {
         let dateTimeArray = dateString.components(separatedBy: "T")
-        var date = DateComponents()
+        var dateComponents = DateComponents()
         let dateValue = dateTimeArray[0]
         let timeValue = dateTimeArray[1]
         let dateArray = dateValue.components(separatedBy: "-")
         let timeArray = timeValue.components(separatedBy: ":")
-        date.year = Int(dateArray[0])
-        date.month = Int(dateArray[1])
-        date.day = Int(dateArray[2])
-        date.hour = Int(timeArray[0])
-        date.minute = Int(timeArray[1])
-        date.second = Int(timeArray[2])
+        dateComponents.year = Int(dateArray[0])
+        dateComponents.month = Int(dateArray[1])
+        dateComponents.day = Int(dateArray[2])
+        dateComponents.hour = Int(timeArray[0])
+        dateComponents.minute = Int(timeArray[1])
+        dateComponents.second = Int(timeArray[2])
         let userCalendar = Calendar.current
-        let dateAndTime = userCalendar.date(from: date)
-        let datePicker = UIDatePicker()
-        datePicker.setDate(dateAndTime!, animated: .random())
-        return datePicker
+        if let dateTime = userCalendar.date(from: dateComponents) {
+            return dateTime
+        } else {
+            return nil
+        }
     }
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    private func assignCareProvider() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let careProviderListController = storyboard.instantiateViewController(identifier: "CareProviderList") as CareProviderListController
+        careProviderListController.delegate = self
+        show(careProviderListController, sender: self)
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    
+    private func promptMessage(message: String, handler: ((UIAlertAction) -> Void)?) {
+        let alert = UIAlertController(title: "", message: message , preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: handler)
+        alert.addAction(okAction)
+        self.present(alert, animated: true)
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
     
     // MARK: - Navigation
 

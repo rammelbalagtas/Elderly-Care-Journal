@@ -7,7 +7,9 @@
 
 import UIKit
 
-class ShiftListViewController: UIViewController {
+class ShiftListViewController: UIViewController, UITableViewDelegate {
+    
+    @IBOutlet weak var tableView: UITableView!
     
     var user: User!
     var familyMember: FamilyMember!
@@ -15,8 +17,20 @@ class ShiftListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        loadData()
         // Do any additional setup after loading the view.
+    }
+    
+    @IBAction func unwindToShiftListController( _ seg: UIStoryboardSegue) {
+        loadData()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "ViewShift", sender: self)
     }
     
     // MARK: - Navigation
@@ -28,7 +42,40 @@ class ShiftListViewController: UIViewController {
         if let destination = segue.destination as? ShiftDetailViewController {
             destination.uid = user.uid
             destination.memberId = familyMember.memberId
+            if segue.identifier == "ViewShift" {
+                if let indexPaths = tableView.indexPathsForSelectedRows {
+                    destination.shift = shifts[indexPaths[0].row]
+                }
+            }
+        }
+    }
+    
+    private func loadData() {
+        ShiftDbService.readAll(memberId: familyMember.memberId, status: ShiftStatus.New.rawValue )
+        { result in
+            switch result {
+            case .success(let data):
+                self.shifts = data
+                self.tableView.reloadData()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
         }
     }
 
+}
+
+extension ShiftListViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return shifts.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Shift")
+        else{preconditionFailure("Unable to dequeue reusable cell")}
+        let shift = shifts[indexPath.row]
+        cell.textLabel?.text = shift.description
+        return cell
+    }
 }

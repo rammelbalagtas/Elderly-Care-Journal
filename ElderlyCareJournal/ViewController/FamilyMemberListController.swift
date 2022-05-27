@@ -28,11 +28,8 @@ class FamilyMemberListController: UIViewController, UITableViewDelegate {
         tableView.delegate = self
         tableView.dataSource = self
         
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         loadData()
+        
     }
     
     func loadData() {
@@ -91,6 +88,7 @@ class FamilyMemberListController: UIViewController, UITableViewDelegate {
     }
     
     @IBAction func unwindToFamilyMemberList( _ seg: UIStoryboardSegue) {
+        loadData()
     }
 
 }
