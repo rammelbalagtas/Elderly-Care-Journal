@@ -13,6 +13,8 @@ class ShiftDetailViewController: UITableViewController {
     var uid: String!
     var memberId: String!
     var tasks = [Task]()
+    var careProviderId: String?
+    var careProviderName: String?
     
     @IBOutlet weak var shiftDescriptionText: UITextView!
     @IBOutlet weak var fromDateTime: UIDatePicker!
@@ -29,6 +31,10 @@ class ShiftDetailViewController: UITableViewController {
     }
     
     @IBAction func assignCareProviderAction(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let careProviderListController = storyboard.instantiateViewController(identifier: "CareProviderList") as CareProviderListController
+        careProviderListController.delegate = self
+        show(careProviderListController, sender: self)
     }
     
     @IBAction func saveAction(_ sender: UIButton) {
@@ -43,7 +49,7 @@ class ShiftDetailViewController: UITableViewController {
             shiftId = UUID().uuidString
         }
         let shift = Shift(id: shiftId, memberId: memberId, description: description, fromDateTime: fromDateTime, toDateTime: toDateTime, tasks: tasks, status: "New", uid: uid)
-        ShiftNetworkService.createShift(shift: shift) { result in
+        ShiftDbService.create(shift: shift) { result in
             switch result {
             case .success(_):
                 //unwind to task list
@@ -76,6 +82,11 @@ class ShiftDetailViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         numberOfTaskText.text = String(tasks.count)
+        if let careProviderName = careProviderName {
+            careProviderText.text = careProviderName
+        } else {
+            careProviderText.text = "Care Provider"
+        }
     }
 
     // MARK: - Table view data source
@@ -152,5 +163,12 @@ extension ShiftDetailViewController: TaskListDelegate {
     func updateTaskList(tasks: [Task]) {
         self.tasks = tasks
         tableView.reloadData()
+    }
+}
+
+extension ShiftDetailViewController: CareProviderListDelegate {
+    func assignCareProvider(careProvider: User) {
+        careProviderId = careProvider.uid
+        careProviderName = "\(careProvider.firstName) \(careProvider.lastName)"
     }
 }

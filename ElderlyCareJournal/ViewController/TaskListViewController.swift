@@ -7,14 +7,14 @@
 
 import UIKit
 
-protocol TaskListDelegate {
+protocol TaskListDelegate: AnyObject {
     func updateTaskList(tasks: [Task])
 }
 
 class TaskListViewController: UIViewController, UITableViewDelegate {
     
     var tasks = [Task]()
-    var delegate: TaskListDelegate!
+    weak var delegate: TaskListDelegate?
 
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
@@ -66,7 +66,7 @@ extension TaskListViewController: UITableViewDataSource {
 extension TaskListViewController: TaskDetailDelegate {
     func addTask(description: String) {
         self.tasks.append(Task(description: description, status: "New"))
-        self.delegate.updateTaskList(tasks: tasks)
+        self.delegate?.updateTaskList(tasks: tasks)
         self.tableView.reloadData()
     }
 }

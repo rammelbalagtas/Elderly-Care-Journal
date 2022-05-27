@@ -9,11 +9,11 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-struct ShiftNetworkService {
+struct ShiftDbService {
     
     private static let db = Firestore.firestore()
     
-    public static func createShift(shift: Shift, callback: @escaping (Result<Shift, Error>) -> Void) {
+    public static func create(shift: Shift, callback: @escaping (Result<Shift, Error>) -> Void) {
         do {
             let encoder = Firestore.Encoder()
             try db.collection(Constants.Database.shifts).document(shift.id).setData(from: shift, encoder: encoder, completion:
@@ -28,11 +28,15 @@ struct ShiftNetworkService {
         }
     }
     
-    public static func readShift() {
+    public static func readAll() {
         
     }
     
-    public static func updateShift(shift: Shift, callback: @escaping (Result<Shift, Error>) -> Void) {
+    public static func read() {
+        
+    }
+    
+    public static func update(shift: Shift, callback: @escaping (Result<Shift, Error>) -> Void) {
         do {
             let encoder = Firestore.Encoder()
             try db.collection(Constants.Database.shifts).document(shift.id).setData(from: shift, encoder: encoder, completion:
@@ -47,7 +51,7 @@ struct ShiftNetworkService {
         }
     }
     
-    public static func deleteShift(shiftId: String, callback: @escaping (Result<String, Error>) -> Void) {
+    public static func delete(shiftId: String, callback: @escaping (Result<String, Error>) -> Void) {
         db.collection(Constants.Database.shifts).document(shiftId).delete
         { (error) in
             if let error = error {

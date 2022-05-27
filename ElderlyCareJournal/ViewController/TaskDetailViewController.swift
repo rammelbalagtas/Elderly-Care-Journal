@@ -7,14 +7,14 @@
 
 import UIKit
 
-protocol TaskDetailDelegate {
+protocol TaskDetailDelegate: AnyObject {
     func addTask(description: String)
 }
 
 class TaskDetailViewController: UIViewController {
     
     var task: Task?
-    var delegate: TaskDetailDelegate?
+    weak var delegate: TaskDetailDelegate?
     
     @IBOutlet weak var taskDescriptionText: UITextView!
     
