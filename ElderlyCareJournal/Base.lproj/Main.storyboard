@@ -269,7 +269,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Shift" id="iGK-Qi-yOJ">
-                        <barButtonItem key="leftBarButtonItem" title="Switch/Add Member" style="plain" id="xKJ-2I-k7V"/>
+                        <barButtonItem key="leftBarButtonItem" image="list.bullet" catalog="system" style="plain" id="xKJ-2I-k7V"/>
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="nAa-8y-32e">
                             <connections>
                                 <segue destination="Fpb-kY-N1o" kind="show" identifier="AddNewShift" id="oBZ-XQ-dHW"/>
@@ -277,6 +277,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="sideMenuBtn" destination="xKJ-2I-k7V" id="CWv-Bm-h7n"/>
                         <outlet property="tableView" destination="p1C-a8-HR7" id="1Bx-qg-fYR"/>
                         <segue destination="Fpb-kY-N1o" kind="show" identifier="ViewShift" id="Tyg-9e-z6R"/>
                     </connections>
@@ -800,7 +801,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="3JH-3c-uCf">
-                        <barButtonItem key="leftBarButtonItem" title="Switch/Add Member" style="plain" id="YYF-oN-EZN"/>
+                        <barButtonItem key="leftBarButtonItem" image="list.bullet" catalog="system" style="plain" id="YYF-oN-EZN"/>
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="Uac-WD-WDJ"/>
                     </navigationItem>
                 </viewController>

@@ -9,6 +9,7 @@ import UIKit
 
 class ShiftListViewController: UIViewController, UITableViewDelegate {
     
+    @IBOutlet weak var sideMenuBtn: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
     
     var user: User!
@@ -20,6 +21,10 @@ class ShiftListViewController: UIViewController, UITableViewDelegate {
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        //setup side menu
+        sideMenuBtn.target = revealViewController()
+        sideMenuBtn.action = #selector(revealViewController()?.revealSideMenu)
         
         loadData()
         // Do any additional setup after loading the view.
