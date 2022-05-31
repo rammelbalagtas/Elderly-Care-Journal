@@ -188,6 +188,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="K1g-L9-Inc">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="list.bullet" catalog="system" style="plain" id="ozS-ec-OEQ"/>
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="Bpt-Vq-Hh8">
                             <connections>
                                 <action selector="addFamilyMember:" destination="Seb-GA-6vD" id="MTv-K6-eh7"/>
@@ -195,6 +196,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="sideMenuBtn" destination="ozS-ec-OEQ" id="3U7-9I-FjC"/>
                         <outlet property="tableView" destination="13C-AI-bSR" id="tWC-aY-JJ4"/>
                     </connections>
                 </viewController>
@@ -785,7 +787,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V1W-Gp-5Ha" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6967" y="1736"/>
+            <point key="canvasLocation" x="7876.811594202899" y="1624.5535714285713"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="05z-hj-tfv">
@@ -804,7 +806,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XFH-LB-KWO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6128" y="1737"/>
+            <point key="canvasLocation" x="5981.1594202898559" y="1832.8125"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="YbM-RM-Ob2">
@@ -1460,10 +1462,88 @@
             </objects>
             <point key="canvasLocation" x="1814" y="607"/>
         </scene>
+        <!--Side Navigation Menu View Controller-->
+        <scene sceneID="w6W-G7-co3">
+            <objects>
+                <viewController storyboardIdentifier="SideMenuID" id="zGQ-3K-Xiq" customClass="SideNavigationMenuViewController" customModule="ElderlyCareJournal" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="294-qU-30z">
+                        <rect key="frame" x="0.0" y="0.0" width="260" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Elderly Care Journal" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4j6-Ls-mem">
+                                <rect key="frame" x="8" y="74" width="244" height="23.5"/>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="nVc-1z-9ta">
+                                <rect key="frame" x="0.0" y="105.5" width="260" height="756.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="dfq-qa-dpQ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="dfq-qa-dpQ" firstAttribute="trailing" secondItem="4j6-Ls-mem" secondAttribute="trailing" constant="8" id="6t0-mg-42O"/>
+                            <constraint firstItem="dfq-qa-dpQ" firstAttribute="bottom" secondItem="nVc-1z-9ta" secondAttribute="bottom" id="B1A-8M-WTo"/>
+                            <constraint firstItem="nVc-1z-9ta" firstAttribute="leading" secondItem="dfq-qa-dpQ" secondAttribute="leading" id="BX7-zr-9mB"/>
+                            <constraint firstItem="4j6-Ls-mem" firstAttribute="leading" secondItem="dfq-qa-dpQ" secondAttribute="leading" constant="8" id="Eet-GB-jJx"/>
+                            <constraint firstItem="4j6-Ls-mem" firstAttribute="top" secondItem="dfq-qa-dpQ" secondAttribute="top" constant="30" id="Rmi-xc-7Ec"/>
+                            <constraint firstItem="dfq-qa-dpQ" firstAttribute="trailing" secondItem="nVc-1z-9ta" secondAttribute="trailing" id="b9b-HU-GSD"/>
+                            <constraint firstItem="nVc-1z-9ta" firstAttribute="top" secondItem="4j6-Ls-mem" secondAttribute="bottom" constant="8" id="d6N-eS-Ll2"/>
+                        </constraints>
+                    </view>
+                    <size key="freeformSize" width="260" height="896"/>
+                    <connections>
+                        <outlet property="tableView" destination="nVc-1z-9ta" id="hZV-DQ-aRF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bth-8K-Rhn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1510" y="1350"/>
+        </scene>
+        <!--Page Container View Controller-->
+        <scene sceneID="9vp-Ci-J39">
+            <objects>
+                <viewController storyboardIdentifier="PageContainer" id="hj5-xX-n0z" customClass="PageContainerViewController" customModule="ElderlyCareJournal" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="P7h-9N-tYo">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="AKB-as-VIY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="naQ-er-Iqc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2222" y="1351"/>
+        </scene>
+        <!--Dummy View Controller-->
+        <scene sceneID="9Ak-FJ-f6s">
+            <objects>
+                <viewController id="i0x-XC-UKZ" customClass="DummyViewController" customModule="ElderlyCareJournal" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Zx5-nw-Ggs">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="u8Z-9s-awz"/>
+                        <color key="backgroundColor" systemColor="systemTealColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="NdA-WH-OIY">
+                        <barButtonItem key="leftBarButtonItem" image="list.bullet" catalog="system" style="plain" id="tGa-YK-fdN">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="sideMenuBtn" destination="tGa-YK-fdN" id="Ila-Ef-0EV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lJj-ZG-SwA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2532" y="2032"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="Iwt-4i-Rxa">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9XE-5r-Gws" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="InitialScreen" automaticallyAdjustsScrollViewInsets="NO" id="9XE-5r-Gws" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="xEh-3c-0R1">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -1554,7 +1634,25 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MJg-HY-Pjz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5283" y="1737"/>
+            <point key="canvasLocation" x="5173.913043478261" y="1832.8125"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Hal-g5-q02">
+            <objects>
+                <navigationController storyboardIdentifier="DummyNavVC" automaticallyAdjustsScrollViewInsets="NO" id="g62-W6-0fz" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="J6e-wC-Vhw">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="i0x-XC-UKZ" kind="relationship" relationship="rootViewController" id="ADT-yK-dAP"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zfo-E9-Pqi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1622" y="2032"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
@@ -1564,6 +1662,7 @@
     <resources>
         <image name="calendar" catalog="system" width="128" height="106"/>
         <image name="doc.fill" catalog="system" width="115" height="128"/>
+        <image name="list.bullet" catalog="system" width="128" height="88"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>
         <image name="person.circle.fill" catalog="system" width="128" height="121"/>
         <systemColor name="labelColor">
@@ -1586,6 +1685,9 @@
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemTealColor">
+            <color red="0.18823529411764706" green="0.69019607843137254" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

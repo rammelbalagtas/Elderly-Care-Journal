@@ -14,6 +14,8 @@ import FirebaseFirestoreSwift
 
 class FamilyMemberListController: UIViewController, UITableViewDelegate {
     
+    @IBOutlet var sideMenuBtn: UIBarButtonItem!
+    
     var user: User!
     var familyMembers = [FamilyMember]()
     private let storage = Storage.storage().reference()
@@ -22,6 +24,9 @@ class FamilyMemberListController: UIViewController, UITableViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        sideMenuBtn.target = revealViewController()
+        sideMenuBtn.action = #selector(revealViewController()?.revealSideMenu)
         
         registerNib()
 

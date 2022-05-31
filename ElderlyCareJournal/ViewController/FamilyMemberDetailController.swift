@@ -97,15 +97,19 @@ class FamilyMemberDetailController: UITableViewController {
     }
     
     private func navigateToMainList() {
-        if user.userType == UserType.Guardian.rawValue {
-            let familyMemberListNavVC = storyboard?.instantiateViewController(withIdentifier: Constants.Storyboard.familyMemberListNavVC) as? UINavigationController
-            let familyMemberListVC = familyMemberListNavVC?.topViewController as! FamilyMemberListController
-            familyMemberListVC.user = user
-            view.window?.rootViewController = familyMemberListNavVC
-            view.window?.makeKeyAndVisible()
-        } else {
-            
-        }
+//        if user.userType == UserType.Guardian.rawValue {
+//            let familyMemberListNavVC = storyboard?.instantiateViewController(withIdentifier: Constants.Storyboard.familyMemberListNavVC) as? UINavigationController
+//            let familyMemberListVC = familyMemberListNavVC?.topViewController as! FamilyMemberListController
+//            familyMemberListVC.user = user
+//            view.window?.rootViewController = familyMemberListNavVC
+//            view.window?.makeKeyAndVisible()
+//        } else {
+//
+//        }
+        let pageContainer = storyboard?.instantiateViewController(withIdentifier: "PageContainer") as! PageContainerViewController
+        pageContainer.user = self.user
+        view.window?.rootViewController = pageContainer
+        view.window?.makeKeyAndVisible()
     }
     
     @IBAction func switchAddAction(_ sender: UIBarButtonItem) {
