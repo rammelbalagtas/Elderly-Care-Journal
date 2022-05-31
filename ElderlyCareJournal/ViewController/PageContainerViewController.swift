@@ -24,7 +24,8 @@ class PageContainerViewController: UIViewController {
     
     //Dependency injection
     var user: User?
-    var member: FamilyMember?
+    var familyMember: FamilyMember?
+    var defaultPageId: PageId!
     
     var gestureEnabled: Bool = true
 
@@ -74,7 +75,19 @@ class PageContainerViewController: UIViewController {
 //        view.addGestureRecognizer(panGestureRecognizer)
 
         // Show default view
-        showFamilyMemberList()
+        switch self.defaultPageId {
+        case .FamilyMemberList:
+            showFamilyMemberList()
+        case .FamilyMemberDetail:
+            showFamilyMemberDetail()
+        case .MyAccount:
+            return
+        case .Login:
+            showInitialScreen()
+        case .none:
+            return
+        }
+        
     }
 
     // Keep the state of the side menu (expanded or collapse) in rotation
@@ -155,6 +168,8 @@ extension PageContainerViewController: SideNavigationMenuDelegate {
         switch pageId {
         case .FamilyMemberList:
             self.showFamilyMemberList()
+        case .FamilyMemberDetail:
+            self.showFamilyMemberDetail()
         case .MyAccount:
             return
         case .Login:
@@ -162,7 +177,6 @@ extension PageContainerViewController: SideNavigationMenuDelegate {
             view.window?.rootViewController = initialScreen
             view.window?.makeKeyAndVisible()
         }
-        
 //        case 0:
 //            // Home
 //
@@ -248,6 +262,58 @@ extension PageContainerViewController: SideNavigationMenuDelegate {
             }
         }
         navVC.didMove(toParent: self)
+    }
+    
+    func showFamilyMemberDetail() -> () {
+        // Remove the previous View
+        for subview in view.subviews {
+            if subview.tag == 99 {
+                subview.removeFromSuperview()
+            }
+        }
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let familyMemberTabBarController = storyboard.instantiateViewController(withIdentifier: "FamilyMemberGuardian") as! UITabBarController
+        
+        let navControllers = familyMemberTabBarController.viewControllers
+        let memberDetailNavVC = navControllers?[0] as! UINavigationController
+        let memberDetailVC = memberDetailNavVC.topViewController as! FamilyMemberDetailController
+        memberDetailVC.user = self.user
+        memberDetailVC.familyMember = self.familyMember
+        if user!.userType != UserType.Guardian.rawValue {
+            memberDetailVC.isEditable = false
+        }
+        
+        let shiftListNavVC = navControllers?[1] as! UINavigationController
+        let shiftListVC = shiftListNavVC.topViewController as! ShiftListViewController
+        shiftListVC.user = user
+        shiftListVC.familyMember = familyMember
+        
+        familyMemberTabBarController.view.tag = 99
+        view.insertSubview(familyMemberTabBarController.view, at: self.revealSideMenuOnTop ? 0 : 1)
+        addChild(familyMemberTabBarController)
+        familyMemberTabBarController.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            familyMemberTabBarController.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            familyMemberTabBarController.view.topAnchor.constraint(equalTo: self.view.topAnchor),
+            familyMemberTabBarController.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            familyMemberTabBarController.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+        ])
+        if !self.revealSideMenuOnTop {
+            if isExpanded {
+                familyMemberTabBarController.view.frame.origin.x = self.sideMenuRevealWidth
+            }
+            if self.sideMenuShadowView != nil {
+                familyMemberTabBarController.view.addSubview(self.sideMenuShadowView)
+            }
+        }
+        familyMemberTabBarController.didMove(toParent: self)
+    }
+    
+    func showInitialScreen() {
+        let initialScreen = storyboard?.instantiateViewController(withIdentifier: "InitialScreen") as! UINavigationController
+        view.window?.rootViewController = initialScreen
+        view.window?.makeKeyAndVisible()
     }
 }
 

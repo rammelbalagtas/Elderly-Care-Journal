@@ -32,7 +32,7 @@ class FamilyMemberDetailController: UITableViewController {
     @IBOutlet weak var countryText: UITextField!
     @IBOutlet weak var emergencyContactNameText: UITextField!
     @IBOutlet weak var emergencyContactNumber: UITextField!
-    @IBOutlet weak var switchAddButton: UIBarButtonItem!
+    @IBOutlet weak var sideMenuBtn: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,10 +53,13 @@ class FamilyMemberDetailController: UITableViewController {
         memberImage.maskCircle()
         
         if let _ = familyMember {
-            self.navigationItem.leftBarButtonItem = switchAddButton
+            self.navigationItem.leftBarButtonItem = sideMenuBtn
+            sideMenuBtn.target = revealViewController()
+            sideMenuBtn.action = #selector(revealViewController()?.revealSideMenu)
         } else {
             self.navigationItem.leftBarButtonItem = nil
         }
+
     }
     
     //load data from dependency
@@ -108,6 +111,7 @@ class FamilyMemberDetailController: UITableViewController {
 //        }
         let pageContainer = storyboard?.instantiateViewController(withIdentifier: "PageContainer") as! PageContainerViewController
         pageContainer.user = self.user
+        pageContainer.defaultPageId = .FamilyMemberList
         view.window?.rootViewController = pageContainer
         view.window?.makeKeyAndVisible()
     }

@@ -9,6 +9,7 @@ import Foundation
 
 enum PageId {
     case FamilyMemberList
+    case FamilyMemberDetail
     case MyAccount
     case Login
 }

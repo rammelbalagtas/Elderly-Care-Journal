@@ -82,6 +82,7 @@ class LoginViewController: UIViewController {
 //        }
         let pageContainer = storyboard?.instantiateViewController(withIdentifier: "PageContainer") as! PageContainerViewController
         pageContainer.user = user
+        pageContainer.defaultPageId = .FamilyMemberList
         view.window?.rootViewController = pageContainer
         view.window?.makeKeyAndVisible()
     }

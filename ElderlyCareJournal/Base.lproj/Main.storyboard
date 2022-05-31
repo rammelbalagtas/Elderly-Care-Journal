@@ -828,7 +828,7 @@
             </objects>
             <point key="canvasLocation" x="4264" y="958"/>
         </scene>
-        <!--Family Member Detail Controller-->
+        <!--Member Detail-->
         <scene sceneID="JPY-es-sb0">
             <objects>
                 <tableViewController storyboardIdentifier="FamilyMemberDetailController" id="fLU-dM-ylK" customClass="FamilyMemberDetailController" customModule="ElderlyCareJournal" customModuleProvider="target" sceneMemberID="viewController">
@@ -1285,12 +1285,8 @@
                             <outlet property="delegate" destination="fLU-dM-ylK" id="ux2-2U-9Br"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="9Te-le-r4t">
-                        <barButtonItem key="leftBarButtonItem" title="Switch/Add Member" style="plain" id="raf-pU-AbD">
-                            <connections>
-                                <action selector="switchAddAction:" destination="fLU-dM-ylK" id="Gdr-Mg-Jti"/>
-                            </connections>
-                        </barButtonItem>
+                    <navigationItem key="navigationItem" title="Member Detail" id="9Te-le-r4t">
+                        <barButtonItem key="leftBarButtonItem" image="list.bullet" catalog="system" style="plain" id="raf-pU-AbD"/>
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="tXH-do-Zc2">
                             <connections>
                                 <action selector="saveAction:" destination="fLU-dM-ylK" id="2Tk-co-Wnu"/>
@@ -1308,8 +1304,8 @@
                         <outlet property="memberImage" destination="fwX-k5-WWu" id="aby-Z2-YgG"/>
                         <outlet property="postalCodeText" destination="8Rb-nr-iut" id="mwh-3N-QaC"/>
                         <outlet property="provinceText" destination="bv0-W2-I1z" id="3wT-rB-354"/>
+                        <outlet property="sideMenuBtn" destination="raf-pU-AbD" id="6oo-vo-kTI"/>
                         <outlet property="streetText" destination="7zY-3j-5Oz" id="XMt-hW-Cog"/>
-                        <outlet property="switchAddButton" destination="raf-pU-AbD" id="6oo-vo-kTI"/>
                         <segue destination="fwv-e3-Ku6" kind="unwind" identifier="unwindToFamilyMemberList" unwindAction="unwindToFamilyMemberList:" id="8VV-pC-ei8"/>
                     </connections>
                 </tableViewController>
