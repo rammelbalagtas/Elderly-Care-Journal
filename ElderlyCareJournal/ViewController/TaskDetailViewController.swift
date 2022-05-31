@@ -31,6 +31,12 @@ class TaskDetailViewController: UIViewController {
         if let task = task {
             taskDescriptionText.text = task.description
         }
+        
+        //add border to textview
+        let borderColor : UIColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0)
+        taskDescriptionText.layer.borderWidth = 0.5
+        taskDescriptionText.layer.borderColor = borderColor.cgColor
+        taskDescriptionText.layer.cornerRadius = 5.0
     }
     
     // MARK: - Navigation
