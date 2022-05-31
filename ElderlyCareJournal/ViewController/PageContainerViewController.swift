@@ -171,33 +171,18 @@ extension PageContainerViewController: SideNavigationMenuDelegate {
         case .FamilyMemberDetail:
             self.showFamilyMemberDetail()
         case .MyAccount:
-            return
+            // Profile
+            let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+            let userProfileNav = storyboard.instantiateViewController(withIdentifier: "UserProfileNavId") as! UINavigationController
+            let userProfileVC = userProfileNav.topViewController as! UserProfileDetailController
+            userProfileVC.user = self.user
+            userProfileVC.delegate = self
+            self.present(userProfileNav, animated: true, completion: nil)
         case .Login:
             let initialScreen = storyboard?.instantiateViewController(withIdentifier: "InitialScreen") as! UINavigationController
             view.window?.rootViewController = initialScreen
             view.window?.makeKeyAndVisible()
         }
-//        case 0:
-//            // Home
-//
-//        case 1:
-//            return
-//        case 2:
-//
-//        case 3:
-//            // Books
-////            self.showViewController(viewController: BooksViewController.self, storyboardId: "BooksVCID")
-//            return
-//        case 4:
-//            // Profile
-////            let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-////            let profileModalVC = storyboard.instantiateViewController(withIdentifier: "ProfileModalID") as? ProfileViewController
-////            present(profileModalVC!, animated: true, completion: nil)
-//            return
-//        default:
-//            break
-//        }
-
         // Collapse side menu with animation
         DispatchQueue.main.async { self.sideMenuState(expanded: false) }
     }
@@ -425,6 +410,12 @@ extension PageContainerViewController: UIGestureRecognizerDelegate {
         default:
             break
         }
+    }
+}
+
+extension PageContainerViewController: UserProfileDelegate {
+    func updateUser(user: User) {
+        self.user = user
     }
 }
 

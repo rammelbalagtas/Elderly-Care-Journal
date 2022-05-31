@@ -280,6 +280,7 @@ class FamilyMemberDetailController: UITableViewController {
         if let destination = segue.destination as? GenderTableViewController {
             destination.isEditable = self.isEditable
             destination.gender = genderText.text
+            destination.unwindSegue = "unwindFromGenderTableToFamilyMemberDetail"
         }
     }
     

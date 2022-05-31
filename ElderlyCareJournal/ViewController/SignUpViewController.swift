@@ -63,26 +63,21 @@ class SignUpViewController: UIViewController {
                     }
                     
                     //create document and add to database
-                    let db = Firestore.firestore()
                     let uid = result.user.uid as String
                     let user = User(uid: uid,
                                     emailAddress: emailAddress,
                                     userType: userType.rawValue,
                                     firstName: firstName,
                                     lastName: lastName)
-                    
-                    do {
-                        let encoder = Firestore.Encoder()
-                        try db.collection(Constants.Database.users).document(uid).setData(from: user, encoder: encoder, completion:
-                        { (error) in
-                            if let _ = error {
-                                self.showError("User data couldn't be created")
-                                return
-                            }
+                    UserDbService.create(user: user)
+                    { result in
+                        switch result {
+                        case .success(_):
                             self.transitionToHome(user: user)
-                        })
-                    } catch let error {
-                        print("Error writing city to database: \(error)")
+                        case .failure(let error):
+                            self.showError(error.localizedDescription)
+                            return
+                        }
                     }
                 }
             }

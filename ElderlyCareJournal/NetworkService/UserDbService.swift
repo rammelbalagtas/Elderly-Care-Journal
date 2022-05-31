@@ -53,7 +53,7 @@ struct UserDbService {
         return nil
     }
     
-    public static func updateShift(user: User, callback: @escaping (Result<User, Error>) -> Void) {
+    public static func update(user: User, callback: @escaping (Result<User, Error>) -> Void) {
         do {
             let encoder = Firestore.Encoder()
             try db.collection(Constants.Database.users).document(user.uid).setData(from: user, encoder: encoder, completion:

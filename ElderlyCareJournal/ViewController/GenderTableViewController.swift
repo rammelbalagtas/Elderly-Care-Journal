@@ -11,6 +11,7 @@ class GenderTableViewController: UITableViewController {
     
     var isEditable: Bool = true
     var gender: String!
+    var unwindSegue: String!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,8 +64,10 @@ class GenderTableViewController: UITableViewController {
         } else {
             self.gender = Gender.Female.rawValue
         }
+        
+        
         //navigate up to previous screen
-        self.performSegue(withIdentifier: "unwindFromGenderTableToFamilyMemberDetail", sender: self)
+        self.performSegue(withIdentifier: unwindSegue, sender: self)
     }
 
     
@@ -76,6 +79,9 @@ class GenderTableViewController: UITableViewController {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
         if let destination = segue.destination as? FamilyMemberDetailController {
+            destination.genderText.text = self.gender
+        }
+        if let destination = segue.destination as? UserProfileDetailController {
             destination.genderText.text = self.gender
         }
     }

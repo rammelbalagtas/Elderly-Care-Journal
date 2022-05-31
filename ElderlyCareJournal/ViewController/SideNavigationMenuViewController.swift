@@ -80,10 +80,9 @@ extension SideNavigationMenuViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.delegate?.selectedCell(menu[indexPath.row].pageId)
-//        // Remove highlighted color when you press the 'Profile' and 'Like us on facebook' cell
-//        if indexPath.row == 4 || indexPath.row == 6 {
-//            tableView.deselectRow(at: indexPath, animated: true)
-//        }
+        if menu[indexPath.row].pageId == .MyAccount {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
     }
 }
 
