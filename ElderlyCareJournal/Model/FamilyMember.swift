@@ -22,21 +22,6 @@ struct FamilyMember: Codable {
     var emergencyContactName: String
     var emergencyContactNumber: String
     var photo: String?
-    
-    enum CodingKeys: String, CodingKey {
-        case memberId
-        case uid
-        case firstName
-        case lastName
-        case age
-        case gender
-        case street
-        case provinceCity
-        case postalCode
-        case country
-        case emergencyContactName
-        case emergencyContactNumber
-        case photo
-    }
+    var documents: [Document]
     
 }

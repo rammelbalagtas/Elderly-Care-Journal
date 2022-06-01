@@ -130,18 +130,21 @@ class FamilyMemberDetailController: UITableViewController {
     
     @IBAction func saveAction(_ sender: UIBarButtonItem) {
         
-        let firstName = firstNameText.text ?? ""
-        let lastName = lastNameText.text ?? ""
-        let age = Int(ageText.text!) ?? 0
-        let gender = genderText.text ?? ""
-        let street = streetText.text ?? ""
-        let province = provinceText.text ?? ""
-        let postalCode = postalCodeText.text ?? ""
-        let country = countryText.text ?? ""
-        let emergencyContactName = emergencyContactNameText.text ?? ""
-        let emergencyContactNumber = emergencyContactNumber.text ?? ""
-
-        //add data validation
+        guard
+            let firstName = firstNameText.text,
+            let lastName = lastNameText.text,
+            let age = Int(ageText.text!),
+            let gender = genderText.text,
+            let street = streetText.text,
+            let province = provinceText.text,
+            let postalCode = postalCodeText.text,
+            let country = countryText.text,
+            let emergencyContactName = emergencyContactNameText.text,
+            let emergencyContactNumber = emergencyContactNumber.text
+        else {
+            self.promptMessage(message: "Fill up all required fields", handler: nil)
+            return
+        }
         
         //update firestore with new information
         var memberId = ""
@@ -186,57 +189,66 @@ class FamilyMemberDetailController: UITableViewController {
                                              country: country,
                                              emergencyContactName: emergencyContactName,
                                              emergencyContactNumber: emergencyContactNumber,
-                                             photo: path)
+                                             photo: path,
+                                             documents: [])
         }
         
-        //create document and add to database
-        let db = Firestore.firestore()
-        
-        do {
-            let encoder = Firestore.Encoder()
-            try db.collection(Constants.Database.familyMembers).document(memberId).setData(from: familyMember, encoder: encoder, completion:
-            { (error) in
-                if let error = error {
+        if isExisting {
+            FamilyMemberDbService.update(familyMember: self.familyMember!)
+            { result in
+                switch result {
+                case .success(_):
+                    //store image
+                    if let image = self.memberImage.image, let path = path {
+                        ImageStorageService.uploadImage(path: path, image: image, storage: self.storage)
+                        { result in
+                            switch result {
+                            case .success(_):
+                                self.promptMessage(message: "Family Member record is updated", handler: nil)
+                            case .failure(let error):
+                                self.promptMessage(message: error.localizedDescription, handler: nil)
+                            }
+                        }
+                    } else {
+                        self.promptMessage(message: "Family Member record is updated", handler: nil)
+                    }
+                case .failure(let error):
                     self.promptMessage(message: error.localizedDescription, handler: nil)
                     return
                 }
-                
-                //store image
-                if let image = self.memberImage.image, let path = path {
-                    ImageStorageService.uploadImage(path: path, image: image, storage: self.storage)
-                    { result in
-                        switch result {
-                        case .success(_):
-                            if isExisting {
-                                self.promptMessage(message: "Family Member record is updated", handler: nil)
-                            } else {
+            }
+        } else {
+            FamilyMemberDbService.create(familyMember: self.familyMember!)
+            { result in
+                switch result {
+                case .success(_):
+                    //store image
+                    if let image = self.memberImage.image, let path = path {
+                        ImageStorageService.uploadImage(path: path, image: image, storage: self.storage)
+                        { result in
+                            switch result {
+                            case .success(_):
                                 //navigate up to previous screen after prompting message
                                 self.promptMessage(message: "Family Member record is created") { _ in
                                     self.performSegue(withIdentifier: "unwindToFamilyMemberList", sender: self)
                                 }
+                            case .failure(let error):
+                                self.promptMessage(message: error.localizedDescription, handler: nil)
                             }
-                        case .failure(let error):
-                            //show error message
-                            print(error.localizedDescription)
-                            self.promptMessage(message: error.localizedDescription, handler: nil)
                         }
-                    }
-                } else {
-                    if isExisting {
-                        self.promptMessage(message: "Family Member record is updated", handler: nil)
                     } else {
                         //navigate up to previous screen after prompting message
                         self.promptMessage(message: "Family Member record is created") { _ in
                             self.performSegue(withIdentifier: "unwindToFamilyMemberList", sender: self)
                         }
                     }
+                case .failure(let error):
+                    self.promptMessage(message: error.localizedDescription, handler: nil)
+                    return
                 }
-            })
-        } catch let error {
-            //show error message
-            print("Error saving family member information: \(error.localizedDescription)")
-            self.promptMessage(message: error.localizedDescription, handler: nil)
+            }
         }
+        
     }
     
     @IBAction func deleteAction(_ sender: UIButton) {

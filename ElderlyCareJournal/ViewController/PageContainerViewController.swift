@@ -274,6 +274,10 @@ extension PageContainerViewController: SideNavigationMenuDelegate {
         shiftListVC.user = user
         shiftListVC.familyMember = familyMember
         
+        let documentListNavVC = navControllers?[2] as! UINavigationController
+        let documentlistVC = documentListNavVC.topViewController as! DocumentListViewController
+        documentlistVC.familyMember = familyMember
+        
         familyMemberTabBarController.view.tag = 99
         view.insertSubview(familyMemberTabBarController.view, at: self.revealSideMenuOnTop ? 0 : 1)
         addChild(familyMemberTabBarController)
