@@ -40,6 +40,7 @@ class TaskListViewController: UIViewController, UITableViewDelegate {
             destination.delegate = self
             if let indexPaths = tableView.indexPathsForSelectedRows {
                 destination.task = tasks[indexPaths[0].row]
+                destination.selectedIndex = indexPaths[0].row
             }
         }
     }
@@ -61,11 +62,25 @@ extension TaskListViewController: UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            self.tasks.remove(at: indexPath.row)
+            self.delegate?.updateTaskList(tasks: tasks)
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+    
 }
 
 extension TaskListViewController: TaskDetailDelegate {
     func addTask(description: String) {
         self.tasks.append(Task(description: description, status: "New"))
+        self.delegate?.updateTaskList(tasks: tasks)
+        self.tableView.reloadData()
+    }
+    
+    func updateTask(at index: Int, with description: String) {
+        self.tasks[index].description = description
         self.delegate?.updateTaskList(tasks: tasks)
         self.tableView.reloadData()
     }

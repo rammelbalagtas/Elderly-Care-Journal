@@ -9,20 +9,27 @@ import UIKit
 
 protocol TaskDetailDelegate: AnyObject {
     func addTask(description: String)
+    func updateTask(at index: Int, with description: String)
 }
 
 class TaskDetailViewController: UIViewController {
     
     var task: Task?
+    var selectedIndex: Int?
     weak var delegate: TaskDetailDelegate?
     
     @IBOutlet weak var taskDescriptionText: UITextView!
     
     @IBAction func saveAction(_ sender: UIBarButtonItem) {
-        guard let taskDescription = taskDescriptionText.text, taskDescriptionText.hasText else {
-            return
+        guard
+            let taskDescription = taskDescriptionText.text, taskDescriptionText.hasText
+        else {return}
+        
+        if let _ = task, let index = selectedIndex {
+            delegate?.updateTask(at: index, with: taskDescription)
+        } else {
+            delegate?.addTask(description: taskDescription)
         }
-        delegate?.addTask(description: taskDescription)
         self.performSegue(withIdentifier: "unwindToTaskList", sender: self)
     }
     
@@ -49,3 +56,6 @@ class TaskDetailViewController: UIViewController {
     }
 
 }
+
+
+
