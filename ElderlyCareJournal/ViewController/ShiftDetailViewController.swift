@@ -52,9 +52,14 @@ class ShiftDetailViewController: UITableViewController {
         { result in
             switch result {
             case .success(_):
-                self.promptMessage(message: "Shift record is created") { _ in
-                    self.performSegue(withIdentifier: "unwindToShiftList", sender: self)
+                var message = ""
+                if self.isExisting! {
+                    message = "Shift record is updated"
+                } else {
+                    message = "Shift record is created"
                 }
+                self.promptMessage(message: message)
+                {_ in self.performSegue(withIdentifier: "unwindToShiftList", sender: self)}
             case .failure(let error):
                 print(error.localizedDescription)
                 self.promptMessage(message: error.localizedDescription, handler: nil)
