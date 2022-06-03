@@ -11,6 +11,7 @@ import FirebaseStorage
 
 protocol DocumentListDelegate: AnyObject {
     func addDocument(document: Document)
+    func removeDocument(at index: Int)
 }
 
 class DocumentListViewController: UIViewController {
@@ -56,7 +57,6 @@ class DocumentListViewController: UIViewController {
         }
     }
     
-
 }
 
 extension DocumentListViewController: UITableViewDelegate {
@@ -67,6 +67,35 @@ extension DocumentListViewController: UITableViewDelegate {
         self.performSegue(withIdentifier: "OpenDocument", sender: self)
     }
     
+    // Override to support editing the table view.
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            
+            let document = familyMember.documents[indexPath.row]
+            DocumentStorageService.delete(path: document.path, storage: storage)
+            { result in
+                switch result {
+                case .success(_):
+                    DispatchQueue.main.async {
+                        self.delegate?.removeDocument(at: indexPath.row)
+                        self.familyMember.documents.remove(at: indexPath.row)
+                        self.tableView.deleteRows(at: [indexPath], with: .fade)
+                        FamilyMemberDbService.update(familyMember: self.familyMember)
+                        { result in
+                            switch result {
+                            case .success(_):
+                                return
+                            case .failure(let error):
+                                print(error.localizedDescription)
+                            }
+                        }
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
 }
 
 extension DocumentListViewController: UITableViewDataSource {
@@ -93,7 +122,8 @@ extension DocumentListViewController: UIDocumentPickerDelegate, UINavigationCont
             return
         }
         
-        DocumentStorageService.upload(path: "/documents/\(familyMember.memberId)/\(url.lastPathComponent)", localFile: url, storage: storage)
+        let documentId = UUID().uuidString
+        DocumentStorageService.upload(path: "/documents/\(familyMember.memberId)/\(documentId)/\(url.lastPathComponent)", localFile: url, storage: storage)
         { result in
             switch result {
             case .success(let metadata):
@@ -104,7 +134,7 @@ extension DocumentListViewController: UIDocumentPickerDelegate, UINavigationCont
                     let timeCreated = metadata.timeCreated
                 else { return }
                 
-                let document = Document(name: name, path: path, contentType: contentType, size: metadata.size, createdOn: timeCreated)
+                let document = Document(id: documentId, name: name, path: path, contentType: contentType, size: metadata.size, createdOn: timeCreated)
                 
                 self.familyMember.documents.append(document)
                 FamilyMemberDbService.update(familyMember: self.familyMember)

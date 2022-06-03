@@ -21,32 +21,17 @@ class FileWebDocumentViewController: UIViewController, WKUIDelegate {
         
         webView.uiDelegate = self
         
-        // Create a reference to the file you want to download
-        let reference = storage.child(path)
-        
-        // Fetch the download URL
-        reference.downloadURL
-        { url, error in
-          if let error = error {
-              print(error.localizedDescription)
-          } else {
-              if let url = url {
-                  let request = URLRequest(url: url)
-                  self.webView.load(request)
-              }
-          }
+        DocumentStorageService.getDownloadURL(path: path, storage: storage)
+        { result in
+            switch result {
+            case .success(let url):
+                let request = URLRequest(url: url)
+                self.webView.load(request)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
         }
         
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

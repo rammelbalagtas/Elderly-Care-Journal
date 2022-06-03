@@ -8,6 +8,7 @@
 import Foundation
 
 struct Document: Codable {
+    var id: String
     var name: String
     var path: String
     var contentType: String

@@ -425,6 +425,10 @@ extension PageContainerViewController: UserProfileDelegate {
 }
 
 extension PageContainerViewController: DocumentListDelegate {
+    func removeDocument(at index: Int) {
+        familyMember?.documents.remove(at: index)
+    }
+    
     func addDocument(document: Document) {
         familyMember?.documents.append(document)
     }
