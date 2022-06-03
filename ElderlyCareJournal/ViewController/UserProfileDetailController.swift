@@ -156,7 +156,6 @@ class UserProfileDetailController: UITableViewController {
                         }
                     }
                 }
-                self.promptMessage(message: "User Profile record is updated", handler: nil)
             case .failure(let error):
                 self.promptMessage(message: error.localizedDescription, handler: nil)
             }
