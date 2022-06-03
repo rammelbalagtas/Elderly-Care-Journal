@@ -277,6 +277,7 @@ extension PageContainerViewController: SideNavigationMenuDelegate {
         let documentListNavVC = navControllers?[2] as! UINavigationController
         let documentlistVC = documentListNavVC.topViewController as! DocumentListViewController
         documentlistVC.familyMember = familyMember
+        documentlistVC.delegate = self
         
         familyMemberTabBarController.view.tag = 99
         view.insertSubview(familyMemberTabBarController.view, at: self.revealSideMenuOnTop ? 0 : 1)
@@ -420,6 +421,12 @@ extension PageContainerViewController: UIGestureRecognizerDelegate {
 extension PageContainerViewController: UserProfileDelegate {
     func updateUser(user: User) {
         self.user = user
+    }
+}
+
+extension PageContainerViewController: DocumentListDelegate {
+    func addDocument(document: Document) {
+        familyMember?.documents.append(document)
     }
 }
 
