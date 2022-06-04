@@ -36,19 +36,15 @@ class FamilyMemberDetailController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        streetText.delegate = self
         loadData()
         setupView()
     }
     
     private func setupView() {
         
-        //assign placeholders for text views (not supported by storyboard)
-        if !streetText.text.isEmpty {
-            streetText.placeholder = "Street"
-        }
-        if !provinceText.text.isEmpty {
-            provinceText.placeholder = "City/Province"
-        }
+        streetText.delegate = self
+        provinceText.delegate = self
         
         memberImage.maskCircle()
         
@@ -59,6 +55,9 @@ class FamilyMemberDetailController: UITableViewController {
         } else {
             self.navigationItem.leftBarButtonItem = nil
         }
+        
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 100
 
     }
     
@@ -100,15 +99,7 @@ class FamilyMemberDetailController: UITableViewController {
     }
     
     private func navigateToMainList() {
-//        if user.userType == UserType.Guardian.rawValue {
-//            let familyMemberListNavVC = storyboard?.instantiateViewController(withIdentifier: Constants.Storyboard.familyMemberListNavVC) as? UINavigationController
-//            let familyMemberListVC = familyMemberListNavVC?.topViewController as! FamilyMemberListController
-//            familyMemberListVC.user = user
-//            view.window?.rootViewController = familyMemberListNavVC
-//            view.window?.makeKeyAndVisible()
-//        } else {
-//
-//        }
+
         let pageContainer = storyboard?.instantiateViewController(withIdentifier: "PageContainer") as! PageContainerViewController
         pageContainer.user = self.user
         pageContainer.defaultPageId = .FamilyMemberList
@@ -296,6 +287,31 @@ class FamilyMemberDetailController: UITableViewController {
         }
     }
     
+}
+
+extension FamilyMemberDetailController: UITextViewDelegate {
+    // Resize textview depending on it's content
+    func textViewDidChange(_ textView: UITextView) {
+        var cell = UITableViewCell()
+        if textView == streetText {
+            cell = tableView.cellForRow(at: IndexPath(row: 1, section: 2))!
+        } else if textView == provinceText {
+            cell = tableView.cellForRow(at: IndexPath(row: 2, section: 2))!
+        }
+        let newHeight = cell.frame.size.height + textView.contentSize.height
+        cell.frame.size.height = newHeight
+        updateTableViewContentOffsetForTextView()
+    }
+        
+    // Animate cell, the cell frame will follow textView content
+    func updateTableViewContentOffsetForTextView() {
+        let currentOffset = tableView.contentOffset
+        UIView.setAnimationsEnabled(false)
+        tableView.beginUpdates()
+        tableView.endUpdates()
+        UIView.setAnimationsEnabled(true)
+        tableView.setContentOffset(currentOffset, animated: false)
+    }
 }
 
 extension FamilyMemberDetailController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {

@@ -48,15 +48,13 @@ class UserProfileDetailController: UITableViewController {
         // email address cannot be changed
         emailAddressText.isEnabled = false
         
-        //assign placeholders for text views (not supported by storyboard)
-        if !streetText.text.isEmpty {
-            streetText.placeholder = "Street"
-        }
-        if !cityProvinceText.text.isEmpty {
-            cityProvinceText.placeholder = "City/Province"
-        }
-        
         userImageView.maskCircle()
+        
+        streetText.delegate = self
+        cityProvinceText.delegate = self
+        
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 100
 
     }
     
@@ -198,5 +196,30 @@ extension UserProfileDetailController: UINavigationControllerDelegate, UIImagePi
         picker.dismiss(animated: true)
     }
     
+}
+
+extension UserProfileDetailController: UITextViewDelegate {
+    // Resize textview depending on it's content
+    func textViewDidChange(_ textView: UITextView) {
+        var cell = UITableViewCell()
+        if textView == streetText {
+            cell = tableView.cellForRow(at: IndexPath(row: 1, section: 3))!
+        } else if textView == cityProvinceText {
+            cell = tableView.cellForRow(at: IndexPath(row: 2, section: 3))!
+        }
+        let newHeight = cell.frame.size.height + textView.contentSize.height
+        cell.frame.size.height = newHeight
+        updateTableViewContentOffsetForTextView()
+    }
+        
+    // Animate cell, the cell frame will follow textView content
+    func updateTableViewContentOffsetForTextView() {
+        let currentOffset = tableView.contentOffset
+        UIView.setAnimationsEnabled(false)
+        tableView.beginUpdates()
+        tableView.endUpdates()
+        UIView.setAnimationsEnabled(true)
+        tableView.setContentOffset(currentOffset, animated: false)
+    }
 }
 
