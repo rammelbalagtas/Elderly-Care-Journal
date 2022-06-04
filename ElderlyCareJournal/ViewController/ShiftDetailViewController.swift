@@ -93,6 +93,10 @@ class ShiftDetailViewController: UITableViewController {
             isExisting = false
         }
         
+        shiftDescriptionText.delegate = self
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 100
+        
         self.clearsSelectionOnViewWillAppear = true
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
@@ -191,5 +195,27 @@ extension ShiftDetailViewController: CareProviderListDelegate {
     func assignCareProvider(careProvider: User) {
         careProviderId = careProvider.uid
         careProviderName = "\(careProvider.firstName) \(careProvider.lastName)"
+    }
+}
+
+extension ShiftDetailViewController: UITextViewDelegate {
+    // Resize textview depending on it's content
+    func textViewDidChange(_ textView: UITextView) {
+        if textView == shiftDescriptionText {
+            let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0))!
+            let newHeight = cell.frame.size.height + textView.contentSize.height
+            cell.frame.size.height = newHeight
+            updateTableViewContentOffsetForTextView()
+        }
+    }
+        
+    // Animate cell, the cell frame will follow textView content
+    func updateTableViewContentOffsetForTextView() {
+        let currentOffset = tableView.contentOffset
+        UIView.setAnimationsEnabled(false)
+        tableView.beginUpdates()
+        tableView.endUpdates()
+        UIView.setAnimationsEnabled(true)
+        tableView.setContentOffset(currentOffset, animated: false)
     }
 }

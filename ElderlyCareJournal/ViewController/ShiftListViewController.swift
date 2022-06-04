@@ -36,6 +36,7 @@ class ShiftListViewController: UIViewController, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "ViewShift", sender: self)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     // MARK: - Navigation
