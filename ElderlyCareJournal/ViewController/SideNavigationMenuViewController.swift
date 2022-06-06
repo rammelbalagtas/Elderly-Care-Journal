@@ -70,11 +70,6 @@ extension SideNavigationMenuViewController: UITableViewDataSource {
 
         cell.iconImage.image = self.menu[indexPath.row].icon
         cell.menuLabel.text = self.menu[indexPath.row].title
-        
-//        // Highlighted color
-//        let myCustomSelectionColorView = UIView()
-//        myCustomSelectionColorView.backgroundColor = UIColor.systemGray5
-//        cell.selectedBackgroundView = myCustomSelectionColorView
         return cell
     }
     

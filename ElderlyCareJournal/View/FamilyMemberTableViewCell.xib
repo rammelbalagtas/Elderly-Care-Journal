@@ -16,37 +16,27 @@
                 <rect key="frame" x="0.0" y="0.0" width="434.5" height="122"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="qdx-47-E6G">
-                        <rect key="frame" x="0.0" y="10" width="434.5" height="70"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="MCK-hn-ZlL">
-                                <rect key="frame" x="0.0" y="0.0" width="434.5" height="70"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hKH-Rw-1Wg">
-                                        <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="70" id="xVh-aO-4qy"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Family Member Name" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KQd-LD-4YG">
-                                        <rect key="frame" x="90" y="0.0" width="344.5" height="70"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
-                        </subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hKH-Rw-1Wg">
+                        <rect key="frame" x="20" y="20" width="70" height="70"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="70" id="Wio-Cy-ede"/>
+                            <constraint firstAttribute="width" constant="70" id="hmT-xr-b4m"/>
+                            <constraint firstAttribute="height" constant="70" id="odW-fp-Z52"/>
                         </constraints>
-                    </stackView>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Family Member" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KQd-LD-4YG">
+                        <rect key="frame" x="98" y="45" width="316.5" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="qdx-47-E6G" secondAttribute="trailing" id="rs9-It-F5B"/>
-                    <constraint firstItem="qdx-47-E6G" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="ssG-9y-qyr"/>
-                    <constraint firstAttribute="bottom" secondItem="qdx-47-E6G" secondAttribute="bottom" constant="10" id="yEe-VV-Bke"/>
-                    <constraint firstItem="qdx-47-E6G" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="zfJ-Jy-Jo1"/>
+                    <constraint firstItem="KQd-LD-4YG" firstAttribute="leading" secondItem="hKH-Rw-1Wg" secondAttribute="trailing" constant="8" symbolic="YES" id="ScJ-mk-KOt"/>
+                    <constraint firstItem="hKH-Rw-1Wg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" symbolic="YES" id="hin-bK-lSB"/>
+                    <constraint firstAttribute="trailing" secondItem="KQd-LD-4YG" secondAttribute="trailing" constant="20" symbolic="YES" id="hvq-hh-heN"/>
+                    <constraint firstItem="KQd-LD-4YG" firstAttribute="centerY" secondItem="hKH-Rw-1Wg" secondAttribute="centerY" id="sDH-rI-psh"/>
+                    <constraint firstItem="hKH-Rw-1Wg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="yaZ-t4-8P1"/>
+                    <constraint firstAttribute="bottom" secondItem="hKH-Rw-1Wg" secondAttribute="bottom" constant="20" symbolic="YES" id="yuc-Yk-CyM"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

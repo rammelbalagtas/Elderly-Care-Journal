@@ -144,7 +144,7 @@
             </objects>
             <point key="canvasLocation" x="1800.0000000000002" y="-58.258928571428569"/>
         </scene>
-        <!--Family Member List Controller-->
+        <!--Home-->
         <scene sceneID="azg-hE-eEU">
             <objects>
                 <viewController id="Seb-GA-6vD" customClass="FamilyMemberListController" customModule="ElderlyCareJournal" customModuleProvider="target" sceneMemberID="viewController">
@@ -187,7 +187,7 @@
                             <constraint firstAttribute="trailing" secondItem="zFo-sQ-9V5" secondAttribute="trailing" constant="8" id="fB8-Up-Fm4"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="K1g-L9-Inc">
+                    <navigationItem key="navigationItem" title="Home" id="K1g-L9-Inc">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="list.bullet" catalog="system" style="plain" id="ozS-ec-OEQ"/>
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="Bpt-Vq-Hh8">
                             <connections>
@@ -886,7 +886,7 @@
             </objects>
             <point key="canvasLocation" x="6861" y="1833"/>
         </scene>
-        <!--Client List View Controller-->
+        <!--Home-->
         <scene sceneID="u8X-Qv-4rZ">
             <objects>
                 <viewController id="ocB-y8-x7l" customClass="ClientListViewController" customModule="ElderlyCareJournal" customModuleProvider="target" sceneMemberID="viewController">
@@ -919,7 +919,7 @@
                             <constraint firstItem="t6Y-X8-Gsh" firstAttribute="bottom" secondItem="CZG-np-5Pl" secondAttribute="bottom" id="uAR-aD-9XV"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="PQw-84-fKb">
+                    <navigationItem key="navigationItem" title="Home" id="PQw-84-fKb">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="list.bullet" catalog="system" style="plain" id="Z2s-Yd-R3O"/>
                     </navigationItem>
                     <connections>

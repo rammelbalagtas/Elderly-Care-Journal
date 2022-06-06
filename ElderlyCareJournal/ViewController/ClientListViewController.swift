@@ -37,7 +37,8 @@ class ClientListViewController: UIViewController {
     }
     
     private func registerNib() {
-        
+        // Register TableView Cell
+        self.tableView.register(ClientTableViewCell.nib, forCellReuseIdentifier: ClientTableViewCell.identifier)
     }
     
     private func loadData() {
@@ -46,6 +47,7 @@ class ClientListViewController: UIViewController {
             switch result {
             case .success(let data):
                 self.clients = data
+                self.tableView.reloadData()
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -73,7 +75,31 @@ extension ClientListViewController: UITableViewDataSource {
     }
    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard
+            let cell = tableView.dequeueReusableCell(withIdentifier: ClientTableViewCell.identifier, for: indexPath) as? ClientTableViewCell
+        else{preconditionFailure("unable to dequeue reusable cell")}
+        
+        let client = clients[indexPath.row]
+        cell.configureCell(using: client, storage: storage)
+        return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var client: FamilyMember?
+        if let indexPaths = tableView.indexPathsForSelectedRows {
+            client = clients[indexPaths[0].row]
+        }
+        guard let client = client else {
+            return
+        }
+        let pageContainer = storyboard?.instantiateViewController(withIdentifier: "PageContainer") as! PageContainerViewController
+        pageContainer.user = user
+        pageContainer.familyMember = client
+        pageContainer.defaultPageId = .FamilyMemberDetail
+        view.window?.rootViewController = pageContainer
+        view.window?.makeKeyAndVisible()
+        
+    }
+    
     
 }

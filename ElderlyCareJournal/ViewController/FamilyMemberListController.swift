@@ -33,6 +33,9 @@ class FamilyMemberListController: UIViewController, UITableViewDelegate {
         tableView.delegate = self
         tableView.dataSource = self
         
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 100
+        
         loadData()
         
     }
@@ -128,34 +131,6 @@ extension FamilyMemberListController: UITableViewDataSource {
         view.window?.rootViewController = pageContainer
         view.window?.makeKeyAndVisible()
         
-//        let familyMemberTabBarController = storyboard?.instantiateViewController(withIdentifier: "FamilyMemberGuardian") as? UITabBarController
-//        view.window?.rootViewController = familyMemberTabBarController
-//        view.window?.makeKeyAndVisible()
-//
-//        var familyMember: FamilyMember?
-//
-//        if let indexPaths = tableView.indexPathsForSelectedRows {
-//            familyMember = familyMembers[indexPaths[0].row]
-//        }
-//
-//        guard let familyMember = familyMember else {
-//            return
-//        }
-//
-//        let navControllers = familyMemberTabBarController?.viewControllers
-//        let memberDetailNavVC = navControllers?[0] as? UINavigationController
-//        let memberDetailVC = memberDetailNavVC?.topViewController as! FamilyMemberDetailController
-//        memberDetailVC.user = user
-//        memberDetailVC.familyMember = familyMember
-//        if user.userType != UserType.Guardian.rawValue {
-//            memberDetailVC.isEditable = false
-//        }
-//
-//        let shiftListNavVC = navControllers?[1] as? UINavigationController
-//        let shiftListVC = shiftListNavVC?.topViewController as! ShiftListViewController
-//        shiftListVC.user = user
-//        shiftListVC.familyMember = familyMember
-//
     }
     
 }

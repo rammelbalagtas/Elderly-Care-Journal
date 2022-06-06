@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6ED94887284E45FB007ADA00 /* ClientListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED94886284E45FB007ADA00 /* ClientListViewController.swift */; };
+		6ED9488A284E56D9007ADA00 /* ClientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED94888284E56D9007ADA00 /* ClientTableViewCell.swift */; };
+		6ED9488B284E56D9007ADA00 /* ClientTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ED94889284E56D9007ADA00 /* ClientTableViewCell.xib */; };
 		6EED3E9628328E7F00481EF7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EED3E9528328E7F00481EF7 /* AppDelegate.swift */; };
 		6EED3E9828328E7F00481EF7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EED3E9728328E7F00481EF7 /* SceneDelegate.swift */; };
 		6EED3E9A28328E7F00481EF7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EED3E9928328E7F00481EF7 /* MainViewController.swift */; };
@@ -59,6 +61,8 @@
 
 /* Begin PBXFileReference section */
 		6ED94886284E45FB007ADA00 /* ClientListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientListViewController.swift; sourceTree = "<group>"; };
+		6ED94888284E56D9007ADA00 /* ClientTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientTableViewCell.swift; sourceTree = "<group>"; };
+		6ED94889284E56D9007ADA00 /* ClientTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClientTableViewCell.xib; sourceTree = "<group>"; };
 		6EED3E9228328E7F00481EF7 /* ElderlyCareJournal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ElderlyCareJournal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EED3E9528328E7F00481EF7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6EED3E9728328E7F00481EF7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -228,6 +232,8 @@
 				6EED3EC72835382F00481EF7 /* FamilyMemberTableViewCell.xib */,
 				6EF8AE0928450A4B00EA002E /* SideMenuCell.swift */,
 				6EF8AE0A28450A4B00EA002E /* SideMenuCell.xib */,
+				6ED94888284E56D9007ADA00 /* ClientTableViewCell.swift */,
+				6ED94889284E56D9007ADA00 /* ClientTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -322,6 +328,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6ED9488B284E56D9007ADA00 /* ClientTableViewCell.xib in Resources */,
 				6EED3EA228328E8400481EF7 /* LaunchScreen.storyboard in Resources */,
 				6EED3EB42832AF2E00481EF7 /* GoogleService-Info.plist in Resources */,
 				6EED3E9F28328E8400481EF7 /* Assets.xcassets in Resources */,
@@ -418,6 +425,7 @@
 				6EF8ADED283ACB8700EA002E /* ImageStorageService.swift in Sources */,
 				6EF8AE10284577C400EA002E /* DummyViewController.swift in Sources */,
 				6EF8AE262847BD5900EA002E /* Document.swift in Sources */,
+				6ED9488A284E56D9007ADA00 /* ClientTableViewCell.swift in Sources */,
 				6EF8ADEB2837D04D00EA002E /* UIImageView+Extension.swift in Sources */,
 				6EED3EB72832E44700481EF7 /* Constants.swift in Sources */,
 				6EF8ADF1283EE4FA00EA002E /* ShiftDetailViewController.swift in Sources */,
