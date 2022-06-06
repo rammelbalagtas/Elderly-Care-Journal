@@ -41,11 +41,11 @@ class SideNavigationMenuViewController: UIViewController {
         self.tableView.dataSource = self
         self.tableView.separatorStyle = .none
         
-        // Set Highlighted Cell
-        DispatchQueue.main.async {
-            let defaultRow = IndexPath(row: self.defaultHighlightedCell, section: 0)
-            self.tableView.selectRow(at: defaultRow, animated: false, scrollPosition: .none)
-        }
+//        // Set Highlighted Cell
+//        DispatchQueue.main.async {
+//            let defaultRow = IndexPath(row: self.defaultHighlightedCell, section: 0)
+//            self.tableView.selectRow(at: defaultRow, animated: false, scrollPosition: .none)
+//        }
         
         // Register TableView Cell
         self.tableView.register(SideMenuCell.nib, forCellReuseIdentifier: SideMenuCell.identifier)
