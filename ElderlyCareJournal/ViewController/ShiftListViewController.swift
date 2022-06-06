@@ -11,6 +11,7 @@ class ShiftListViewController: UIViewController, UITableViewDelegate {
     
     @IBOutlet weak var sideMenuBtn: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var addBtn: UIBarButtonItem!
     
     var user: User!
     var familyMember: FamilyMember!
@@ -27,7 +28,8 @@ class ShiftListViewController: UIViewController, UITableViewDelegate {
         sideMenuBtn.action = #selector(revealViewController()?.revealSideMenu)
         
         loadData()
-        // Do any additional setup after loading the view.
+        
+        setupView()
     }
     
     @IBAction func unwindToShiftListController( _ seg: UIStoryboardSegue) {
@@ -46,13 +48,19 @@ class ShiftListViewController: UIViewController, UITableViewDelegate {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
         if let destination = segue.destination as? ShiftDetailViewController {
-            destination.uid = user.uid
+            destination.user = user
             destination.memberId = familyMember.memberId
             if segue.identifier == "ViewShift" {
                 if let indexPaths = tableView.indexPathsForSelectedRows {
                     destination.shift = shifts[indexPaths[0].row]
                 }
             }
+        }
+    }
+    
+    private func setupView() {
+        if user.userType == UserType.CareProvider.rawValue {
+            self.navigationItem.rightBarButtonItem = nil
         }
     }
     

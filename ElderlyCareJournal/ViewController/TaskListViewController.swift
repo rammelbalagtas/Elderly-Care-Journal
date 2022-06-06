@@ -14,13 +14,17 @@ protocol TaskListDelegate: AnyObject {
 class TaskListViewController: UIViewController, UITableViewDelegate {
     
     var tasks = [Task]()
+    var user: User!
     weak var delegate: TaskListDelegate?
 
+    @IBOutlet weak var addBtn: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        setupView()
     }
     
     @IBAction func unwindToTaskList( _ seg: UIStoryboardSegue) {
@@ -41,10 +45,16 @@ class TaskListViewController: UIViewController, UITableViewDelegate {
             if let indexPaths = tableView.indexPathsForSelectedRows {
                 destination.task = tasks[indexPaths[0].row]
                 destination.selectedIndex = indexPaths[0].row
+                destination.user = user
             }
         }
     }
     
+    private func setupView() {
+        if user.userType == UserType.CareProvider.rawValue {
+            self.navigationItem.rightBarButtonItem = nil
+        }
+    }
 
 }
 

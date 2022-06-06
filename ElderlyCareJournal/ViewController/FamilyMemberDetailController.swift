@@ -33,6 +33,7 @@ class FamilyMemberDetailController: UITableViewController {
     @IBOutlet weak var emergencyContactNameText: UITextField!
     @IBOutlet weak var emergencyContactNumber: UITextField!
     @IBOutlet weak var sideMenuBtn: UIBarButtonItem!
+    @IBOutlet weak var saveBtn: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +55,10 @@ class FamilyMemberDetailController: UITableViewController {
             sideMenuBtn.action = #selector(revealViewController()?.revealSideMenu)
         } else {
             self.navigationItem.leftBarButtonItem = nil
+        }
+        
+        if user.userType == UserType.CareProvider.rawValue {
+            self.navigationItem.rightBarButtonItem = nil
         }
         
         tableView.rowHeight = UITableView.automaticDimension

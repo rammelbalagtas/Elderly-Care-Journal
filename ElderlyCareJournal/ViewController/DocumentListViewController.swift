@@ -18,11 +18,13 @@ class DocumentListViewController: UIViewController {
     
     weak var delegate: DocumentListDelegate?
     var familyMember: FamilyMember!
+    var user: User!
     
     private var selectedDocument: Document?
     
     @IBOutlet weak var sideMenuBtn: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var addBtn: UIBarButtonItem!
     
     private let storage = Storage.storage().reference()
     
@@ -43,6 +45,12 @@ class DocumentListViewController: UIViewController {
         documentPicker.delegate = self
         documentPicker.modalPresentationStyle = .automatic
         present(documentPicker, animated: true)
+    }
+    
+    private func setupView() {
+        if user.userType == UserType.CareProvider.rawValue {
+            self.navigationItem.rightBarButtonItem = nil
+        }
     }
     
     

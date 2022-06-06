@@ -314,6 +314,7 @@ extension PageContainerViewController: SideNavigationMenuDelegate {
         let documentListNavVC = navControllers?[2] as! UINavigationController
         let documentlistVC = documentListNavVC.topViewController as! DocumentListViewController
         documentlistVC.familyMember = familyMember
+        documentlistVC.user = user
         documentlistVC.delegate = self
         
         familyMemberTabBarController.view.tag = 99

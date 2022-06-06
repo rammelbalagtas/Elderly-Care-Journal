@@ -15,11 +15,12 @@ protocol TaskDetailDelegate: AnyObject {
 class TaskDetailViewController: UIViewController {
     
     var task: Task?
+    var user: User!
     var selectedIndex: Int?
     weak var delegate: TaskDetailDelegate?
     
     @IBOutlet weak var taskDescriptionText: UITextView!
-    
+    @IBOutlet weak var saveBtn: UIBarButtonItem!
     @IBAction func saveAction(_ sender: UIBarButtonItem) {
         guard
             let taskDescription = taskDescriptionText.text, taskDescriptionText.hasText
@@ -35,6 +36,14 @@ class TaskDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
+    }
+    
+    private func setupView() {
+        if user.userType == UserType.CareProvider.rawValue {
+            self.navigationItem.rightBarButtonItem = nil
+        }
+        
         if let task = task {
             taskDescriptionText.text = task.description
         }

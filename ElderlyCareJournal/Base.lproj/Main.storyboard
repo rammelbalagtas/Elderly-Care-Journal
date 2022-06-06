@@ -196,6 +196,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addBtn" destination="Bpt-Vq-Hh8" id="Rhs-RB-3ve"/>
                         <outlet property="sideMenuBtn" destination="ozS-ec-OEQ" id="3U7-9I-FjC"/>
                         <outlet property="tableView" destination="13C-AI-bSR" id="tWC-aY-JJ4"/>
                     </connections>
@@ -277,6 +278,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addBtn" destination="nAa-8y-32e" id="Vpa-RO-66y"/>
                         <outlet property="sideMenuBtn" destination="xKJ-2I-k7V" id="CWv-Bm-h7n"/>
                         <outlet property="tableView" destination="p1C-a8-HR7" id="1Bx-qg-fYR"/>
                         <segue destination="Fpb-kY-N1o" kind="show" identifier="ViewShift" id="Tyg-9e-z6R"/>
@@ -665,6 +667,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addBtn" destination="AzJ-Fc-jfb" id="9hO-LU-oYj"/>
                         <outlet property="tableView" destination="yIb-N5-KTk" id="1aY-HP-AUW"/>
                         <segue destination="3er-lt-ILt" kind="show" identifier="ViewTask" id="XIX-A1-ICT"/>
                     </connections>
@@ -729,6 +732,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="saveBtn" destination="Oxw-dA-gJz" id="Klc-hU-76E"/>
                         <outlet property="taskDescriptionText" destination="Grg-EO-AUj" id="yH0-cb-Njw"/>
                         <segue destination="Jgu-jD-svm" kind="unwind" identifier="unwindToTaskList" unwindAction="unwindToTaskList:" id="dO2-gW-z04"/>
                     </connections>
@@ -842,6 +846,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addBtn" destination="Uac-WD-WDJ" id="7mh-Sp-aYb"/>
                         <outlet property="sideMenuBtn" destination="YYF-oN-EZN" id="Zdm-Pi-Jtb"/>
                         <outlet property="tableView" destination="GwK-tR-S6h" id="km2-Kk-eML"/>
                         <segue destination="6NP-ae-qMW" kind="show" identifier="OpenDocument" id="iMu-8d-gRl"/>
@@ -1430,6 +1435,7 @@
                         <outlet property="memberImage" destination="fwX-k5-WWu" id="aby-Z2-YgG"/>
                         <outlet property="postalCodeText" destination="8Rb-nr-iut" id="mwh-3N-QaC"/>
                         <outlet property="provinceText" destination="bv0-W2-I1z" id="3wT-rB-354"/>
+                        <outlet property="saveBtn" destination="tXH-do-Zc2" id="opP-sC-fqc"/>
                         <outlet property="sideMenuBtn" destination="raf-pU-AbD" id="6oo-vo-kTI"/>
                         <outlet property="streetText" destination="7zY-3j-5Oz" id="XMt-hW-Cog"/>
                         <segue destination="fwv-e3-Ku6" kind="unwind" identifier="unwindToFamilyMemberList" unwindAction="unwindToFamilyMemberList:" id="8VV-pC-ei8"/>

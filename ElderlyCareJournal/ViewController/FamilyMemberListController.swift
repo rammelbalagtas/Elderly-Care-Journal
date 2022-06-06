@@ -15,6 +15,7 @@ import FirebaseFirestoreSwift
 class FamilyMemberListController: UIViewController, UITableViewDelegate {
     
     @IBOutlet var sideMenuBtn: UIBarButtonItem!
+    @IBOutlet weak var addBtn: UIBarButtonItem!
     
     var user: User!
     var familyMembers = [FamilyMember]()

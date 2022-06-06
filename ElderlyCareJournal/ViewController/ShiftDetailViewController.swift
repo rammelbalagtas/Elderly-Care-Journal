@@ -10,7 +10,7 @@ import UIKit
 class ShiftDetailViewController: UITableViewController {
     
     var shift: Shift?
-    var uid: String!
+    var user: User!
     var memberId: String!
     var tasks = [Task]()
     private var careProviderId = ""
@@ -47,7 +47,7 @@ class ShiftDetailViewController: UITableViewController {
         } else {
             shiftId = UUID().uuidString
         }
-        let shift = Shift(id: shiftId, memberId: memberId, description: description, fromDateTime: fromDateTime, toDateTime: toDateTime, tasks: tasks, careProviderId: careProviderId, careProviderName: careProviderName, status: ShiftStatus.New.rawValue, uid: uid)
+        let shift = Shift(id: shiftId, memberId: memberId, description: description, fromDateTime: fromDateTime, toDateTime: toDateTime, tasks: tasks, careProviderId: careProviderId, careProviderName: careProviderName, status: ShiftStatus.New.rawValue, uid: user.uid)
         ShiftDbService.create(shift: shift)
         { result in
             switch result {
@@ -179,6 +179,7 @@ class ShiftDetailViewController: UITableViewController {
         // Pass the selected object to the new view controller.
         if let destination = segue.destination as? TaskListViewController {
             destination.tasks = self.tasks
+            destination.user = self.user
             destination.delegate = self
         }
     }
