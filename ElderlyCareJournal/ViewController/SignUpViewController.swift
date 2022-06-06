@@ -116,31 +116,15 @@ class SignUpViewController: UIViewController {
     }
     
     func transitionToHome(user: User) {
-//        if user.userType == UserType.Guardian.rawValue {
-//            let familyMemberListNavVC = storyboard?.instantiateViewController(withIdentifier: Constants.Storyboard.familyMemberListNavVC) as? UINavigationController
-//            let familyMemberListVC = familyMemberListNavVC?.topViewController as! FamilyMemberListController
-//            familyMemberListVC.user = user
-//            view.window?.rootViewController = familyMemberListNavVC
-//            view.window?.makeKeyAndVisible()
-//        } else {
-//
-//        }
         let pageContainer = storyboard?.instantiateViewController(withIdentifier: "PageContainer") as! PageContainerViewController
         pageContainer.user = user
-        pageContainer.defaultPageId = .FamilyMemberList
+        if user.userType == UserType.Guardian.rawValue {
+            pageContainer.defaultPageId = .FamilyMemberList
+        } else {
+            pageContainer.defaultPageId = .ClientList
+        }
         view.window?.rootViewController = pageContainer
         view.window?.makeKeyAndVisible()
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
