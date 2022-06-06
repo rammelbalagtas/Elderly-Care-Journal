@@ -76,16 +76,18 @@ class PageContainerViewController: UIViewController {
 
         // Show default view
         switch self.defaultPageId {
-        case .FamilyMemberList:
-            showFamilyMemberList()
-        case .FamilyMemberDetail:
-            showFamilyMemberDetail()
-        case .MyAccount:
-            return
-        case .Login:
-            showInitialScreen()
-        case .none:
-            return
+            case .FamilyMemberList:
+                showFamilyMemberList()
+            case .FamilyMemberDetail:
+                showFamilyMemberDetail()
+            case .ClientList:
+                showClientList()
+            case .MyAccount:
+                return
+            case .Login:
+                showInitialScreen()
+            case .none:
+                return
         }
         
     }
@@ -166,25 +168,28 @@ class PageContainerViewController: UIViewController {
 extension PageContainerViewController: SideNavigationMenuDelegate {
     func selectedCell(_ pageId: PageId) {
         switch pageId {
-        case .FamilyMemberList:
-            self.showFamilyMemberList()
-        case .FamilyMemberDetail:
-            self.showFamilyMemberDetail()
-        case .MyAccount:
-            // Profile
-            let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-            let userProfileNav = storyboard.instantiateViewController(withIdentifier: "UserProfileNavId") as! UINavigationController
-            let userProfileVC = userProfileNav.topViewController as! UserProfileDetailController
-            userProfileVC.user = self.user
-            userProfileVC.delegate = self
-            self.present(userProfileNav, animated: true, completion: nil)
-        case .Login:
-            let initialScreen = storyboard?.instantiateViewController(withIdentifier: "InitialScreen") as! UINavigationController
-            view.window?.rootViewController = initialScreen
-            view.window?.makeKeyAndVisible()
-        }
-        // Collapse side menu with animation
-        DispatchQueue.main.async { self.sideMenuState(expanded: false) }
+            case .FamilyMemberList:
+                self.showFamilyMemberList()
+            case .FamilyMemberDetail:
+                self.showFamilyMemberDetail()
+            case .ClientList:
+                self.showClientList()
+            case .MyAccount:
+                // Profile
+                let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+                let userProfileNav = storyboard.instantiateViewController(withIdentifier: "UserProfileNavId") as! UINavigationController
+                let userProfileVC = userProfileNav.topViewController as! UserProfileDetailController
+                userProfileVC.user = self.user
+                userProfileVC.delegate = self
+                self.present(userProfileNav, animated: true, completion: nil)
+            case .Login:
+                let initialScreen = storyboard?.instantiateViewController(withIdentifier: "InitialScreen") as! UINavigationController
+                view.window?.rootViewController = initialScreen
+                view.window?.makeKeyAndVisible()
+            }
+        
+            // Collapse side menu with animation
+            DispatchQueue.main.async { self.sideMenuState(expanded: false) }
     }
 
     func showViewController<T: UIViewController>(viewController: T.Type, storyboardId: String) -> () {
@@ -227,6 +232,38 @@ extension PageContainerViewController: SideNavigationMenuDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let navVC = storyboard.instantiateViewController(withIdentifier: "FamilyMemberListNavVC") as! UINavigationController
         let vc = navVC.topViewController as! FamilyMemberListController
+        vc.user = self.user
+        navVC.view.tag = 99
+        view.insertSubview(navVC.view, at: self.revealSideMenuOnTop ? 0 : 1)
+        addChild(navVC)
+        navVC.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            navVC.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            navVC.view.topAnchor.constraint(equalTo: self.view.topAnchor),
+            navVC.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            navVC.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+        ])
+        if !self.revealSideMenuOnTop {
+            if isExpanded {
+                navVC.view.frame.origin.x = self.sideMenuRevealWidth
+            }
+            if self.sideMenuShadowView != nil {
+                navVC.view.addSubview(self.sideMenuShadowView)
+            }
+        }
+        navVC.didMove(toParent: self)
+    }
+    
+    func showClientList() -> () {
+        // Remove the previous View
+        for subview in view.subviews {
+            if subview.tag == 99 {
+                subview.removeFromSuperview()
+            }
+        }
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let navVC = storyboard.instantiateViewController(withIdentifier: "ClientListNavVC") as! UINavigationController
+        let vc = navVC.topViewController as! ClientListViewController
         vc.user = self.user
         navVC.view.tag = 99
         view.insertSubview(navVC.view, at: self.revealSideMenuOnTop ? 0 : 1)

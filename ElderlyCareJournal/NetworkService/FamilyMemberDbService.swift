@@ -28,9 +28,8 @@ struct FamilyMemberDbService {
         }
     }
     
-    public static func readAll(uid: String, callback: @escaping (Result<[FamilyMember], Error>) -> Void) {
-        var FamilyMembers = [FamilyMember]()
-        let db = Firestore.firestore()
+    public static func readMembers(uid: String, callback: @escaping (Result<[FamilyMember], Error>) -> Void) {
+        var familyMembers = [FamilyMember]()
         db.collection(Constants.Database.familyMembers).whereField("uid", isEqualTo: uid).getDocuments()
         { (querySnapshot, error) in
             if let error = error {
@@ -39,12 +38,70 @@ struct FamilyMemberDbService {
                 for document in querySnapshot!.documents {
                     do {
                         let FamilyMember = try document.data(as: FamilyMember.self)
-                        FamilyMembers.append(FamilyMember)
+                        familyMembers.append(FamilyMember)
                     } catch let error {
                         print("Error converting data: \(error.localizedDescription)")
                     }
                 }
-                callback(.success(FamilyMembers))
+                callback(.success(familyMembers))
+            }
+        }
+    }
+    
+    public static func readClients(careProviderId: String, callback: @escaping (Result<[FamilyMember], Error>) -> Void) {
+        
+        var memberIds = [String]()
+        
+        db.collection(Constants.Database.shifts).whereField("careProviderId", isEqualTo: careProviderId).getDocuments()
+        { (querySnapshot, error) in
+            if let error = error {
+                callback(.failure(error))
+            } else {
+                for document in querySnapshot!.documents {
+                    do {
+                        let shift = try document.data(as: Shift.self)
+                        if !memberIds.contains(shift.memberId) {
+                            memberIds.append(shift.memberId)
+                        }
+                    } catch let error {
+                        print("Error converting data: \(error.localizedDescription)")
+                    }
+                }
+                if memberIds.isEmpty {
+                    callback(.success([]))
+                } else {
+                    readMembersRange(memberIds: memberIds)
+                    { result in
+                        switch result {
+                        case .success(let data):
+                            callback(.success(data))
+                        case .failure(let error):
+                            callback(.failure(error))
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    public static func readMembersRange(memberIds: [String], callback: @escaping (Result<[FamilyMember], Error>) -> Void) {
+        
+        var familyMembers = [FamilyMember]()
+        
+        db.collection(Constants.Database.familyMembers).whereField("memberId", in: memberIds).getDocuments()
+        { (querySnapshot, error) in
+            if let error = error {
+                callback(.failure(error))
+            } else {
+                for document in querySnapshot!.documents {
+                    do {
+                        let FamilyMember = try document.data(as: FamilyMember.self)
+                        familyMembers.append(FamilyMember)
+                    } catch let error {
+                        print("Error converting data: \(error.localizedDescription)")
+                    }
+                }
+                callback(.success(familyMembers))
             }
         }
     }
