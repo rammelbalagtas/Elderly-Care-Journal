@@ -34,12 +34,37 @@ class FamilyMemberDetailController: UITableViewController {
     @IBOutlet weak var emergencyContactNumber: UITextField!
     @IBOutlet weak var sideMenuBtn: UIBarButtonItem!
     @IBOutlet weak var saveBtn: UIBarButtonItem!
+    @IBOutlet weak var updatePhotoBtn: UIStackView!
+    @IBOutlet weak var genderSelection: UITableViewCell!
+    
+    private var activityIndicator: UIActivityIndicatorView {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.color = UIColor.black
+        self.memberImage.addSubview(activityIndicator)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        let centerX = NSLayoutConstraint(item: self.memberImage!,
+                                         attribute: .centerX,
+                                         relatedBy: .equal,
+                                         toItem: activityIndicator,
+                                         attribute: .centerX,
+                                         multiplier: 1,
+                                         constant: 0)
+        let centerY = NSLayoutConstraint(item: self.memberImage!,
+                                         attribute: .centerY,
+                                         relatedBy: .equal,
+                                         toItem: activityIndicator,
+                                         attribute: .centerY,
+                                         multiplier: 1,
+                                         constant: 0)
+        self.memberImage.addConstraints([centerX, centerY])
+        return activityIndicator
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        streetText.delegate = self
-        loadData()
         setupView()
+        loadData()
     }
     
     private func setupView() {
@@ -58,7 +83,25 @@ class FamilyMemberDetailController: UITableViewController {
         }
         
         if user.userType == UserType.CareProvider.rawValue {
+            
+            self.navigationItem.title = "Client Detail"
+            
             self.navigationItem.rightBarButtonItem = nil
+            
+            //disable fields
+            updatePhotoBtn.isHidden = true
+            firstNameText.isEnabled = false
+            lastNameText.isEnabled = false
+            ageText.isEnabled = false
+            genderText.isEnabled = false
+            streetText.isEditable = false
+            provinceText.isEditable = false
+            postalCodeText.isEnabled = false
+            countryText.isEnabled = false
+            emergencyContactNameText.isEnabled = false
+            emergencyContactNumber.isEnabled = false
+            
+            genderSelection.isUserInteractionEnabled = false
         }
         
         tableView.rowHeight = UITableView.automaticDimension
@@ -69,6 +112,8 @@ class FamilyMemberDetailController: UITableViewController {
     //load data from dependency
     private func loadData() {
         if let familyMember = familyMember {
+            let activityIndicator = self.activityIndicator
+            activityIndicator.startAnimating()
             firstNameText.text = familyMember.firstName
             lastNameText.text = familyMember.lastName
             ageText.text = String(familyMember.age)
@@ -92,6 +137,8 @@ class FamilyMemberDetailController: UITableViewController {
                     //show error message
                     print(error.localizedDescription)
                 }
+                activityIndicator.stopAnimating()
+                activityIndicator.removeFromSuperview()
             }
         }
     }
@@ -275,7 +322,11 @@ class FamilyMemberDetailController: UITableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         //hide delete button when adding family members
         if let _ = familyMember {
-            return 5
+            if user.userType == UserType.CareProvider.rawValue {
+                return 4 //remove DELETE button from careprovider view
+            } else {
+                return 5
+            }
         } else {
             return 4
         }

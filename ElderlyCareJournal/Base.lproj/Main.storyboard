@@ -915,7 +915,7 @@
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="t6Y-X8-Gsh"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <constraints>
                             <constraint firstItem="t6Y-X8-Gsh" firstAttribute="trailing" secondItem="CZG-np-5Pl" secondAttribute="trailing" id="2M5-HF-xvb"/>
                             <constraint firstItem="CZG-np-5Pl" firstAttribute="leading" secondItem="t6Y-X8-Gsh" secondAttribute="leading" constant="8" id="Ayi-d9-MJo"/>
@@ -976,21 +976,31 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="bow-GZ-9nH">
                                                     <rect key="frame" x="20" y="10" width="374" height="156.5"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="fwX-k5-WWu">
-                                                            <rect key="frame" x="127" y="0.5" width="120" height="119"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="120" id="1wj-v2-G3A"/>
-                                                                <constraint firstAttribute="width" constant="120" id="ItN-5h-oEv"/>
-                                                            </constraints>
-                                                        </imageView>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BxZ-Gc-YmE">
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="pdV-Xq-otu">
+                                                            <rect key="frame" x="127" y="0.0" width="120" height="120"/>
+                                                            <subviews>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="fwX-k5-WWu">
+                                                                    <rect key="frame" x="0.0" y="0.5" width="120" height="119"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="120" id="1wj-v2-G3A"/>
+                                                                        <constraint firstAttribute="width" constant="120" id="ItN-5h-oEv"/>
+                                                                    </constraints>
+                                                                </imageView>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="fY6-tl-evT">
                                                             <rect key="frame" x="130.5" y="125" width="113" height="31.5"/>
-                                                            <state key="normal" title="Button"/>
-                                                            <buttonConfiguration key="configuration" style="plain" title="Update Photo"/>
-                                                            <connections>
-                                                                <action selector="addChangePhotoAction:" destination="fLU-dM-ylK" eventType="touchUpInside" id="2An-UK-ph4"/>
-                                                            </connections>
-                                                        </button>
+                                                            <subviews>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BxZ-Gc-YmE">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="113" height="31.5"/>
+                                                                    <state key="normal" title="Button"/>
+                                                                    <buttonConfiguration key="configuration" style="plain" title="Update Photo"/>
+                                                                    <connections>
+                                                                        <action selector="addChangePhotoAction:" destination="fLU-dM-ylK" eventType="touchUpInside" id="2An-UK-ph4"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                        </stackView>
                                                     </subviews>
                                                 </stackView>
                                             </subviews>
@@ -1429,6 +1439,7 @@
                         <outlet property="emergencyContactNameText" destination="9qH-UA-yRr" id="t4V-8z-Aoy"/>
                         <outlet property="emergencyContactNumber" destination="bgy-bw-PSR" id="qUl-dP-9Lg"/>
                         <outlet property="firstNameText" destination="1L2-V2-klW" id="QEx-50-yWb"/>
+                        <outlet property="genderSelection" destination="ctG-Mk-Dvp" id="6eW-8S-G0C"/>
                         <outlet property="genderText" destination="F2G-Se-F4h" id="QMi-BD-A2E"/>
                         <outlet property="lastNameText" destination="pBP-gN-6Hj" id="nFK-IT-pGo"/>
                         <outlet property="memberImage" destination="fwX-k5-WWu" id="aby-Z2-YgG"/>
@@ -1437,6 +1448,7 @@
                         <outlet property="saveBtn" destination="tXH-do-Zc2" id="opP-sC-fqc"/>
                         <outlet property="sideMenuBtn" destination="raf-pU-AbD" id="6oo-vo-kTI"/>
                         <outlet property="streetText" destination="7zY-3j-5Oz" id="XMt-hW-Cog"/>
+                        <outlet property="updatePhotoBtn" destination="fY6-tl-evT" id="vUJ-Lm-s4k"/>
                         <segue destination="fwv-e3-Ku6" kind="unwind" identifier="unwindToFamilyMemberList" unwindAction="unwindToFamilyMemberList:" id="8VV-pC-ei8"/>
                     </connections>
                 </tableViewController>
