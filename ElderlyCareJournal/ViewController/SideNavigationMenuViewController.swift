@@ -16,17 +16,25 @@ class SideNavigationMenuViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var delegate: SideNavigationMenuDelegate?
+    var userType: String!
     
     var defaultHighlightedCell: Int = 0
     
     var menu: [SideMenuModel] = [
-        SideMenuModel(icon: UIImage(systemName: "house.fill")!, title: "Family Member List", pageId: .FamilyMemberList),
+        SideMenuModel(icon: UIImage(systemName: "house.fill")!, title: "Family Members", pageId: .FamilyMemberList),
+        SideMenuModel(icon: UIImage(systemName: "house.fill")!, title: "Clients", pageId: .ClientList),
         SideMenuModel(icon: UIImage(systemName: "person.circle.fill")!, title: "My Account", pageId: .MyAccount),
         SideMenuModel(icon: UIImage(systemName: "power")!, title: "Logout", pageId: .Login),
     ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if userType == UserType.Guardian.rawValue {
+            menu.remove(at: 1) //remove Clients page
+        } else {
+            menu.remove(at: 0) //remove Family Members page
+        }
         
         // TableView
         self.tableView.delegate = self
@@ -75,9 +83,7 @@ extension SideNavigationMenuViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.delegate?.selectedCell(menu[indexPath.row].pageId)
-        if menu[indexPath.row].pageId == .MyAccount {
-            tableView.deselectRow(at: indexPath, animated: true)
-        }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 

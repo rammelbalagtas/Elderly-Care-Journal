@@ -52,6 +52,7 @@ class PageContainerViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         self.sideNavigationMenuVC = storyboard.instantiateViewController(withIdentifier: "SideMenuID") as? SideNavigationMenuViewController
         self.sideNavigationMenuVC.defaultHighlightedCell = 0 // Default Highlighted Cell
+        self.sideNavigationMenuVC.userType = user?.userType
         self.sideNavigationMenuVC.delegate = self
         view.insertSubview(self.sideNavigationMenuVC!.view, at: self.revealSideMenuOnTop ? 2 : 0)
         addChild(self.sideNavigationMenuVC!)
