@@ -24,10 +24,6 @@ class LoginViewController: UIViewController {
         //hide error message during initial load
         errorLabel.alpha = 0
         
-        //for testing purposes only
-        emailAddressText.text = "test2@gmail.com"
-        passwordText.text = "Test@1234"
-        
     }
     
     @IBAction func loginAction(_ sender: UIButton) {

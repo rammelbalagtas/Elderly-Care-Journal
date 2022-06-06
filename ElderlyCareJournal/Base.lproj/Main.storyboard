@@ -85,7 +85,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="0al-nt-JCE">
-                                <rect key="frame" x="20" y="108" width="374" height="190"/>
+                                <rect key="frame" x="20" y="108" width="374" height="170.5"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Cqn-U6-Pz1">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="40"/>
@@ -98,7 +98,7 @@
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kgr-n9-QXF">
                                         <rect key="frame" x="0.0" y="50" width="374" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" textContentType="password"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5u5-i3-8C3">
                                         <rect key="frame" x="0.0" y="100" width="374" height="40"/>
@@ -112,14 +112,13 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rbc-4O-wHR">
-                                        <rect key="frame" x="0.0" y="150" width="374" height="40"/>
+                                        <rect key="frame" x="0.0" y="150" width="374" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" systemColor="systemRedColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="rbc-4O-wHR" firstAttribute="height" secondItem="Cqn-U6-Pz1" secondAttribute="height" id="Dwy-AP-Qwa"/>
                                     <constraint firstItem="5u5-i3-8C3" firstAttribute="height" secondItem="Cqn-U6-Pz1" secondAttribute="height" id="Wj7-PU-akM"/>
                                     <constraint firstItem="kgr-n9-QXF" firstAttribute="height" secondItem="Cqn-U6-Pz1" secondAttribute="height" id="zMF-ue-VDv"/>
                                 </constraints>
@@ -1498,7 +1497,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="FBo-wO-mj3">
-                                <rect key="frame" x="20" y="108" width="374" height="390"/>
+                                <rect key="frame" x="20" y="108" width="374" height="370.5"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zFC-DX-cfD">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="40"/>
@@ -1521,12 +1520,12 @@
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bJc-Bx-7gG">
                                         <rect key="frame" x="0.0" y="150" width="374" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" textContentType="password"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Re-type Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zf3-6e-IvR">
                                         <rect key="frame" x="0.0" y="200" width="374" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" textContentType="password"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Myc-PC-bye">
                                         <rect key="frame" x="0.0" y="250" width="374" height="40"/>
@@ -1551,14 +1550,13 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fE3-dT-sz2">
-                                        <rect key="frame" x="0.0" y="350" width="374" height="40"/>
+                                        <rect key="frame" x="0.0" y="350" width="374" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" systemColor="systemRedColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="fE3-dT-sz2" firstAttribute="height" secondItem="zFC-DX-cfD" secondAttribute="height" id="Czw-PL-Jvt"/>
                                     <constraint firstItem="zf3-6e-IvR" firstAttribute="height" secondItem="zFC-DX-cfD" secondAttribute="height" id="U4Q-RO-ZJ4"/>
                                     <constraint firstItem="Myc-PC-bye" firstAttribute="height" secondItem="zFC-DX-cfD" secondAttribute="height" id="dtq-bI-Uvs"/>
                                     <constraint firstItem="bJc-Bx-7gG" firstAttribute="height" secondItem="zFC-DX-cfD" secondAttribute="height" id="ftv-92-SHD"/>
