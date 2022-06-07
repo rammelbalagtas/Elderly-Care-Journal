@@ -18,13 +18,7 @@ struct Shift: Codable {
     var careProviderName: String
     var status: String
     var uid: String
-//    enum CodingKeys: String, CodingKey {
-//        case id
-//        case memberId
-//        case description
-//        case fromDateTime
-//        case toDateTime
-//        case tasks
-//        case uid
-//    }
+    var createdOn: String
+    var startedOn: String?
+    var completedOn: String?
 }

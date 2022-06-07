@@ -33,9 +33,41 @@ class ShiftDetailViewController: UITableViewController {
     @IBOutlet weak var addNotesBtn: UIButton!
     
     @IBAction func startShiftAction(_ sender: UIButton) {
+        if var shift = shift {
+            shift.startedOn = Utilities.extractDateTimeComponents(using: Date.now)
+            shift.status = ShiftStatus.InProgress.rawValue
+            ShiftDbService.create(shift: shift)
+            { result in
+                switch result {
+                case .success(_):
+                    self.shift = shift
+                    self.promptMessage(message: "Shift status set to Active")
+                    {_ in self.performSegue(withIdentifier: "unwindToShiftList", sender: self)}
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    self.promptMessage(message: error.localizedDescription, handler: nil)
+                }
+            }
+        }
     }
     
     @IBAction func endShiftAction(_ sender: UIButton) {
+        if var shift = shift {
+            shift.completedOn = Utilities.extractDateTimeComponents(using: Date.now)
+            shift.status = ShiftStatus.Completed.rawValue
+            ShiftDbService.create(shift: shift)
+            { result in
+                switch result {
+                case .success(_):
+                    self.shift = shift
+                    self.promptMessage(message: "Shift status set to Completed")
+                    {_ in self.performSegue(withIdentifier: "unwindToShiftList", sender: self)}
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    self.promptMessage(message: error.localizedDescription, handler: nil)
+                }
+            }
+        }
     }
     
     @IBAction func addNotesAction(_ sender: UIButton) {
@@ -53,6 +85,7 @@ class ShiftDetailViewController: UITableViewController {
         let description = shiftDescriptionText.text ?? ""
         let fromDateTime = Utilities.extractDateTimeComponents(using: fromDateTime.date)
         let toDateTime = Utilities.extractDateTimeComponents(using: toDateTime.date)
+        let createdOn = Utilities.extractDateTimeComponents(using: Date.now)
         
         var shiftId = ""
         if let shift = shift {
@@ -60,7 +93,7 @@ class ShiftDetailViewController: UITableViewController {
         } else {
             shiftId = UUID().uuidString
         }
-        let shift = Shift(id: shiftId, memberId: memberId, description: description, fromDateTime: fromDateTime, toDateTime: toDateTime, tasks: tasks, careProviderId: careProviderId, careProviderName: careProviderName, status: ShiftStatus.New.rawValue, uid: user.uid)
+        let shift = Shift(id: shiftId, memberId: memberId, description: description, fromDateTime: fromDateTime, toDateTime: toDateTime, tasks: tasks, careProviderId: careProviderId, careProviderName: careProviderName, status: ShiftStatus.New.rawValue, uid: user.uid, createdOn: createdOn, startedOn: nil, completedOn: nil)
         ShiftDbService.create(shift: shift)
         { result in
             switch result {
@@ -251,6 +284,18 @@ class ShiftDetailViewController: UITableViewController {
             destination.tasks = self.tasks
             destination.user = self.user
             destination.delegate = self
+        } else if let destination = segue.destination as? ShiftListViewController {
+            if segue.identifier == "unwindToShiftList" {
+                if let shift = shift {
+                    if shift.status == ShiftStatus.New.rawValue {
+                        destination.selectedSegment = 0
+                    } else if shift.status == ShiftStatus.InProgress.rawValue {
+                        destination.selectedSegment = 1
+                    } else {
+                        destination.selectedSegment = 2
+                    }
+                }
+            }
         }
     }
 }

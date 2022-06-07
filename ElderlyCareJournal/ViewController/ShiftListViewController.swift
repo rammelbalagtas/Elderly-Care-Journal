@@ -18,6 +18,7 @@ class ShiftListViewController: UIViewController, UITableViewDelegate {
     var user: User!
     var familyMember: FamilyMember!
     var shifts = [Shift]()
+    var selectedSegment = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +36,17 @@ class ShiftListViewController: UIViewController, UITableViewDelegate {
     }
     
     @IBAction func unwindToShiftListController( _ seg: UIStoryboardSegue) {
-        loadData(status: ShiftStatus.New.rawValue)
+        statusSegment.selectedSegmentIndex = self.selectedSegment
+        switch self.selectedSegment {
+        case 0:
+            loadData(status: ShiftStatus.New.rawValue)
+        case 1:
+            loadData(status: ShiftStatus.InProgress.rawValue)
+        case 2:
+            loadData(status: ShiftStatus.Completed.rawValue)
+        default:
+            loadData(status: ShiftStatus.New.rawValue)
+        }
     }
     
     
