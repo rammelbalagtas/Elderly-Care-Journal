@@ -28,6 +28,19 @@ class ShiftDetailViewController: UITableViewController {
     @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var deleteBtn: UIButton!
     
+    @IBOutlet weak var startShiftBtn: UIButton!
+    @IBOutlet weak var endShiftBtn: UIButton!
+    @IBOutlet weak var addNotesBtn: UIButton!
+    
+    @IBAction func startShiftAction(_ sender: UIButton) {
+    }
+    
+    @IBAction func endShiftAction(_ sender: UIButton) {
+    }
+    
+    @IBAction func addNotesAction(_ sender: UIButton) {
+    }
+    
     @IBAction func addTaskAction(_ sender: UIButton) {
         self.performSegue(withIdentifier: "ViewTasks", sender: self)
     }
@@ -98,9 +111,8 @@ class ShiftDetailViewController: UITableViewController {
         tableView.estimatedRowHeight = 100
         
         self.clearsSelectionOnViewWillAppear = true
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        setupView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -115,11 +127,69 @@ class ShiftDetailViewController: UITableViewController {
 
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 3 && user.userType == UserType.CareProvider.rawValue {
+            return 30
+        }
         return 0
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.section {
+        case 1:
+            //hide Assign Care provider option in care provider screen
+            if indexPath.row == 1 && user.userType == UserType.CareProvider.rawValue {
+                return 0
+            }
+        case 2:
+            //hide Save/Delete buttons in care provider screen and in completed shifts
+            if user.userType == UserType.CareProvider.rawValue || shift?.status == ShiftStatus.Completed.rawValue {
+                return 0
+            } else {
+                //hide Delete button for new shift
+                if indexPath.row == 1 {
+                    if let _ = shift {
+                    } else {
+                        return 0
+                    }
+                }
+            }
+        case 3:
+            if user.userType == UserType.Guardian.rawValue {
+                return 0
+            }
+        default:
+            return tableView.rowHeight
+        }
+        return tableView.rowHeight
+    }
+    
+    private func setupView() {
+        //disable input fields in care provider view
+        if user.userType == UserType.CareProvider.rawValue {
+            shiftDescriptionText.isEditable = false
+            fromDateTime.isUserInteractionEnabled = false
+            toDateTime.isUserInteractionEnabled = false
+        }
+        
+        //disable Start shift for in progress and completed shift
+        //disable End Shift and Add Notes of new and completed shift
+        if let shift = shift {
+            
+            if shift.status == ShiftStatus.New.rawValue {
+                endShiftBtn.isEnabled = false
+                addNotesBtn.isEnabled = false
+            } else if shift.status == ShiftStatus.InProgress.rawValue {
+                startShiftBtn.isEnabled = false
+            } else if shift.status == ShiftStatus.Completed.rawValue {
+                startShiftBtn.isEnabled = false
+                endShiftBtn.isEnabled = false
+            }
+        }
+        
     }
     
     private func displayDetail(_ shift: Shift) {
