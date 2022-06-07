@@ -13,6 +13,8 @@ class ShiftListViewController: UIViewController, UITableViewDelegate {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addBtn: UIBarButtonItem!
     
+    @IBOutlet weak var statusSegment: UISegmentedControl!
+    
     var user: User!
     var familyMember: FamilyMember!
     var shifts = [Shift]()
@@ -28,13 +30,30 @@ class ShiftListViewController: UIViewController, UITableViewDelegate {
         sideMenuBtn.action = #selector(revealViewController()?.revealSideMenu)
         
         registerNib()
-        loadData()
+        loadData(status: ShiftStatus.New.rawValue)
         setupView()
     }
     
     @IBAction func unwindToShiftListController( _ seg: UIStoryboardSegue) {
-        loadData()
+        loadData(status: ShiftStatus.New.rawValue)
     }
+    
+    
+    @IBAction func switchStatus(_ sender: UISegmentedControl) {
+        var status = ""
+        switch sender.selectedSegmentIndex {
+        case 0:
+            status = ShiftStatus.New.rawValue
+        case 1:
+            status = ShiftStatus.InProgress.rawValue
+        case 2:
+            status = ShiftStatus.Completed.rawValue
+        default:
+            status = ShiftStatus.New.rawValue
+        }
+        loadData(status: status)
+    }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "ViewShift", sender: self)
@@ -69,12 +88,12 @@ class ShiftListViewController: UIViewController, UITableViewDelegate {
         }
     }
     
-    private func loadData() {
+    private func loadData(status: String) {
         var careProviderId: String?
         if user.userType == UserType.CareProvider.rawValue {
             careProviderId = user.uid
         }
-        ShiftDbService.readWithFilter(memberId: familyMember.memberId, careProviderId: careProviderId, status: ShiftStatus.New.rawValue )
+        ShiftDbService.readWithFilter(memberId: familyMember.memberId, careProviderId: careProviderId, status: status )
         { result in
             switch result {
             case .success(let data):

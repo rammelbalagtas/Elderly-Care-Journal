@@ -37,6 +37,7 @@ struct ShiftDbService {
             db.collection(Constants.Database.shifts)
                 .whereField("memberId", isEqualTo: memberId)
                 .whereField("careProviderId", isEqualTo: careProviderId)
+                .whereField("status", isEqualTo: status)
                 .getDocuments()
             { (querySnapshot, error) in
                 if let error = error {
@@ -54,7 +55,10 @@ struct ShiftDbService {
                 }
             }
         } else {
-            db.collection(Constants.Database.shifts).whereField("memberId", isEqualTo: memberId).getDocuments()
+            db.collection(Constants.Database.shifts)
+                .whereField("memberId", isEqualTo: memberId)
+                .whereField("status", isEqualTo: status)
+                .getDocuments()
             { (querySnapshot, error) in
                 if let error = error {
                     callback(.failure(error))

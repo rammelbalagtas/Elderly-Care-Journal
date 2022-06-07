@@ -222,9 +222,12 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="404" height="34"/>
                                                 <segments>
                                                     <segment title="Scheduled"/>
-                                                    <segment title="Active"/>
+                                                    <segment title="In Progress"/>
                                                     <segment title="Completed"/>
                                                 </segments>
+                                                <connections>
+                                                    <action selector="switchStatus:" destination="54s-0A-UHc" eventType="valueChanged" id="mNZ-S1-9wv"/>
+                                                </connections>
                                             </segmentedControl>
                                         </subviews>
                                     </stackView>
@@ -260,6 +263,7 @@
                     <connections>
                         <outlet property="addBtn" destination="nAa-8y-32e" id="Vpa-RO-66y"/>
                         <outlet property="sideMenuBtn" destination="xKJ-2I-k7V" id="CWv-Bm-h7n"/>
+                        <outlet property="statusSegment" destination="hoy-xZ-wtj" id="jt0-Hu-nXA"/>
                         <outlet property="tableView" destination="p1C-a8-HR7" id="1Bx-qg-fYR"/>
                         <segue destination="Fpb-kY-N1o" kind="show" identifier="ViewShift" id="Tyg-9e-z6R"/>
                     </connections>
