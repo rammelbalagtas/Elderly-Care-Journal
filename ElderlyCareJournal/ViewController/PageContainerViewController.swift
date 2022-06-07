@@ -298,6 +298,12 @@ extension PageContainerViewController: SideNavigationMenuDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let familyMemberTabBarController = storyboard.instantiateViewController(withIdentifier: "FamilyMemberGuardian") as! UITabBarController
         
+        //Replace tab name with Client instead of Family Member
+        if user?.userType == UserType.CareProvider.rawValue {
+            let tabBarItem = familyMemberTabBarController.tabBar.items?[0]
+            tabBarItem?.title = "Client"
+        }
+        
         let navControllers = familyMemberTabBarController.viewControllers
         let memberDetailNavVC = navControllers?[0] as! UINavigationController
         let memberDetailVC = memberDetailNavVC.topViewController as! FamilyMemberDetailController
