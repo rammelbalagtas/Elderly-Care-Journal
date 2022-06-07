@@ -42,10 +42,10 @@ class TaskListViewController: UIViewController, UITableViewDelegate {
         // Pass the selected object to the new view controller.
         if let destination = segue.destination as? TaskDetailViewController {
             destination.delegate = self
+            destination.user = user
             if let indexPaths = tableView.indexPathsForSelectedRows {
                 destination.task = tasks[indexPaths[0].row]
                 destination.selectedIndex = indexPaths[0].row
-                destination.user = user
             }
         }
     }
