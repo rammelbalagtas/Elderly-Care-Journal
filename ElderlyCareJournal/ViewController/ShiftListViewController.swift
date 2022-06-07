@@ -27,8 +27,8 @@ class ShiftListViewController: UIViewController, UITableViewDelegate {
         sideMenuBtn.target = revealViewController()
         sideMenuBtn.action = #selector(revealViewController()?.revealSideMenu)
         
+        registerNib()
         loadData()
-        
         setupView()
     }
     
@@ -58,6 +58,11 @@ class ShiftListViewController: UIViewController, UITableViewDelegate {
         }
     }
     
+    private func registerNib() {
+        // Register TableView Cell
+        self.tableView.register(ShiftTableViewCell.nib, forCellReuseIdentifier: ShiftTableViewCell.identifier)
+    }
+    
     private func setupView() {
         if user.userType == UserType.CareProvider.rawValue {
             self.navigationItem.rightBarButtonItem = nil
@@ -65,7 +70,11 @@ class ShiftListViewController: UIViewController, UITableViewDelegate {
     }
     
     private func loadData() {
-        ShiftDbService.readAll(memberId: familyMember.memberId, status: ShiftStatus.New.rawValue )
+        var careProviderId: String?
+        if user.userType == UserType.CareProvider.rawValue {
+            careProviderId = user.uid
+        }
+        ShiftDbService.readWithFilter(memberId: familyMember.memberId, careProviderId: careProviderId, status: ShiftStatus.New.rawValue )
         { result in
             switch result {
             case .success(let data):
@@ -86,10 +95,11 @@ extension ShiftListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Shift")
-        else{preconditionFailure("Unable to dequeue reusable cell")}
+            let cell = tableView.dequeueReusableCell(withIdentifier: ShiftTableViewCell.identifier, for: indexPath) as? ShiftTableViewCell
+        else{preconditionFailure("unable to dequeue reusable cell")}
+        
         let shift = shifts[indexPath.row]
-        cell.textLabel?.text = shift.description
+        cell.configureCell(using: shift)
         return cell
     }
 }
