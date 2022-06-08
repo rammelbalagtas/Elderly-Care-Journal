@@ -12,7 +12,7 @@ class ShiftDetailViewController: UITableViewController {
     var shift: Shift?
     var user: User!
     var memberId: String!
-    var tasks = [Task]()
+    var tasks = TaskList()
     private var careProviderId = ""
     private var careProviderName = ""
     private var isExisting: Bool?
@@ -33,7 +33,7 @@ class ShiftDetailViewController: UITableViewController {
     @IBOutlet weak var addNotesBtn: UIButton!
     
     @IBAction func startShiftAction(_ sender: UIButton) {
-        if var shift = shift {
+        if let shift = shift {
             shift.startedOn = Utilities.extractDateTimeComponents(using: Date.now)
             shift.status = ShiftStatus.InProgress.rawValue
             ShiftDbService.create(shift: shift)
@@ -52,7 +52,7 @@ class ShiftDetailViewController: UITableViewController {
     }
     
     @IBAction func endShiftAction(_ sender: UIButton) {
-        if var shift = shift {
+        if let shift = shift {
             shift.completedOn = Utilities.extractDateTimeComponents(using: Date.now)
             shift.status = ShiftStatus.Completed.rawValue
             ShiftDbService.create(shift: shift)
@@ -83,10 +83,11 @@ class ShiftDetailViewController: UITableViewController {
     
     @IBAction func saveAction(_ sender: UIButton) {
         
-        if var shift = shift {
+        if let shift = shift {
             shift.description = shiftDescriptionText.text
             shift.fromDateTime = Utilities.extractDateTimeComponents(using: fromDateTime.date)
             shift.toDateTime = Utilities.extractDateTimeComponents(using: toDateTime.date)
+            shift.tasks = self.tasks.list
             ShiftDbService.update(shift: shift)
             { result in
                 switch result {
@@ -104,7 +105,7 @@ class ShiftDetailViewController: UITableViewController {
             let fromDateTime = Utilities.extractDateTimeComponents(using: fromDateTime.date)
             let toDateTime = Utilities.extractDateTimeComponents(using: toDateTime.date)
             let createdOn = Utilities.extractDateTimeComponents(using: Date.now)
-            let shift = Shift(id: UUID().uuidString, memberId: memberId, description: description, fromDateTime: fromDateTime, toDateTime: toDateTime, tasks: tasks, careProviderId: careProviderId, careProviderName: careProviderName, status: ShiftStatus.New.rawValue, uid: user.uid, createdOn: createdOn, startedOn: nil, completedOn: nil)
+            let shift = Shift(id: UUID().uuidString, memberId: memberId, description: description, fromDateTime: fromDateTime, toDateTime: toDateTime, tasks: tasks.list, careProviderId: careProviderId, careProviderName: careProviderName, status: ShiftStatus.New.rawValue, uid: user.uid, createdOn: createdOn, startedOn: nil, completedOn: nil)
             
             ShiftDbService.create(shift: shift)
             { result in
@@ -158,7 +159,7 @@ class ShiftDetailViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        numberOfTaskText.text = String(tasks.count)
+        numberOfTaskText.text = String(tasks.list.count)
         if careProviderName.isEmpty {
             careProviderText.text = "Care Provider"
         } else {
@@ -186,16 +187,13 @@ class ShiftDetailViewController: UITableViewController {
                 return 0
             }
         case 2:
-            //hide Save/Delete buttons in care provider screen and in completed shifts
-            if user.userType == UserType.CareProvider.rawValue || shift?.status == ShiftStatus.Completed.rawValue {
-                return 0
-            } else {
-                //hide Delete button for new shift
-                if indexPath.row == 1 {
-                    if let _ = shift {
-                    } else {
-                        return 0
-                    }
+            if indexPath.row == 0 { //Save button
+                if user.userType == UserType.CareProvider.rawValue || shift?.status == ShiftStatus.Completed.rawValue {
+                    return 0
+                }
+            } else { //Delete button
+                if shift?.status != ShiftStatus.New.rawValue {
+                    return 0
                 }
             }
         case 3:
@@ -209,16 +207,17 @@ class ShiftDetailViewController: UITableViewController {
     }
     
     private func setupView() {
-        //disable input fields in care provider view
-        if user.userType == UserType.CareProvider.rawValue {
-            shiftDescriptionText.isEditable = false
-            fromDateTime.isUserInteractionEnabled = false
-            toDateTime.isUserInteractionEnabled = false
-        }
         
         //disable Start shift for in progress and completed shift
         //disable End Shift and Add Notes of new and completed shift
         if let shift = shift {
+            
+            //disable input fields in care provider view
+            if user.userType == UserType.CareProvider.rawValue || shift.status != ShiftStatus.New.rawValue {
+                shiftDescriptionText.isEditable = false
+                fromDateTime.isUserInteractionEnabled = false
+                toDateTime.isUserInteractionEnabled = false
+            }
             
             if shift.status == ShiftStatus.New.rawValue {
                 endShiftBtn.isEnabled = false
@@ -241,8 +240,8 @@ class ShiftDetailViewController: UITableViewController {
         if let toDate = buildDateTime(using: shift.toDateTime) {
             toDateTime.setDate(toDate, animated: .random())
         }
-        tasks = shift.tasks
-        numberOfTaskText.text = String(tasks.count)
+        self.tasks.list = shift.tasks
+        numberOfTaskText.text = String(self.tasks.list.count)
         careProviderId = shift.careProviderId
         careProviderName = shift.careProviderName
     }
@@ -291,7 +290,6 @@ class ShiftDetailViewController: UITableViewController {
         if let destination = segue.destination as? TaskListViewController {
             destination.tasks = self.tasks
             destination.user = self.user
-            destination.delegate = self
             if let shift = shift {
                 destination.shiftStatus = shift.status
             } else {
@@ -310,13 +308,6 @@ class ShiftDetailViewController: UITableViewController {
                 }
             }
         }
-    }
-}
-
-extension ShiftDetailViewController: TaskListDelegate {
-    func updateTaskList(tasks: [Task]) {
-        self.tasks = tasks
-        tableView.reloadData()
     }
 }
 

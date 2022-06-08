@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Shift: Codable {
+class Shift: Codable {
+    
     var id: String
     var memberId: String
     var description: String
@@ -21,4 +22,20 @@ struct Shift: Codable {
     var createdOn: String
     var startedOn: String?
     var completedOn: String?
+    
+    init(id: String, memberId: String, description: String, fromDateTime: String, toDateTime: String, tasks: [Task], careProviderId: String, careProviderName: String, status: String, uid: String, createdOn: String, startedOn: String? = nil, completedOn: String? = nil) {
+        self.id = id
+        self.memberId = memberId
+        self.description = description
+        self.fromDateTime = fromDateTime
+        self.toDateTime = toDateTime
+        self.tasks = tasks
+        self.careProviderId = careProviderId
+        self.careProviderName = careProviderName
+        self.status = status
+        self.uid = uid
+        self.createdOn = createdOn
+        self.startedOn = startedOn
+        self.completedOn = completedOn
+    }
 }

@@ -8,6 +8,7 @@
 import Foundation
 
 class Task: Codable {
+    
     var description: String
     var status: String
     var completedOn: Date?

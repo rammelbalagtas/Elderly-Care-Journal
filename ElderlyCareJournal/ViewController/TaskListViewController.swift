@@ -7,16 +7,11 @@
 
 import UIKit
 
-protocol TaskListDelegate: AnyObject {
-    func updateTaskList(tasks: [Task])
-}
-
 class TaskListViewController: UIViewController, UITableViewDelegate {
     
-    var tasks = [Task]()
+    var tasks = TaskList()
     var user: User!
     var shiftStatus: String!
-    weak var delegate: TaskListDelegate?
 
     @IBOutlet weak var addBtn: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
@@ -46,7 +41,7 @@ class TaskListViewController: UIViewController, UITableViewDelegate {
             destination.delegate = self
             destination.user = user
             if let indexPaths = tableView.indexPathsForSelectedRows {
-                destination.task = tasks[indexPaths[0].row]
+                destination.task = tasks.list[indexPaths[0].row]
                 destination.selectedIndex = indexPaths[0].row
             }
         }
@@ -67,35 +62,32 @@ class TaskListViewController: UIViewController, UITableViewDelegate {
 
 extension TaskListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tasks.count
+        return tasks.list.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard
             let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier, for: indexPath) as? TaskTableViewCell
         else{preconditionFailure("unable to dequeue reusable cell")}
-        let task = tasks[indexPath.row]
+        let task = tasks.list[indexPath.row]
         cell.configureCell(using: task)
         return cell
     }
     
     private func handleSwipeToDelete(_ indexPath: IndexPath) {
-        self.tasks.remove(at: indexPath.row)
-        self.delegate?.updateTaskList(tasks: tasks)
+        self.tasks.list.remove(at: indexPath.row)
         self.tableView.deleteRows(at: [indexPath], with: .fade)
     }
     
     private func handleSwipeToMarkAsComplete(_ indexPath: IndexPath) {
-        self.tasks[indexPath.row].status = TaskStatus.Completed.rawValue
-        self.tasks[indexPath.row].completedOn = Date.now
-        self.delegate?.updateTaskList(tasks: tasks)
+        self.tasks.list[indexPath.row].status = TaskStatus.Completed.rawValue
+        self.tasks.list[indexPath.row].completedOn = Date.now
         self.tableView.reloadRows(at: [indexPath], with: .automatic)
     }
     
     private func handleSwipeToMarkAsIncomplete(_ indexPath: IndexPath) {
-        self.tasks[indexPath.row].status = TaskStatus.New.rawValue
-        self.tasks[indexPath.row].completedOn = nil
-        self.delegate?.updateTaskList(tasks: tasks)
+        self.tasks.list[indexPath.row].status = TaskStatus.New.rawValue
+        self.tasks.list[indexPath.row].completedOn = nil
         self.tableView.reloadRows(at: [indexPath], with: .automatic)
     }
     
@@ -110,7 +102,7 @@ extension TaskListViewController: UITableViewDataSource {
             return nil
         }
         
-        let task = tasks[indexPath.row]
+        let task = tasks.list[indexPath.row]
         if task.status == TaskStatus.New.rawValue {
             let markAsComplete = UIContextualAction(style: .destructive, title: "Mark As Completed") { action, view, completionHandler in
                 self.handleSwipeToMarkAsComplete(indexPath)
@@ -148,14 +140,12 @@ extension TaskListViewController: UITableViewDataSource {
 
 extension TaskListViewController: TaskDetailDelegate {
     func addTask(description: String) {
-        self.tasks.append(Task(description: description, status: "New"))
-        self.delegate?.updateTaskList(tasks: tasks)
+        self.tasks.list.append(Task(description: description, status: "New"))
         self.tableView.reloadData()
     }
     
     func updateTask(at index: Int, with description: String) {
-        self.tasks[index].description = description
-        self.delegate?.updateTaskList(tasks: tasks)
+        self.tasks.list[index].description = description
         self.tableView.reloadData()
     }
 }
