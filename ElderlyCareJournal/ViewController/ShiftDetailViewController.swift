@@ -284,6 +284,11 @@ class ShiftDetailViewController: UITableViewController {
             destination.tasks = self.tasks
             destination.user = self.user
             destination.delegate = self
+            if let shift = shift {
+                destination.shiftStatus = shift.status
+            } else {
+                destination.shiftStatus = ShiftStatus.New.rawValue
+            }
         } else if let destination = segue.destination as? ShiftListViewController {
             if segue.identifier == "unwindToShiftList" {
                 if let shift = shift {

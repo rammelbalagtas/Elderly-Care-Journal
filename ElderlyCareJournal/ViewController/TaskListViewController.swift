@@ -15,6 +15,7 @@ class TaskListViewController: UIViewController, UITableViewDelegate {
     
     var tasks = [Task]()
     var user: User!
+    var shiftStatus: String!
     weak var delegate: TaskListDelegate?
 
     @IBOutlet weak var addBtn: UIBarButtonItem!
@@ -72,12 +73,69 @@ extension TaskListViewController: UITableViewDataSource {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            self.tasks.remove(at: indexPath.row)
-            self.delegate?.updateTaskList(tasks: tasks)
-            self.tableView.deleteRows(at: [indexPath], with: .fade)
+    private func handleSwipeToDelete(_ indexPath: IndexPath) {
+        self.tasks.remove(at: indexPath.row)
+        self.delegate?.updateTaskList(tasks: tasks)
+        self.tableView.deleteRows(at: [indexPath], with: .fade)
+    }
+    
+    private func handleSwipeToMarkAsComplete(_ indexPath: IndexPath) {
+        self.tasks[indexPath.row].status = TaskStatus.Completed.rawValue
+        self.tasks[indexPath.row].completedOn = Date.now
+        self.delegate?.updateTaskList(tasks: tasks)
+        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+    }
+    
+    private func handleSwipeToMarkAsIncomplete(_ indexPath: IndexPath) {
+        self.tasks[indexPath.row].status = TaskStatus.New.rawValue
+        self.tasks[indexPath.row].completedOn = nil
+        self.delegate?.updateTaskList(tasks: tasks)
+        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+    }
+    
+    func tableView(_ tableView: UITableView,
+                   editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .none
+    }
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        if shiftStatus != ShiftStatus.InProgress.rawValue || user.userType != UserType.CareProvider.rawValue {
+            return nil
         }
+        
+        let task = tasks[indexPath.row]
+        if task.status == TaskStatus.New.rawValue {
+            let markAsComplete = UIContextualAction(style: .destructive, title: "Mark As Completed") { action, view, completionHandler in
+                self.handleSwipeToMarkAsComplete(indexPath)
+                completionHandler(true)
+            }
+            markAsComplete.backgroundColor = UIColor.systemGreen
+            return UISwipeActionsConfiguration(actions: [markAsComplete])
+        } else {
+            let markAsIncomplete = UIContextualAction(style: .destructive, title: "Mark As Not Completed") { action, view, completionHandler in
+                self.handleSwipeToMarkAsIncomplete(indexPath)
+                completionHandler(true)
+            }
+            markAsIncomplete.backgroundColor = UIColor.systemOrange
+            return UISwipeActionsConfiguration(actions: [markAsIncomplete])
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        // allow delete action in Guardian view and only if shift has not been completed
+        if user.userType == UserType.Guardian.rawValue && shiftStatus != ShiftStatus.Completed.rawValue {
+            let delete = UIContextualAction(style: .destructive, title: "Delete") { action, view, completionHandler in
+                self.handleSwipeToDelete(indexPath)
+                completionHandler(true)
+            }
+            return UISwipeActionsConfiguration(actions: [delete])
+        } else {
+            return nil
+        }
+
     }
     
 }
