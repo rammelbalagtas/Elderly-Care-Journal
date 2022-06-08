@@ -26,6 +26,7 @@ class TaskListViewController: UIViewController, UITableViewDelegate {
         tableView.delegate = self
         tableView.dataSource = self
         setupView()
+        registerNib()
     }
     
     @IBAction func unwindToTaskList( _ seg: UIStoryboardSegue) {
@@ -56,6 +57,11 @@ class TaskListViewController: UIViewController, UITableViewDelegate {
             self.navigationItem.rightBarButtonItem = nil
         }
     }
+    
+    private func registerNib() {
+        // Register TableView Cell
+        self.tableView.register(TaskTableViewCell.nib, forCellReuseIdentifier: TaskTableViewCell.identifier)
+    }
 
 }
 
@@ -66,10 +72,10 @@ extension TaskListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Task")
+            let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier, for: indexPath) as? TaskTableViewCell
         else{preconditionFailure("unable to dequeue reusable cell")}
         let task = tasks[indexPath.row]
-        cell.textLabel?.text = task.description
+        cell.configureCell(using: task)
         return cell
     }
     
