@@ -82,35 +82,43 @@ class ShiftDetailViewController: UITableViewController {
     }
     
     @IBAction func saveAction(_ sender: UIButton) {
-        let description = shiftDescriptionText.text ?? ""
-        let fromDateTime = Utilities.extractDateTimeComponents(using: fromDateTime.date)
-        let toDateTime = Utilities.extractDateTimeComponents(using: toDateTime.date)
-        let createdOn = Utilities.extractDateTimeComponents(using: Date.now)
         
-        var shiftId = ""
-        if let shift = shift {
-            shiftId = shift.id
-        } else {
-            shiftId = UUID().uuidString
-        }
-        let shift = Shift(id: shiftId, memberId: memberId, description: description, fromDateTime: fromDateTime, toDateTime: toDateTime, tasks: tasks, careProviderId: careProviderId, careProviderName: careProviderName, status: ShiftStatus.New.rawValue, uid: user.uid, createdOn: createdOn, startedOn: nil, completedOn: nil)
-        ShiftDbService.create(shift: shift)
-        { result in
-            switch result {
-            case .success(_):
-                var message = ""
-                if self.isExisting! {
-                    message = "Shift record is updated"
-                } else {
-                    message = "Shift record is created"
+        if var shift = shift {
+            shift.description = shiftDescriptionText.text
+            shift.fromDateTime = Utilities.extractDateTimeComponents(using: fromDateTime.date)
+            shift.toDateTime = Utilities.extractDateTimeComponents(using: toDateTime.date)
+            ShiftDbService.update(shift: shift)
+            { result in
+                switch result {
+                case .success(_):
+                    self.promptMessage(message: "Shift record is updated")
+                    {_ in self.performSegue(withIdentifier: "unwindToShiftList", sender: self)}
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    self.promptMessage(message: error.localizedDescription, handler: nil)
                 }
-                self.promptMessage(message: message)
-                {_ in self.performSegue(withIdentifier: "unwindToShiftList", sender: self)}
-            case .failure(let error):
-                print(error.localizedDescription)
-                self.promptMessage(message: error.localizedDescription, handler: nil)
+            }
+            
+        } else {
+            let description = shiftDescriptionText.text ?? ""
+            let fromDateTime = Utilities.extractDateTimeComponents(using: fromDateTime.date)
+            let toDateTime = Utilities.extractDateTimeComponents(using: toDateTime.date)
+            let createdOn = Utilities.extractDateTimeComponents(using: Date.now)
+            let shift = Shift(id: UUID().uuidString, memberId: memberId, description: description, fromDateTime: fromDateTime, toDateTime: toDateTime, tasks: tasks, careProviderId: careProviderId, careProviderName: careProviderName, status: ShiftStatus.New.rawValue, uid: user.uid, createdOn: createdOn, startedOn: nil, completedOn: nil)
+            
+            ShiftDbService.create(shift: shift)
+            { result in
+                switch result {
+                case .success(_):
+                    self.promptMessage(message: "Shift record is created")
+                    {_ in self.performSegue(withIdentifier: "unwindToShiftList", sender: self)}
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    self.promptMessage(message: error.localizedDescription, handler: nil)
+                }
             }
         }
+        
     }
     
     @IBAction func deleteAction(_ sender: UIButton) {
