@@ -88,6 +88,8 @@ class ShiftDetailViewController: UITableViewController {
             shift.fromDateTime = Utilities.extractDateTimeComponents(using: fromDateTime.date)
             shift.toDateTime = Utilities.extractDateTimeComponents(using: toDateTime.date)
             shift.tasks = self.tasks.list
+            shift.careProviderId = careProviderId
+            shift.careProviderName = careProviderName
             ShiftDbService.update(shift: shift)
             { result in
                 switch result {
@@ -224,9 +226,13 @@ class ShiftDetailViewController: UITableViewController {
                 addNotesBtn.isEnabled = false
             } else if shift.status == ShiftStatus.InProgress.rawValue {
                 startShiftBtn.isEnabled = false
+                assignCareProviderBtn.isUserInteractionEnabled = false
+                assignCareProviderBtn.setTitle("Care Provider", for: .normal)
             } else if shift.status == ShiftStatus.Completed.rawValue {
                 startShiftBtn.isEnabled = false
                 endShiftBtn.isEnabled = false
+                assignCareProviderBtn.isUserInteractionEnabled = false
+                assignCareProviderBtn.setTitle("Care Provider", for: .normal)
             }
         }
         
