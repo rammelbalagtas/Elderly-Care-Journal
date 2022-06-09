@@ -592,12 +592,12 @@
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QuJ-2N-c75">
                                                             <rect key="frame" x="0.0" y="0.0" width="398" height="35"/>
                                                             <state key="normal" title="Button"/>
-                                                            <buttonConfiguration key="configuration" style="plain" title="Start Shift">
+                                                            <buttonConfiguration key="configuration" style="plain" title="Update Shift">
                                                                 <fontDescription key="titleFontDescription" type="system" pointSize="17"/>
-                                                                <color key="baseForegroundColor" systemColor="systemGreenColor"/>
+                                                                <color key="baseForegroundColor" systemColor="systemBlueColor"/>
                                                             </buttonConfiguration>
                                                             <connections>
-                                                                <action selector="startShiftAction:" destination="Fpb-kY-N1o" eventType="touchUpInside" id="uIZ-UJ-1fL"/>
+                                                                <action selector="updateShiftAction:" destination="Fpb-kY-N1o" eventType="touchUpInside" id="XZ1-oa-hAf"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -611,8 +611,40 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="uFN-p1-1u5">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="R9s-IC-skT">
                                         <rect key="frame" x="0.0" y="1022.5" width="414" height="51"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="R9s-IC-skT" id="3kr-7b-glY">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="51"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="put-mc-aZq">
+                                                    <rect key="frame" x="8" y="8" width="398" height="35"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A90-BW-9fW">
+                                                            <rect key="frame" x="0.0" y="0.0" width="398" height="35"/>
+                                                            <state key="normal" title="Button"/>
+                                                            <buttonConfiguration key="configuration" style="plain" title="Start Shift">
+                                                                <fontDescription key="titleFontDescription" type="system" pointSize="17"/>
+                                                                <color key="baseForegroundColor" systemColor="systemGreenColor"/>
+                                                            </buttonConfiguration>
+                                                            <connections>
+                                                                <action selector="startShiftAction:" destination="Fpb-kY-N1o" eventType="touchUpInside" id="Uzr-pA-zhP"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="put-mc-aZq" secondAttribute="bottom" constant="8" id="Du5-aX-Qhh"/>
+                                                <constraint firstItem="put-mc-aZq" firstAttribute="leading" secondItem="3kr-7b-glY" secondAttribute="leading" constant="8" id="WZz-4j-qU8"/>
+                                                <constraint firstItem="put-mc-aZq" firstAttribute="top" secondItem="3kr-7b-glY" secondAttribute="top" constant="8" id="q7H-Bp-yaJ"/>
+                                                <constraint firstAttribute="trailing" secondItem="put-mc-aZq" secondAttribute="trailing" constant="8" id="xzJ-bT-mjp"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="uFN-p1-1u5">
+                                        <rect key="frame" x="0.0" y="1073.5" width="414" height="51"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uFN-p1-1u5" id="k2d-aa-9GZ">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="51"/>
@@ -626,7 +658,7 @@
                                                             <state key="normal" title="Button"/>
                                                             <buttonConfiguration key="configuration" style="plain" title="End Shift">
                                                                 <fontDescription key="titleFontDescription" type="system" pointSize="17"/>
-                                                                <color key="baseForegroundColor" systemColor="systemRedColor"/>
+                                                                <color key="baseForegroundColor" systemColor="systemGreenColor"/>
                                                             </buttonConfiguration>
                                                             <connections>
                                                                 <action selector="endShiftAction:" destination="Fpb-kY-N1o" eventType="touchUpInside" id="6PY-11-sgB"/>
@@ -644,7 +676,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="MRQ-AH-z84">
-                                        <rect key="frame" x="0.0" y="1073.5" width="414" height="51"/>
+                                        <rect key="frame" x="0.0" y="1124.5" width="414" height="51"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MRQ-AH-z84" id="aux-HX-zdg">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="51"/>
@@ -658,6 +690,7 @@
                                                             <state key="normal" title="Button"/>
                                                             <buttonConfiguration key="configuration" style="plain" title="Add Notes">
                                                                 <fontDescription key="titleFontDescription" type="system" pointSize="17"/>
+                                                                <color key="baseForegroundColor" systemColor="systemBlueColor"/>
                                                             </buttonConfiguration>
                                                             <connections>
                                                                 <action selector="addNotesAction:" destination="Fpb-kY-N1o" eventType="touchUpInside" id="gcU-jZ-phQ"/>
@@ -694,8 +727,9 @@
                         <outlet property="numberOfTaskText" destination="qbX-zB-N89" id="Frg-x2-Isd"/>
                         <outlet property="saveBtn" destination="acv-GX-dMG" id="Z1Y-67-2Ea"/>
                         <outlet property="shiftDescriptionText" destination="kRZ-uI-9PY" id="y0d-h0-ILY"/>
-                        <outlet property="startShiftBtn" destination="QuJ-2N-c75" id="DpX-xG-UBp"/>
+                        <outlet property="startShiftBtn" destination="A90-BW-9fW" id="3OQ-T7-PSg"/>
                         <outlet property="toDateTime" destination="CCi-ej-1th" id="Vcq-fV-DBW"/>
+                        <outlet property="updateShiftBtn" destination="QuJ-2N-c75" id="AKR-QU-hAq"/>
                         <segue destination="KUW-cX-Z7o" kind="unwind" identifier="unwindToShiftList" unwindAction="unwindToShiftListController:" id="Vy2-38-VWm"/>
                     </connections>
                 </tableViewController>
@@ -2403,6 +2437,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemCyanColor">
             <color red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

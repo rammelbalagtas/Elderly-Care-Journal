@@ -28,15 +28,34 @@ class ShiftDetailViewController: UITableViewController {
     @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var deleteBtn: UIButton!
     
+    @IBOutlet weak var updateShiftBtn: UIButton!
     @IBOutlet weak var startShiftBtn: UIButton!
     @IBOutlet weak var endShiftBtn: UIButton!
     @IBOutlet weak var addNotesBtn: UIButton!
+    
+    @IBAction func updateShiftAction(_ sender: UIButton) {
+        if let shift = shift {
+            shift.tasks = tasks.list
+            ShiftDbService.update(shift: shift)
+            { result in
+                switch result {
+                case .success(_):
+                    self.shift = shift
+                    self.promptMessage(message: "Shift record is updated")
+                    {_ in self.performSegue(withIdentifier: "unwindToShiftList", sender: self)}
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    self.promptMessage(message: error.localizedDescription, handler: nil)
+                }
+            }
+        }
+    }
     
     @IBAction func startShiftAction(_ sender: UIButton) {
         if let shift = shift {
             shift.startedOn = Utilities.extractDateTimeComponents(using: Date.now)
             shift.status = ShiftStatus.InProgress.rawValue
-            ShiftDbService.create(shift: shift)
+            ShiftDbService.update(shift: shift)
             { result in
                 switch result {
                 case .success(_):
@@ -55,7 +74,7 @@ class ShiftDetailViewController: UITableViewController {
         if let shift = shift {
             shift.completedOn = Utilities.extractDateTimeComponents(using: Date.now)
             shift.status = ShiftStatus.Completed.rawValue
-            ShiftDbService.create(shift: shift)
+            ShiftDbService.update(shift: shift)
             { result in
                 switch result {
                 case .success(_):
@@ -224,11 +243,13 @@ class ShiftDetailViewController: UITableViewController {
             if shift.status == ShiftStatus.New.rawValue {
                 endShiftBtn.isEnabled = false
                 addNotesBtn.isEnabled = false
+                updateShiftBtn.isEnabled = false
             } else if shift.status == ShiftStatus.InProgress.rawValue {
                 startShiftBtn.isEnabled = false
                 assignCareProviderBtn.isUserInteractionEnabled = false
                 assignCareProviderBtn.setTitle("Care Provider", for: .normal)
             } else if shift.status == ShiftStatus.Completed.rawValue {
+                updateShiftBtn.isEnabled = false
                 startShiftBtn.isEnabled = false
                 endShiftBtn.isEnabled = false
                 assignCareProviderBtn.isUserInteractionEnabled = false
