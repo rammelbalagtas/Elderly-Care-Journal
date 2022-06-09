@@ -213,8 +213,12 @@ class ShiftDetailViewController: UITableViewController {
                     return 0
                 }
             } else { //Delete button
-                if shift?.status != ShiftStatus.New.rawValue {
+                if user.userType == UserType.CareProvider.rawValue {
                     return 0
+                } else {
+                    if shift?.status != ShiftStatus.New.rawValue {
+                        return 0
+                    }
                 }
             }
         case 3:
