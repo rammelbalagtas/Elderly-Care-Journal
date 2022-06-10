@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E3D5DB5285388290024606D /* ShiftNotesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3D5DB4285388290024606D /* ShiftNotesListViewController.swift */; };
+		6E3D5DB7285393140024606D /* ShiftNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3D5DB6285393140024606D /* ShiftNote.swift */; };
+		6E3D5DB92853954A0024606D /* ShiftNoteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3D5DB82853954A0024606D /* ShiftNoteDetailViewController.swift */; };
+		6E3D5DBC2853C2500024606D /* PhotoCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3D5DBA2853C2500024606D /* PhotoCollectionCell.swift */; };
+		6E3D5DBD2853C2500024606D /* PhotoCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E3D5DBB2853C2500024606D /* PhotoCollectionCell.xib */; };
+		6E8F03832853DE2000633315 /* DynamicHeightCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8F03822853DE2000633315 /* DynamicHeightCollectionView.swift */; };
 		6ED94887284E45FB007ADA00 /* ClientListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED94886284E45FB007ADA00 /* ClientListViewController.swift */; };
 		6ED9488A284E56D9007ADA00 /* ClientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED94888284E56D9007ADA00 /* ClientTableViewCell.swift */; };
 		6ED9488B284E56D9007ADA00 /* ClientTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ED94889284E56D9007ADA00 /* ClientTableViewCell.xib */; };
@@ -66,6 +72,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6E3D5DB4285388290024606D /* ShiftNotesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftNotesListViewController.swift; sourceTree = "<group>"; };
+		6E3D5DB6285393140024606D /* ShiftNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftNote.swift; sourceTree = "<group>"; };
+		6E3D5DB82853954A0024606D /* ShiftNoteDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftNoteDetailViewController.swift; sourceTree = "<group>"; };
+		6E3D5DBA2853C2500024606D /* PhotoCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionCell.swift; sourceTree = "<group>"; };
+		6E3D5DBB2853C2500024606D /* PhotoCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoCollectionCell.xib; sourceTree = "<group>"; };
+		6E8F03822853DE2000633315 /* DynamicHeightCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicHeightCollectionView.swift; sourceTree = "<group>"; };
 		6ED94886284E45FB007ADA00 /* ClientListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientListViewController.swift; sourceTree = "<group>"; };
 		6ED94888284E56D9007ADA00 /* ClientTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientTableViewCell.swift; sourceTree = "<group>"; };
 		6ED94889284E56D9007ADA00 /* ClientTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClientTableViewCell.xib; sourceTree = "<group>"; };
@@ -207,6 +219,9 @@
 				6EF8AE1F2846C30300EA002E /* DocumentListViewController.swift */,
 				6EF8AE27284962C700EA002E /* FileWebDocumentViewController.swift */,
 				6ED94886284E45FB007ADA00 /* ClientListViewController.swift */,
+				6E3D5DB4285388290024606D /* ShiftNotesListViewController.swift */,
+				6E3D5DB82853954A0024606D /* ShiftNoteDetailViewController.swift */,
+				6E8F03822853DE2000633315 /* DynamicHeightCollectionView.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -235,6 +250,7 @@
 				6EF8AE252847BD5900EA002E /* Document.swift */,
 				6ED94890284F8B73007ADA00 /* TaskStatus.swift */,
 				6ED9489828516AB1007ADA00 /* TaskList.swift */,
+				6E3D5DB6285393140024606D /* ShiftNote.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -242,6 +258,8 @@
 		6EED3EC5283537F500481EF7 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6E3D5DBA2853C2500024606D /* PhotoCollectionCell.swift */,
+				6E3D5DBB2853C2500024606D /* PhotoCollectionCell.xib */,
 				6EED3EC62835382F00481EF7 /* FamilyMemberTableViewCell.swift */,
 				6EED3EC72835382F00481EF7 /* FamilyMemberTableViewCell.xib */,
 				6EF8AE0928450A4B00EA002E /* SideMenuCell.swift */,
@@ -352,6 +370,7 @@
 				6EED3EB42832AF2E00481EF7 /* GoogleService-Info.plist in Resources */,
 				6EED3E9F28328E8400481EF7 /* Assets.xcassets in Resources */,
 				6EED3EC92835382F00481EF7 /* FamilyMemberTableViewCell.xib in Resources */,
+				6E3D5DBD2853C2500024606D /* PhotoCollectionCell.xib in Resources */,
 				6ED9489528510804007ADA00 /* TaskTableViewCell.xib in Resources */,
 				6EED3E9D28328E7F00481EF7 /* Main.storyboard in Resources */,
 				6EF8AE0C28450A4B00EA002E /* SideMenuCell.xib in Resources */,
@@ -415,11 +434,13 @@
 				6EED3ECF2835C3CD00481EF7 /* UITextViewPlaceHolder+extension.swift in Sources */,
 				6EF8AE28284962C700EA002E /* FileWebDocumentViewController.swift in Sources */,
 				6EF8ADF5283F15EE00EA002E /* Task.swift in Sources */,
+				6E3D5DB5285388290024606D /* ShiftNotesListViewController.swift in Sources */,
 				6EF8ADF9283FD18B00EA002E /* TaskListViewController.swift in Sources */,
 				6EF8AE0B28450A4B00EA002E /* SideMenuCell.swift in Sources */,
 				6EED3ED62836780300481EF7 /* User.swift in Sources */,
 				6EED3E9A28328E7F00481EF7 /* MainViewController.swift in Sources */,
 				6EF8AE0E28454CC900EA002E /* PageContainerViewController.swift in Sources */,
+				6E3D5DB7285393140024606D /* ShiftNote.swift in Sources */,
 				6EED3EBF28352D7D00481EF7 /* FamilyMemberListController.swift in Sources */,
 				6EF8ADFB283FD24500EA002E /* TaskDetailViewController.swift in Sources */,
 				6EF8ADFE2840219E00EA002E /* UserDbService.swift in Sources */,
@@ -437,6 +458,7 @@
 				6EF8AE08284509DB00EA002E /* SideMenuModel.swift in Sources */,
 				6EF8AE1828457EE800EA002E /* SideNavigationMenuViewController.swift in Sources */,
 				6EF8ADF7283F180600EA002E /* ShiftDbService.swift in Sources */,
+				6E8F03832853DE2000633315 /* DynamicHeightCollectionView.swift in Sources */,
 				6EF8AE1A2845B39C00EA002E /* PageId.swift in Sources */,
 				6EED3ED22835D7B700481EF7 /* GenderTableViewController.swift in Sources */,
 				6EED3ED42836779A00481EF7 /* UserType.swift in Sources */,
@@ -448,6 +470,8 @@
 				6EF8ADED283ACB8700EA002E /* ImageStorageService.swift in Sources */,
 				6EF8AE10284577C400EA002E /* DummyViewController.swift in Sources */,
 				6EF8AE262847BD5900EA002E /* Document.swift in Sources */,
+				6E3D5DB92853954A0024606D /* ShiftNoteDetailViewController.swift in Sources */,
+				6E3D5DBC2853C2500024606D /* PhotoCollectionCell.swift in Sources */,
 				6ED9488A284E56D9007ADA00 /* ClientTableViewCell.swift in Sources */,
 				6EF8ADEB2837D04D00EA002E /* UIImageView+Extension.swift in Sources */,
 				6EED3EB72832E44700481EF7 /* Constants.swift in Sources */,

@@ -22,11 +22,13 @@ struct Constants {
     //reuse identifier for custom nibs
     struct ReuseIdentifier {
         static let familyMemberTableViewCell = "FamilyMember"
+        static let photoCollectionCell = "PhotoCollectionCell"
     }
     
     //custom nib for table view/collection view cells
     struct NibName {
         static let nibFamilyMemberTable = "FamilyMemberTableViewCell"
+        static let photoCollectionCell = "PhotoCollectionCell"
     }
 }
 
