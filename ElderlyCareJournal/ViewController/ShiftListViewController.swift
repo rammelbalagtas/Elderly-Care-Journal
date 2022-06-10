@@ -31,7 +31,7 @@ class ShiftListViewController: UIViewController, UITableViewDelegate {
         sideMenuBtn.action = #selector(revealViewController()?.revealSideMenu)
         
         registerNib()
-        loadData(status: ShiftStatus.New.rawValue)
+        loadData(status: ShiftStatus.New.rawValue) //default tab is Scheduled
         setupView()
     }
     

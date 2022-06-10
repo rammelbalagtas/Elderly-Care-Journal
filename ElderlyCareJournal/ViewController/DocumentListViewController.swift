@@ -8,6 +8,7 @@
 import UIKit
 import MobileCoreServices
 import FirebaseStorage
+import UniformTypeIdentifiers
 
 protocol DocumentListDelegate: AnyObject {
     func addDocument(document: Document)
@@ -37,11 +38,14 @@ class DocumentListViewController: UIViewController {
         //setup side menu
         sideMenuBtn.target = revealViewController()
         sideMenuBtn.action = #selector(revealViewController()?.revealSideMenu)
+        
+        setupView()
 
     }
     
     @IBAction func addDocumentAction(_ sender: UIBarButtonItem) {
-        let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.pdf, .png])
+        
+        let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.pdf, .png, .jpeg, .text, .appleArchive])
         documentPicker.delegate = self
         documentPicker.modalPresentationStyle = .automatic
         present(documentPicker, animated: true)
@@ -73,6 +77,14 @@ extension DocumentListViewController: UITableViewDelegate {
         selectedDocument = familyMember.documents[indexPath.row]
         tableView.deselectRow(at: indexPath, animated: true)
         self.performSegue(withIdentifier: "OpenDocument", sender: self)
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        //Disable swipe to delete action for care provider
+        if user.userType == UserType.CareProvider.rawValue {
+            return UITableViewCell.EditingStyle.none
+        }
+        return UITableViewCell.EditingStyle.delete
     }
     
     // Override to support editing the table view.
