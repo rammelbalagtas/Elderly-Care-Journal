@@ -751,6 +751,25 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="NPh-o8-aNj">
                                 <rect key="frame" x="8" y="96" width="398" height="709"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ShiftNote" textLabel="KGq-Rn-nnc" style="IBUITableViewCellStyleDefault" id="hei-Y1-IlK">
+                                        <rect key="frame" x="0.0" y="44.5" width="398" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hei-Y1-IlK" id="ZxR-lj-K7s">
+                                            <rect key="frame" x="0.0" y="0.0" width="398" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KGq-Rn-nnc">
+                                                    <rect key="frame" x="20" y="0.0" width="358" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="SoF-Jj-ngH"/>
@@ -765,7 +784,7 @@
                     <navigationItem key="navigationItem" title="Notes" id="IcU-tX-yad">
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="sxw-Kp-ihu">
                             <connections>
-                                <segue destination="xE3-XA-Jdc" kind="show" id="7pl-dm-EGU"/>
+                                <segue destination="xE3-XA-Jdc" kind="show" identifier="AddShiftNote" id="7pl-dm-EGU"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -899,15 +918,21 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Detail" id="Ji5-rw-Evk">
-                        <barButtonItem key="rightBarButtonItem" title="Save" style="plain" id="0FV-2u-qnC"/>
+                        <barButtonItem key="rightBarButtonItem" title="Save" style="plain" id="0FV-2u-qnC">
+                            <connections>
+                                <action selector="savePhotoAction:" destination="xE3-XA-Jdc" id="I8X-ay-R1N"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="addPhotoBtn" destination="e1Z-1C-g6G" id="FyS-Ra-B4i"/>
                         <outlet property="collectionView" destination="jh9-Y9-P9F" id="9e0-XQ-NrI"/>
                         <outlet property="noteDescriptionText" destination="aeT-SK-auT" id="QEX-mD-ORs"/>
+                        <segue destination="nsj-Or-prt" kind="unwind" identifier="unwindToShiftNoteList" unwindAction="unwindToShiftNoteList:" id="z6l-MF-Ir0"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4gt-Ww-Kac" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="nsj-Or-prt" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="9824.6376811594218" y="959.59821428571422"/>
         </scene>

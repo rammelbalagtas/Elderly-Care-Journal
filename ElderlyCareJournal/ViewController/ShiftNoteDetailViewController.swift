@@ -7,12 +7,38 @@
 
 import UIKit
 
+protocol ShiftNoteDetailDelegate: AnyObject {
+    func addNote(note: ShiftNote)
+    func updateNote(at index: Int, note: ShiftNote)
+}
+
 class ShiftNoteDetailViewController: UITableViewController {
 
     @IBOutlet weak var noteDescriptionText: UITextView!
     @IBOutlet weak var addPhotoBtn: UIButton!
     
+    var user: User!
+    var note: ShiftNote?
+    var selectedIndex: Int?
+    weak var delegate: ShiftNoteDetailDelegate?
+    
     @IBAction func addPhotoAction(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func savePhotoAction(_ sender: UIBarButtonItem) {
+        guard
+            let noteDescription = noteDescriptionText.text, noteDescriptionText.hasText
+        else {return}
+        
+        if var note = note, let index = selectedIndex {
+            note.description = noteDescription
+            delegate?.updateNote(at: index, note: note)
+        } else {
+            let note = ShiftNote(description: noteDescription, photos: [])
+            delegate?.addNote(note: note)
+        }
+        self.performSegue(withIdentifier: "unwindToShiftNoteList", sender: self)
     }
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -28,6 +54,12 @@ class ShiftNoteDetailViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0
+    }
+    
+    private func loadData() {
+        if let note = note {
+            noteDescriptionText.text = note.description
+        }
     }
     
     private func setupView() {
@@ -100,7 +132,7 @@ extension ShiftNoteDetailViewController: UICollectionViewDelegate {
 extension ShiftNoteDetailViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return note?.photos.count ?? 0
     }
     
     //data per collection view cell

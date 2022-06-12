@@ -338,6 +338,9 @@ class ShiftDetailViewController: UITableViewController {
                     }
                 }
             }
+        } else if let destination = segue.destination as? ShiftNotesListViewController {
+            destination.user = self.user
+            destination.shift = self.shift
         }
     }
 }

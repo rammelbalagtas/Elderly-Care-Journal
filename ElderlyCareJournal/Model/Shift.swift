@@ -22,9 +22,9 @@ class Shift: Codable {
     var createdOn: String
     var startedOn: String?
     var completedOn: String?
-    var notes: [ShiftNote]?
+    var notes: [ShiftNote]
     
-    init(id: String, memberId: String, description: String, fromDateTime: String, toDateTime: String, tasks: [Task], careProviderId: String, careProviderName: String, status: String, uid: String, createdOn: String, startedOn: String? = nil, completedOn: String? = nil, notes: [ShiftNote]? = nil) {
+    init(id: String, memberId: String, description: String, fromDateTime: String, toDateTime: String, tasks: [Task], careProviderId: String, careProviderName: String, status: String, uid: String, createdOn: String, startedOn: String? = nil, completedOn: String? = nil, notes: [ShiftNote] = []) {
         self.id = id
         self.memberId = memberId
         self.description = description
