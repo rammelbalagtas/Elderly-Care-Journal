@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseStorage
 
 protocol ShiftNoteDetailDelegate: AnyObject {
     func addNote(note: ShiftNote, images: [ShiftNoteImage])
@@ -23,6 +24,8 @@ class ShiftNoteDetailViewController: UITableViewController {
     private var images = [ShiftNoteImage]()
     private var shouldSavePhoto: Bool = false
     weak var delegate: ShiftNoteDetailDelegate?
+    
+    private let storage = Storage.storage().reference()
     
     @IBAction func addPhotoAction(_ sender: UIButton) {
         let vc = UIImagePickerController()
@@ -65,6 +68,12 @@ class ShiftNoteDetailViewController: UITableViewController {
     private func loadData() {
         if let note = note {
             noteDescriptionText.text = note.description
+            
+            if !note.photos.isEmpty {
+                for photo in note.photos {
+                    images.append(ShiftNoteImage(path: photo, image: nil))
+                }
+            }
         }
     }
     
@@ -138,7 +147,7 @@ extension ShiftNoteDetailViewController: UICollectionViewDelegate {
 extension ShiftNoteDetailViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return note?.photos.count ?? 0
+        return images.count
     }
     
     //data per collection view cell
@@ -146,10 +155,15 @@ extension ShiftNoteDetailViewController: UICollectionViewDataSource {
         guard
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.ReuseIdentifier.photoCollectionCell, for: indexPath) as? PhotoCollectionCell
         else{preconditionFailure("unable to dequeue reusable cell")}
+        let image = images[indexPath.row]
+        if let imageData = image.image {
+            cell.configureImage(path: nil, image: imageData, storage: storage)
+        } else {
+            cell.configureImage(path: image.path, image: nil, storage: storage)
+        }
         return cell
     }
 }
-
 
 extension ShiftNoteDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -162,7 +176,7 @@ extension ShiftNoteDetailViewController: UIImagePickerControllerDelegate, UINavi
         }
         
         self.images.append(ShiftNoteImage(path: "", image: image))
-        shouldSavePhoto = true
+        collectionView.reloadItems(at: [IndexPath(item: images.count - 1, section: 0)])
         
     }
 

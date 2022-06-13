@@ -60,7 +60,7 @@ class ShiftNotesListViewController: UIViewController {
                     let imageId = UUID().uuidString
                     let path = "/images/shift/\(shift.id)/\(imageId)"
                     group.enter()
-                    ImageStorageService.uploadImage(path: path, image: image.image, storage: storage)
+                    ImageStorageService.uploadImage(path: path, image: image.image!, storage: storage)
                     { result in
                         switch result {
                         case .success(_):
