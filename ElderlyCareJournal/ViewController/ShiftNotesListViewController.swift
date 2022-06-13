@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseStorage
 
 class ShiftNotesListViewController: UIViewController {
 
@@ -14,6 +15,8 @@ class ShiftNotesListViewController: UIViewController {
     var shift: Shift!
     var user: User!
     var selectedIndex: Int?
+    
+    private let storage = Storage.storage().reference()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,17 +38,96 @@ class ShiftNotesListViewController: UIViewController {
         }
     }
     
-    private func updateShift() {
-        ShiftDbService.update(shift: shift) { result in
-            switch result {
-            case .success(_):
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
+    private func updateShift(at index: Int?, note: ShiftNote, images: [ShiftNoteImage]) {
+        
+        var imagePathList = [String]()
+        var noteFinal = note
+        
+        //check if there are images for uploading
+        let shouldUpload = images.contains { image in
+            if image.path.isEmpty {
+                return true
+            } else {
+                return false
             }
         }
+        
+        if shouldUpload {
+            //upload images before updating shift
+            let group = DispatchGroup()
+            for image in images {
+                if image.path.isEmpty {
+                    let imageId = UUID().uuidString
+                    let path = "/images/shift/\(shift.id)/\(imageId)"
+                    group.enter()
+                    ImageStorageService.uploadImage(path: path, image: image.image, storage: storage)
+                    { result in
+                        switch result {
+                        case .success(_):
+                            imagePathList.append(path)
+                        case .failure(let error):
+                            print(error.localizedDescription)
+                        }
+                        group.leave()
+                    }
+                } else {
+                    imagePathList.append(image.path)
+                }
+            }
+            
+            group.notify(queue: .main) {
+                
+                if let index = index {
+                    self.shift.notes[index] = note
+                    self.shift.notes[index].photos = imagePathList
+                } else {
+                    noteFinal.photos = imagePathList
+                    self.shift.notes.append(noteFinal)
+                }
+                
+                ShiftDbService.update(shift: self.shift) { result in
+                    switch result {
+                    case .success(_):
+                        DispatchQueue.main.async {
+                            self.tableView.reloadData()
+                        }
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                    }
+                }
+            }
+            
+        } else {
+            
+            for image in images {
+                imagePathList.append(image.path)
+            }
+            
+            if let index = index {
+                self.shift.notes[index] = note
+                self.shift.notes[index].photos = imagePathList
+            } else {
+                noteFinal.photos = imagePathList
+                self.shift.notes.append(noteFinal)
+            }
+            
+            ShiftDbService.update(shift: self.shift) { result in
+                switch result {
+                case .success(_):
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        }
+        
+    }
+    
+    private func uploadImages(images: [ShiftNoteImage]) {
+        
+
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -94,14 +176,12 @@ extension ShiftNotesListViewController: UITableViewDataSource {
 }
 
 extension ShiftNotesListViewController: ShiftNoteDetailDelegate {
-    func addNote(note: ShiftNote) {
-        self.shift.notes.append(note)
-        updateShift()
+    func addNote(note: ShiftNote, images: [ShiftNoteImage]) {
+        updateShift(at: nil, note: note, images: images)
     }
     
-    func updateNote(at index: Int, note: ShiftNote) {
-        self.shift.notes[index] = note
-        updateShift()
+    func updateNote(at index: Int, note: ShiftNote, images: [ShiftNoteImage]) {
+        updateShift(at: index, note: note, images: images)
     }
 
 }

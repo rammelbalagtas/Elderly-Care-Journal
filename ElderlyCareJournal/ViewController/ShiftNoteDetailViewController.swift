@@ -8,8 +8,8 @@
 import UIKit
 
 protocol ShiftNoteDetailDelegate: AnyObject {
-    func addNote(note: ShiftNote)
-    func updateNote(at index: Int, note: ShiftNote)
+    func addNote(note: ShiftNote, images: [ShiftNoteImage])
+    func updateNote(at index: Int, note: ShiftNote, images: [ShiftNoteImage])
 }
 
 class ShiftNoteDetailViewController: UITableViewController {
@@ -20,23 +20,28 @@ class ShiftNoteDetailViewController: UITableViewController {
     var user: User!
     var note: ShiftNote?
     var selectedIndex: Int?
+    private var images = [ShiftNoteImage]()
+    private var shouldSavePhoto: Bool = false
     weak var delegate: ShiftNoteDetailDelegate?
     
     @IBAction func addPhotoAction(_ sender: UIButton) {
-        
+        let vc = UIImagePickerController()
+        vc.sourceType = .photoLibrary
+        vc.allowsEditing = true
+        vc.delegate = self
+        present(vc, animated: true)
     }
-    
-    @IBAction func savePhotoAction(_ sender: UIBarButtonItem) {
+    @IBAction func saveNoteAction(_ sender: UIBarButtonItem) {
         guard
             let noteDescription = noteDescriptionText.text, noteDescriptionText.hasText
         else {return}
         
         if var note = note, let index = selectedIndex {
             note.description = noteDescription
-            delegate?.updateNote(at: index, note: note)
+            delegate?.updateNote(at: index, note: note, images: images)
         } else {
             let note = ShiftNote(description: noteDescription, photos: [])
-            delegate?.addNote(note: note)
+            delegate?.addNote(note: note, images: images)
         }
         self.performSegue(withIdentifier: "unwindToShiftNoteList", sender: self)
     }
@@ -142,5 +147,26 @@ extension ShiftNoteDetailViewController: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.ReuseIdentifier.photoCollectionCell, for: indexPath) as? PhotoCollectionCell
         else{preconditionFailure("unable to dequeue reusable cell")}
         return cell
+    }
+}
+
+
+extension ShiftNoteDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        picker.dismiss(animated: true)
+
+        guard let image = info[.editedImage] as? UIImage else {
+            print("No image found")
+            return
+        }
+        
+        self.images.append(ShiftNoteImage(path: "", image: image))
+        shouldSavePhoto = true
+        
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
     }
 }

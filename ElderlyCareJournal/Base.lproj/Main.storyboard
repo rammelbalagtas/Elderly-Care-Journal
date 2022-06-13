@@ -921,7 +921,7 @@
                     <navigationItem key="navigationItem" title="Detail" id="Ji5-rw-Evk">
                         <barButtonItem key="rightBarButtonItem" title="Save" style="plain" id="0FV-2u-qnC">
                             <connections>
-                                <action selector="savePhotoAction:" destination="xE3-XA-Jdc" id="I8X-ay-R1N"/>
+                                <action selector="saveNoteAction:" destination="xE3-XA-Jdc" id="gmJ-nK-szv"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
