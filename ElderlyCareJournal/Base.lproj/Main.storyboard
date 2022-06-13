@@ -791,6 +791,7 @@
                     <connections>
                         <outlet property="addBtn" destination="sxw-Kp-ihu" id="Wk3-fG-vUa"/>
                         <outlet property="tableView" destination="NPh-o8-aNj" id="70R-Gw-2m0"/>
+                        <segue destination="xE3-XA-Jdc" kind="show" identifier="VIewShiftNote" id="6Ve-Lt-vt8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bId-RS-yBO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2623,6 +2624,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="O8K-ak-xKT"/>
+        <segue reference="6Ve-Lt-vt8"/>
         <segue reference="Tyg-9e-z6R"/>
     </inferredMetricsTieBreakers>
     <resources>

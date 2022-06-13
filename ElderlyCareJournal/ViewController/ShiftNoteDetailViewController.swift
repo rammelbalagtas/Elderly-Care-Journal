@@ -46,6 +46,7 @@ class ShiftNoteDetailViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        loadData()
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

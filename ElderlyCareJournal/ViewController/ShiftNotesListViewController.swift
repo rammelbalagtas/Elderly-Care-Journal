@@ -13,6 +13,7 @@ class ShiftNotesListViewController: UIViewController {
     @IBOutlet weak var addBtn: UIBarButtonItem!
     var shift: Shift!
     var user: User!
+    var selectedIndex: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +48,12 @@ class ShiftNotesListViewController: UIViewController {
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedIndex = indexPath.row
+        tableView.deselectRow(at: indexPath, animated: .random())
+        self.performSegue(withIdentifier: "VIewShiftNote", sender: self)
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -56,9 +63,9 @@ class ShiftNotesListViewController: UIViewController {
         if let destination = segue.destination as? ShiftNoteDetailViewController {
             destination.delegate = self
             destination.user = user
-            if let indexPaths = tableView.indexPathsForSelectedRows {
-                destination.note = shift.notes[indexPaths[0].row]
-                destination.selectedIndex = indexPaths[0].row
+            if let selectedIndex = selectedIndex {
+                destination.note = shift.notes[selectedIndex]
+                destination.selectedIndex = selectedIndex
             }
         }
     }
