@@ -38,13 +38,13 @@ class ShiftNotesListViewController: UIViewController {
         }
     }
     
-    private func updateShift(at index: Int?, note: ShiftNote, images: [ShiftNoteImage]) {
+    private func updateShift(at index: Int?, note: ShiftNote, imagesForUpload: [ShiftNoteImage], imagesForDeletion: [ShiftNoteImage]?) {
         
         var imagePathList = [String]()
         var noteFinal = note
         
         //check if there are images for uploading
-        let shouldUpload = images.contains { image in
+        let shouldUpload = imagesForUpload.contains { image in
             if image.path.isEmpty {
                 return true
             } else {
@@ -52,10 +52,15 @@ class ShiftNotesListViewController: UIViewController {
             }
         }
         
-        if shouldUpload {
+        var shouldDelete = false
+        if let imagesForDeletion = imagesForDeletion {
+            shouldDelete = !imagesForDeletion.isEmpty
+        }
+        
+        if shouldUpload || shouldDelete {
             //upload images before updating shift
             let group = DispatchGroup()
-            for image in images {
+            for image in imagesForUpload {
                 if image.path.isEmpty {
                     let imageId = UUID().uuidString
                     let path = "/images/shift/\(shift.id)/\(imageId)"
@@ -72,6 +77,24 @@ class ShiftNotesListViewController: UIViewController {
                     }
                 } else {
                     imagePathList.append(image.path)
+                }
+            }
+            
+            if let imagesForDeletion = imagesForDeletion {
+                for image in imagesForDeletion {
+                    if !image.path.isEmpty {
+                        group.enter()
+                        ImageStorageService.delete(path: image.path, storage: storage)
+                        { result in
+                            switch result {
+                            case .success(_):
+                                print("photo upload successful")
+                            case .failure(let error):
+                                print(error.localizedDescription)
+                            }
+                            group.leave()
+                        }
+                    }
                 }
             }
             
@@ -99,7 +122,7 @@ class ShiftNotesListViewController: UIViewController {
             
         } else {
             
-            for image in images {
+            for image in imagesForUpload {
                 imagePathList.append(image.path)
             }
             
@@ -177,11 +200,11 @@ extension ShiftNotesListViewController: UITableViewDataSource {
 
 extension ShiftNotesListViewController: ShiftNoteDetailDelegate {
     func addNote(note: ShiftNote, images: [ShiftNoteImage]) {
-        updateShift(at: nil, note: note, images: images)
+        updateShift(at: nil, note: note, imagesForUpload: images, imagesForDeletion: nil)
     }
     
-    func updateNote(at index: Int, note: ShiftNote, images: [ShiftNoteImage]) {
-        updateShift(at: index, note: note, images: images)
+    func updateNote(at index: Int, note: ShiftNote, imagesForUpload: [ShiftNoteImage], imagesForDeletion: [ShiftNoteImage]) {
+        updateShift(at: index, note: note, imagesForUpload: imagesForUpload, imagesForDeletion: imagesForDeletion)
     }
 
 }

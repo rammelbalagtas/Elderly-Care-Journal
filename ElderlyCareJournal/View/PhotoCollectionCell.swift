@@ -8,9 +8,21 @@
 import UIKit
 import FirebaseStorage
 
+protocol PhotoCollectionDelegate: AnyObject {
+    func removePhoto(at indexPath: IndexPath)
+}
+
 class PhotoCollectionCell: UICollectionViewCell {
 
     @IBOutlet weak var photoImageView: UIImageView!
+    @IBOutlet weak var deleteBtn: UIButton!
+    
+    var delegate: PhotoCollectionDelegate!
+    var indexPath: IndexPath!
+    
+    @IBAction func deleteBtnAction(_ sender: UIButton) {
+        delegate.removePhoto(at: indexPath)
+    }
     
     private var activityIndicator: UIActivityIndicatorView {
         let activityIndicator = UIActivityIndicatorView()
@@ -38,14 +50,16 @@ class PhotoCollectionCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        deleteBtn.isHidden = true
     }
     
     func configureImage(path: String?, image: UIImage?, storage: StorageReference) {
         if let image = image {
+            deleteBtn.isHidden = false
             photoImageView.image = image
         }
         else if let path = path {
+            deleteBtn.isHidden = true
             self.photoImageView.image = nil
             let activityIndicator = self.activityIndicator
             activityIndicator.startAnimating()
@@ -56,12 +70,12 @@ class PhotoCollectionCell: UICollectionViewCell {
                     DispatchQueue.main.async {
                         self.photoImageView.image = data
                     }
-                    self.photoImageView.image = data
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
                 activityIndicator.stopAnimating()
                 activityIndicator.removeFromSuperview()
+                self.deleteBtn.isHidden = false
             }
         }
     }

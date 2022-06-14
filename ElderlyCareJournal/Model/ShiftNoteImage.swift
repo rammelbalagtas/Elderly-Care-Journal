@@ -11,4 +11,5 @@ import UIKit
 struct ShiftNoteImage {
     var path: String
     var image: UIImage?
+    var markForDeletion = false
 }

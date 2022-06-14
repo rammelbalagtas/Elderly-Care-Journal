@@ -10,7 +10,7 @@ import FirebaseStorage
 
 protocol ShiftNoteDetailDelegate: AnyObject {
     func addNote(note: ShiftNote, images: [ShiftNoteImage])
-    func updateNote(at index: Int, note: ShiftNote, images: [ShiftNoteImage])
+    func updateNote(at index: Int, note: ShiftNote, imagesForUpload: [ShiftNoteImage], imagesForDeletion: [ShiftNoteImage])
 }
 
 class ShiftNoteDetailViewController: UITableViewController {
@@ -22,6 +22,7 @@ class ShiftNoteDetailViewController: UITableViewController {
     var note: ShiftNote?
     var selectedIndex: Int?
     private var images = [ShiftNoteImage]()
+    private var imagesForDeletion = [ShiftNoteImage]()
     private var shouldSavePhoto: Bool = false
     weak var delegate: ShiftNoteDetailDelegate?
     
@@ -41,7 +42,7 @@ class ShiftNoteDetailViewController: UITableViewController {
         
         if var note = note, let index = selectedIndex {
             note.description = noteDescription
-            delegate?.updateNote(at: index, note: note, images: images)
+            delegate?.updateNote(at: index, note: note, imagesForUpload: images, imagesForDeletion: imagesForDeletion)
         } else {
             let note = ShiftNote(description: noteDescription, photos: [])
             delegate?.addNote(note: note, images: images)
@@ -161,6 +162,8 @@ extension ShiftNoteDetailViewController: UICollectionViewDataSource {
         } else {
             cell.configureImage(path: image.path, image: nil, storage: storage)
         }
+        cell.delegate = self
+        cell.indexPath = indexPath
         return cell
     }
 }
@@ -176,11 +179,22 @@ extension ShiftNoteDetailViewController: UIImagePickerControllerDelegate, UINavi
         }
         
         self.images.append(ShiftNoteImage(path: "", image: image))
-        collectionView.reloadItems(at: [IndexPath(item: images.count - 1, section: 0)])
+        collectionView.reloadData()
         
     }
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true)
+    }
+}
+
+extension ShiftNoteDetailViewController: PhotoCollectionDelegate {
+    func removePhoto(at indexPath: IndexPath) {
+        let image = images[indexPath.row]
+        if !image.path.isEmpty {
+            imagesForDeletion.append(image)
+        }
+        images.remove(at: indexPath.row)
+        collectionView.reloadData()
     }
 }

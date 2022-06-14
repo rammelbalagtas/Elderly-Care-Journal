@@ -50,4 +50,16 @@ struct ImageStorageService {
         }
     }
     
+    public static func delete(path: String, storage: StorageReference, callback: @escaping (Result<String, Error>) -> Void) {
+        
+        let reference = storage.child(path)
+        reference.delete { error in
+            if let error = error {
+                callback(.failure(error))
+            } else {
+                callback(.success(path))
+            }
+        }
+    }
+    
 }

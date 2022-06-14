@@ -16,22 +16,37 @@
                 <rect key="frame" x="0.0" y="0.0" width="150" height="200"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XxJ-zF-ulz">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XxJ-zF-ulz">
                         <rect key="frame" x="0.0" y="0.0" width="150" height="200"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="200" id="H4p-6m-J7i"/>
                             <constraint firstAttribute="width" constant="150" id="ssk-Re-pkg"/>
                         </constraints>
                     </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="close" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ffU-of-66r">
+                        <rect key="frame" x="132" y="8" width="10" height="10"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="10" id="ZI0-My-uaH"/>
+                            <constraint firstAttribute="width" constant="10" id="ceJ-3n-yny"/>
+                        </constraints>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <buttonConfiguration key="configuration" style="tinted"/>
+                        <connections>
+                            <action selector="deleteBtnAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="isA-IY-agF"/>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="ffU-of-66r" secondAttribute="trailing" constant="8" id="Dea-hJ-nWD"/>
                 <constraint firstItem="XxJ-zF-ulz" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="LvL-DT-duS"/>
+                <constraint firstItem="ffU-of-66r" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="W4N-vV-eck"/>
                 <constraint firstItem="XxJ-zF-ulz" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="jDt-Y4-j90"/>
             </constraints>
             <size key="customSize" width="150" height="200"/>
             <connections>
+                <outlet property="deleteBtn" destination="ffU-of-66r" id="fgz-NP-Ao7"/>
                 <outlet property="photoImageView" destination="XxJ-zF-ulz" id="5yD-DG-srV"/>
             </connections>
             <point key="canvasLocation" x="204.34782608695653" y="149.33035714285714"/>
