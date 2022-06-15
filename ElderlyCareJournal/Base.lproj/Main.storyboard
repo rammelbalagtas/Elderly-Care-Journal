@@ -1281,10 +1281,24 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="gpM-U3-L91">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jPo-sK-9tf">
                                         <rect key="frame" x="0.0" y="32" width="406" height="734"/>
+                                        <subviews>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="IGN-zT-bC0">
+                                                <rect key="frame" x="184.5" y="348.5" width="37" height="37"/>
+                                            </activityIndicatorView>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="gpM-U3-L91">
+                                                <rect key="frame" x="0.0" y="0.0" width="406" height="734"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            </tableView>
+                                        </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                    </tableView>
+                                        <constraints>
+                                            <constraint firstItem="IGN-zT-bC0" firstAttribute="centerY" secondItem="jPo-sK-9tf" secondAttribute="centerY" id="IP7-Ca-a8v"/>
+                                            <constraint firstItem="IGN-zT-bC0" firstAttribute="centerX" secondItem="jPo-sK-9tf" secondAttribute="centerX" id="sFW-tg-egJ"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -1301,6 +1315,7 @@
                         <barButtonItem key="leftBarButtonItem" title="Item" image="list.bullet" catalog="system" style="plain" id="Z2s-Yd-R3O"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="IGN-zT-bC0" id="2pT-v6-j7C"/>
                         <outlet property="sideMenuBtn" destination="Z2s-Yd-R3O" id="PLW-bo-k1Y"/>
                         <outlet property="tableView" destination="gpM-U3-L91" id="VJv-nC-9BX"/>
                     </connections>

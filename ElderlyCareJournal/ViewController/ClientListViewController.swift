@@ -16,6 +16,9 @@ class ClientListViewController: UIViewController {
     
     @IBOutlet var sideMenuBtn: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    private var refreshControl = UIRefreshControl()
     
     var user: User!
     var clients = [FamilyMember]()
@@ -24,15 +27,8 @@ class ClientListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        sideMenuBtn.target = revealViewController()
-        sideMenuBtn.action = #selector(revealViewController()?.revealSideMenu)
-        
         registerNib()
-
-        tableView.delegate = self
-        tableView.dataSource = self
-        
+        setupView()
         loadData()
     }
     
@@ -41,15 +37,43 @@ class ClientListViewController: UIViewController {
         self.tableView.register(ClientTableViewCell.nib, forCellReuseIdentifier: ClientTableViewCell.identifier)
     }
     
+    private func setupView() {
+        sideMenuBtn.target = revealViewController()
+        sideMenuBtn.action = #selector(revealViewController()?.revealSideMenu)
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        refreshControl.addTarget(self, action: #selector(pullUpToRefreshAction), for: .valueChanged)
+        refreshControl.attributedTitle = NSAttributedString(string: "Fetching client records ...")
+        tableView.addSubview(refreshControl)
+    }
+    
+    @objc
+    private func pullUpToRefreshAction() {
+        loadData()
+    }
+    
     private func loadData() {
+        self.tableView.isHidden = true
+        self.activityIndicator.startAnimating()
         FamilyMemberDbService.readClients(careProviderId: user.uid)
         { result in
             switch result {
             case .success(let data):
-                self.clients = data
-                self.tableView.reloadData()
+                DispatchQueue.main.async {
+                    self.clients = data
+                    self.tableView.isHidden = false
+                    self.tableView.reloadData()
+                    self.refreshControl.endRefreshing()
+                    self.activityIndicator.stopAnimating()
+                }
             case .failure(let error):
-                print(error.localizedDescription)
+                DispatchQueue.main.async {
+                    print(error.localizedDescription)
+                    self.refreshControl.endRefreshing()
+                    self.activityIndicator.stopAnimating()
+                }
             }
         }
     }
