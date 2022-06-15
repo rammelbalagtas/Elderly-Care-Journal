@@ -217,10 +217,10 @@
                                 <rect key="frame" x="5" y="98" width="404" height="715"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="V51-Nv-j7A">
-                                        <rect key="frame" x="0.0" y="0.0" width="404" height="33"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="404" height="31"/>
                                         <subviews>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="hoy-xZ-wtj">
-                                                <rect key="frame" x="0.0" y="0.0" width="404" height="34"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="404" height="32"/>
                                                 <segments>
                                                     <segment title="Scheduled"/>
                                                     <segment title="Active"/>
@@ -233,12 +233,33 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="8BE-9g-YZa">
-                                        <rect key="frame" x="0.0" y="41" width="404" height="674"/>
+                                        <rect key="frame" x="0.0" y="39" width="404" height="676"/>
                                         <subviews>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="p1C-a8-HR7">
-                                                <rect key="frame" x="0.0" y="0.0" width="404" height="674"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QCv-86-8Oc">
+                                                <rect key="frame" x="0.0" y="0.0" width="404" height="676"/>
+                                                <subviews>
+                                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="WXz-KY-VoZ">
+                                                        <rect key="frame" x="152" y="288" width="100" height="100"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="100" id="Bu5-uW-TkG"/>
+                                                            <constraint firstAttribute="width" constant="100" id="hwW-hl-KZB"/>
+                                                        </constraints>
+                                                    </activityIndicatorView>
+                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="p1C-a8-HR7">
+                                                        <rect key="frame" x="0.0" y="0.0" width="404" height="676"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    </tableView>
+                                                </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                            </tableView>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="p1C-a8-HR7" secondAttribute="bottom" id="543-3a-ybp"/>
+                                                    <constraint firstItem="p1C-a8-HR7" firstAttribute="leading" secondItem="QCv-86-8Oc" secondAttribute="leading" id="6Wn-Yx-8Nz"/>
+                                                    <constraint firstItem="p1C-a8-HR7" firstAttribute="top" secondItem="QCv-86-8Oc" secondAttribute="top" id="6n3-4a-VXE"/>
+                                                    <constraint firstItem="WXz-KY-VoZ" firstAttribute="centerY" secondItem="QCv-86-8Oc" secondAttribute="centerY" id="gxG-1z-KBx"/>
+                                                    <constraint firstAttribute="trailing" secondItem="p1C-a8-HR7" secondAttribute="trailing" id="uI7-qe-Wnl"/>
+                                                    <constraint firstItem="WXz-KY-VoZ" firstAttribute="centerX" secondItem="QCv-86-8Oc" secondAttribute="centerX" id="x1n-tf-gy4"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -262,6 +283,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="WXz-KY-VoZ" id="oTm-vT-Hum"/>
                         <outlet property="addBtn" destination="nAa-8y-32e" id="Vpa-RO-66y"/>
                         <outlet property="sideMenuBtn" destination="xKJ-2I-k7V" id="CWv-Bm-h7n"/>
                         <outlet property="statusSegment" destination="hoy-xZ-wtj" id="jt0-Hu-nXA"/>

@@ -12,27 +12,22 @@ class ShiftListViewController: UIViewController, UITableViewDelegate {
     @IBOutlet weak var sideMenuBtn: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addBtn: UIBarButtonItem!
-    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var statusSegment: UISegmentedControl!
     
     var user: User!
     var familyMember: FamilyMember!
     var shifts = [Shift]()
     var selectedSegment = 0
+    
+    private let refreshControl = UIRefreshControl()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        //setup side menu
-        sideMenuBtn.target = revealViewController()
-        sideMenuBtn.action = #selector(revealViewController()?.revealSideMenu)
-        
+        setupView()
         registerNib()
         loadData(status: ShiftStatus.New.rawValue) //default tab is Scheduled
-        setupView()
+        
     }
     
     @IBAction func unwindToShiftListController( _ seg: UIStoryboardSegue) {
@@ -52,6 +47,7 @@ class ShiftListViewController: UIViewController, UITableViewDelegate {
     
     @IBAction func switchStatus(_ sender: UISegmentedControl) {
         var status = ""
+        self.selectedSegment = sender.selectedSegmentIndex
         switch sender.selectedSegmentIndex {
         case 0:
             status = ShiftStatus.New.rawValue
@@ -94,9 +90,28 @@ class ShiftListViewController: UIViewController, UITableViewDelegate {
     }
     
     private func setupView() {
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        //setup side menu
+        sideMenuBtn.target = revealViewController()
+        sideMenuBtn.action = #selector(revealViewController()?.revealSideMenu)
+        
         if user.userType == UserType.CareProvider.rawValue {
             self.navigationItem.rightBarButtonItem = nil
         }
+        
+        // Add Refresh Control to Table View
+        if #available(iOS 10.0, *) {
+            tableView.refreshControl = refreshControl
+        } else {
+            tableView.addSubview(refreshControl)
+        }
+        
+        refreshControl.addTarget(self, action: #selector(pullToRefreshAction), for: .valueChanged)
+        refreshControl.attributedTitle = NSAttributedString(string: " Fetching shift records ...")
+        
     }
     
     private func loadData(status: String) {
@@ -104,15 +119,40 @@ class ShiftListViewController: UIViewController, UITableViewDelegate {
         if user.userType == UserType.CareProvider.rawValue {
             careProviderId = user.uid
         }
+        tableView.isHidden = true
+        self.activityIndicator.startAnimating()
         ShiftDbService.readWithFilter(memberId: familyMember.memberId, careProviderId: careProviderId, status: status )
         { result in
             switch result {
             case .success(let data):
-                self.shifts = data
-                self.tableView.reloadData()
+                DispatchQueue.main.async {
+                    self.shifts = data
+                    self.tableView.isHidden = false
+                    self.tableView.reloadData()
+                    self.refreshControl.endRefreshing()
+                    self.activityIndicator.stopAnimating()
+                }
             case .failure(let error):
-                print(error.localizedDescription)
+                DispatchQueue.main.async {
+                    print(error.localizedDescription)
+                    self.refreshControl.endRefreshing()
+                    self.activityIndicator.stopAnimating()
+                }
             }
+        }
+    }
+    
+    @objc private func pullToRefreshAction(_ sender: Any) {
+        // Fetch shift records
+        switch self.selectedSegment {
+        case 0:
+            loadData(status: ShiftStatus.New.rawValue)
+        case 1:
+            loadData(status: ShiftStatus.InProgress.rawValue)
+        case 2:
+            loadData(status: ShiftStatus.Completed.rawValue)
+        default:
+            loadData(status: ShiftStatus.New.rawValue)
         }
     }
 
