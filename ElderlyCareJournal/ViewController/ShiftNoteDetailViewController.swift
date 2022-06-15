@@ -21,6 +21,7 @@ class ShiftNoteDetailViewController: UITableViewController {
     var user: User!
     var note: ShiftNote?
     var selectedIndex: Int?
+    private var selectedImageItem: IndexPath?
     private var images = [ShiftNoteImage]()
     private var imagesForDeletion = [ShiftNoteImage]()
     private var shouldSavePhoto: Bool = false
@@ -107,15 +108,24 @@ class ShiftNoteDetailViewController: UITableViewController {
         self.collectionView.showsHorizontalScrollIndicator = true
     }
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        if let destination = segue.destination as? DisplayPhotoViewController {
+            if let selectedImageItem = selectedImageItem {
+                let image = images[selectedImageItem.row]
+                if image.path.isEmpty {
+                    destination.image = image.image
+                } else {
+                    destination.path = image.path
+                }
+            }
+        }
     }
-    */
 
 }
 
@@ -142,6 +152,11 @@ extension ShiftNoteDetailViewController: UITextViewDelegate {
 }
 
 extension ShiftNoteDetailViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.selectedImageItem = indexPath
+        performSegue(withIdentifier: "DisplayPhoto", sender: self)
+    }
 
 }
 
