@@ -148,15 +148,23 @@ class ShiftNotesListViewController: UIViewController {
         
     }
     
-    private func uploadImages(images: [ShiftNoteImage]) {
-        
-
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedIndex = indexPath.row
         tableView.deselectRow(at: indexPath, animated: .random())
         self.performSegue(withIdentifier: "VIewShiftNote", sender: self)
+    }
+    
+    private func handleSwipeToDelete(_ indexPath: IndexPath) {
+        self.shift.notes.remove(at: indexPath.row)
+        self.tableView.deleteRows(at: [indexPath], with: .fade)
+        ShiftDbService.update(shift: self.shift) { result in
+            switch result {
+            case .success(_):
+                return
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     
     // MARK: - Navigation
@@ -178,6 +186,21 @@ class ShiftNotesListViewController: UIViewController {
 }
 
 extension ShiftNotesListViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        // allow delete action in Guardian view and only if shift has not been completed
+        if user.userType == UserType.CareProvider.rawValue {
+            let delete = UIContextualAction(style: .destructive, title: "Delete") { action, view, completionHandler in
+                self.handleSwipeToDelete(indexPath)
+                completionHandler(true)
+            }
+            return UISwipeActionsConfiguration(actions: [delete])
+        } else {
+            return nil
+        }
+
+    }
     
 }
 
