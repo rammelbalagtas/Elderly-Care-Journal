@@ -36,6 +36,7 @@ class ShiftNoteDetailViewController: UITableViewController {
         vc.delegate = self
         present(vc, animated: true)
     }
+    
     @IBAction func saveNoteAction(_ sender: UIBarButtonItem) {
         guard
             let noteDescription = noteDescriptionText.text, noteDescriptionText.hasText
@@ -67,6 +68,13 @@ class ShiftNoteDetailViewController: UITableViewController {
         return 0
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 1 && indexPath.row == 1 && user.userType == UserType.Guardian.rawValue {
+            return 0
+        }
+        return tableView.rowHeight
+    }
+    
     private func loadData() {
         if let note = note {
             noteDescriptionText.text = note.description
@@ -82,6 +90,11 @@ class ShiftNoteDetailViewController: UITableViewController {
     private func setupView() {
         
         registerNib()
+        
+        if user.userType == UserType.Guardian.rawValue {
+            self.navigationItem.rightBarButtonItem = nil
+            addPhotoBtn.isHidden = true
+        }
         
         noteDescriptionText.delegate = self
         collectionView.delegate = self

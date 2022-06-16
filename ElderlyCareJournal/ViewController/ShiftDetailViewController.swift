@@ -22,9 +22,11 @@ class ShiftDetailViewController: UITableViewController {
     @IBOutlet weak var toDateTime: UIDatePicker!
     @IBOutlet weak var numberOfTaskText: UILabel!
     @IBOutlet weak var careProviderText: UILabel!
+    @IBOutlet weak var notesCountText: UILabel!
     
     @IBOutlet weak var addTaskBtn: UIButton!
     @IBOutlet weak var assignCareProviderBtn: UIButton!
+    @IBOutlet weak var viewNotesBtn: UIButton!
     @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var deleteBtn: UIButton!
     
@@ -206,6 +208,10 @@ class ShiftDetailViewController: UITableViewController {
             //hide Assign Care provider option in care provider screen
             if indexPath.row == 1 && user.userType == UserType.CareProvider.rawValue {
                 return 0
+            } else if indexPath.row == 2 {
+                if user.userType == UserType.CareProvider.rawValue || shift?.status == ShiftStatus.New.rawValue || shift == nil {
+                return 0
+                }
             }
         case 2:
             if indexPath.row == 0 { //Save button
@@ -275,6 +281,7 @@ class ShiftDetailViewController: UITableViewController {
         numberOfTaskText.text = String(self.tasks.list.count)
         careProviderId = shift.careProviderId
         careProviderName = shift.careProviderName
+        notesCountText.text = String(shift.notes.count)
     }
     
     private func buildDateTime(using dateString: String) -> Date? {
