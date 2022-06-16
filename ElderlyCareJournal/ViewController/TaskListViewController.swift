@@ -7,11 +7,19 @@
 
 import UIKit
 
+protocol TaskListDelegate: AnyObject {
+    func refreshTaskList(shiftId: String, callback: @escaping (Result<Shift, Error>) -> Void)
+}
+
 class TaskListViewController: UIViewController, UITableViewDelegate {
     
     var tasks = TaskList()
+    var shift: Shift?
     var user: User!
     var shiftStatus: String!
+    weak var delegate: TaskListDelegate!
+    
+    private var refreshControl = UIRefreshControl()
 
     @IBOutlet weak var addBtn: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
@@ -50,6 +58,40 @@ class TaskListViewController: UIViewController, UITableViewDelegate {
     private func setupView() {
         if user.userType == UserType.CareProvider.rawValue {
             self.navigationItem.rightBarButtonItem = nil
+        }
+        
+        if let _ = shift {
+            refreshControl.addTarget(self, action: #selector(pullToRefreshTaskAction), for: .valueChanged)
+            refreshControl.attributedTitle = NSAttributedString(string: "Updating task list ...")
+            self.tableView.addSubview(refreshControl)
+        }
+
+    }
+    
+    @objc
+    private func pullToRefreshTaskAction() {
+        //call delegate to update task list
+        if let shift = shift {
+            self.tableView.isHidden = true
+            self.delegate.refreshTaskList(shiftId: shift.id)
+            { result in
+                switch result {
+                case .success(let shift):
+                    DispatchQueue.main.async {
+                        self.tasks.list = shift.tasks
+                        self.shift?.tasks = shift.tasks
+                        self.tableView.isHidden = false
+                        self.tableView.reloadData()
+                        self.refreshControl.endRefreshing()
+                    }
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        self.tableView.isHidden = false
+                        self.refreshControl.endRefreshing()
+                        print(error.localizedDescription)
+                    }
+                }
+            }
         }
     }
     

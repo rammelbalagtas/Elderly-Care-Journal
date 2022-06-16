@@ -321,8 +321,10 @@ class ShiftDetailViewController: UITableViewController {
         if let destination = segue.destination as? TaskListViewController {
             destination.tasks = self.tasks
             destination.user = self.user
+            destination.delegate = self
             if let shift = shift {
                 destination.shiftStatus = shift.status
+                destination.shift = shift
             } else {
                 destination.shiftStatus = ShiftStatus.New.rawValue
             }
@@ -371,5 +373,11 @@ extension ShiftDetailViewController: UITextViewDelegate {
         tableView.endUpdates()
         UIView.setAnimationsEnabled(true)
         tableView.setContentOffset(currentOffset, animated: false)
+    }
+}
+
+extension ShiftDetailViewController: TaskListDelegate {
+    func refreshTaskList(shiftId: String, callback: @escaping (Result<Shift, Error>) -> Void) {
+        ShiftDbService.readById(shiftId: shiftId, callback: callback)
     }
 }

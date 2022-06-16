@@ -77,8 +77,17 @@ struct ShiftDbService {
         }
     }
     
-    public static func readById() {
-        
+    public static func readById(shiftId: String, callback: @escaping (Result<Shift, Error>) -> Void) {
+        let docRef = db.collection(Constants.Database.shifts).document(shiftId)
+        docRef.getDocument(as: Shift.self)
+        { result in
+            switch result {
+            case .success(let shift):
+                callback(.success(shift))
+            case .failure(let error):
+                callback(.failure(error))
+            }
+        }
     }
     
     public static func update(shift: Shift, callback: @escaping (Result<Shift, Error>) -> Void) {
