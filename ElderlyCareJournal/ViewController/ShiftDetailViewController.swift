@@ -105,6 +105,11 @@ class ShiftDetailViewController: UITableViewController {
     @IBAction func saveAction(_ sender: UIButton) {
         
         if let shift = shift {
+            
+            if !validateRecord(using: shift) {
+                return
+            }
+            
             shift.description = shiftDescriptionText.text
             shift.fromDateTime = Utilities.extractDateTimeComponents(using: fromDateTime.date)
             shift.toDateTime = Utilities.extractDateTimeComponents(using: toDateTime.date)
@@ -129,6 +134,10 @@ class ShiftDetailViewController: UITableViewController {
             let toDateTime = Utilities.extractDateTimeComponents(using: toDateTime.date)
             let createdOn = Utilities.extractDateTimeComponents(using: Date.now)
             let shift = Shift(id: UUID().uuidString, memberId: memberId, description: description, fromDateTime: fromDateTime, toDateTime: toDateTime, tasks: tasks.list, careProviderId: careProviderId, careProviderName: careProviderName, status: ShiftStatus.New.rawValue, uid: user.uid, createdOn: createdOn, startedOn: nil, completedOn: nil)
+            
+            if !validateRecord(using: shift) {
+                return
+            }
             
             ShiftDbService.create(shift: shift)
             { result in
@@ -239,6 +248,9 @@ class ShiftDetailViewController: UITableViewController {
     
     private func setupView() {
         
+        fromDateTime.minuteInterval = 5
+        toDateTime.minuteInterval = 5
+        
         //disable Start shift for in progress and completed shift
         //disable End Shift and Add Notes of new and completed shift
         if let shift = shift {
@@ -303,6 +315,30 @@ class ShiftDetailViewController: UITableViewController {
         } else {
             return nil
         }
+    }
+    
+    private func validateRecord(using shift: Shift) -> Bool {
+        
+        if shift.description.isEmpty {
+            promptMessage(message: "Add a shift description", handler: nil)
+            return false
+        }
+        if shift.fromDateTime >= shift.toDateTime {
+            promptMessage(message: "From Date should be before To Date value", handler: nil)
+            return false
+        }
+        
+        if shift.tasks.isEmpty {
+            promptMessage(message: "Add at least one task to the shift", handler: nil)
+            return false
+        }
+        
+        if shift.careProviderId.isEmpty {
+            promptMessage(message: "Please assign a care provider", handler: nil)
+            return false
+        }
+        
+        return true
     }
     
     private func assignCareProvider() {
