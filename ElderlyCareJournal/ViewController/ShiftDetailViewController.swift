@@ -55,6 +55,12 @@ class ShiftDetailViewController: UITableViewController {
     
     @IBAction func startShiftAction(_ sender: UIButton) {
         if let shift = shift {
+            
+            if (Date.now < fromDateTime.date) {
+                promptMessage(message: "Shift cannot be started prior to assigned start date and time", handler: nil)
+                return
+            }
+            
             shift.startedOn = Utilities.extractDateTimeComponents(using: Date.now)
             shift.status = ShiftStatus.InProgress.rawValue
             ShiftDbService.update(shift: shift)
@@ -323,7 +329,7 @@ class ShiftDetailViewController: UITableViewController {
             promptMessage(message: "Add a shift description", handler: nil)
             return false
         }
-        if shift.fromDateTime >= shift.toDateTime {
+        if fromDateTime.date >= toDateTime.date {
             promptMessage(message: "From Date should be before To Date value", handler: nil)
             return false
         }
