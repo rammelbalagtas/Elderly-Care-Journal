@@ -42,6 +42,7 @@ class TaskDetailViewController: UIViewController {
     private func setupView() {
         if user.userType == UserType.CareProvider.rawValue {
             self.navigationItem.rightBarButtonItem = nil
+            taskDescriptionText.isEditable = false
         }
         
         if let task = task {
