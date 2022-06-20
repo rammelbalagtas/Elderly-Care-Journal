@@ -583,17 +583,17 @@
                             <tableViewSection id="95o-I4-5Ic">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="ZgD-sm-d2N">
-                                        <rect key="frame" x="0.0" y="874" width="414" height="51"/>
+                                        <rect key="frame" x="0.0" y="874" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZgD-sm-d2N" id="Vix-X0-glI">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="51"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="mmo-xJ-8bo">
-                                                    <rect key="frame" x="8" y="8" width="398" height="35"/>
+                                                    <rect key="frame" x="8" y="8" width="398" height="28"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="acv-GX-dMG">
-                                                            <rect key="frame" x="168.5" y="0.0" width="61" height="35"/>
+                                                            <rect key="frame" x="168.5" y="0.0" width="61" height="28"/>
                                                             <state key="normal" title="Button"/>
                                                             <buttonConfiguration key="configuration" style="plain" title="Save">
                                                                 <fontDescription key="titleFontDescription" type="system" pointSize="17"/>
@@ -614,17 +614,17 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="t1d-4O-u4g">
-                                        <rect key="frame" x="0.0" y="925" width="414" height="51"/>
+                                        <rect key="frame" x="0.0" y="918" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="t1d-4O-u4g" id="lq4-YJ-sLx">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="51"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Nv2-s0-jtL">
-                                                    <rect key="frame" x="8" y="8" width="398" height="35"/>
+                                                    <rect key="frame" x="8" y="8" width="398" height="28"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BNL-Zc-DaO">
-                                                            <rect key="frame" x="162.5" y="0.0" width="73.5" height="35"/>
+                                                            <rect key="frame" x="162.5" y="0.0" width="73.5" height="28"/>
                                                             <state key="normal" title="Button"/>
                                                             <buttonConfiguration key="configuration" style="plain" title="Delete">
                                                                 <fontDescription key="titleFontDescription" type="system" pointSize="17"/>
@@ -650,17 +650,17 @@
                             <tableViewSection headerTitle="Care Provider Actions" id="f7h-1W-hdK">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="Bob-aA-u9m">
-                                        <rect key="frame" x="0.0" y="1043" width="414" height="51"/>
+                                        <rect key="frame" x="0.0" y="1029" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Bob-aA-u9m" id="RHq-DU-BDW">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="51"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="I6M-Ir-hjA">
-                                                    <rect key="frame" x="8" y="8" width="398" height="35"/>
+                                                    <rect key="frame" x="8" y="8" width="398" height="28"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QuJ-2N-c75">
-                                                            <rect key="frame" x="0.0" y="0.0" width="398" height="35"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="398" height="28"/>
                                                             <state key="normal" title="Button"/>
                                                             <buttonConfiguration key="configuration" style="plain" title="Update Shift">
                                                                 <fontDescription key="titleFontDescription" type="system" pointSize="17"/>
@@ -682,17 +682,17 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="R9s-IC-skT">
-                                        <rect key="frame" x="0.0" y="1094" width="414" height="51"/>
+                                        <rect key="frame" x="0.0" y="1073" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="R9s-IC-skT" id="3kr-7b-glY">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="51"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="put-mc-aZq">
-                                                    <rect key="frame" x="8" y="8" width="398" height="35"/>
+                                                    <rect key="frame" x="8" y="8" width="398" height="28"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A90-BW-9fW">
-                                                            <rect key="frame" x="0.0" y="0.0" width="398" height="35"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="398" height="28"/>
                                                             <state key="normal" title="Button"/>
                                                             <buttonConfiguration key="configuration" style="plain" title="Start Shift">
                                                                 <fontDescription key="titleFontDescription" type="system" pointSize="17"/>
@@ -714,17 +714,17 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="uFN-p1-1u5">
-                                        <rect key="frame" x="0.0" y="1145" width="414" height="51"/>
+                                        <rect key="frame" x="0.0" y="1117" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uFN-p1-1u5" id="k2d-aa-9GZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="51"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="VNX-dU-a5e">
-                                                    <rect key="frame" x="8" y="8" width="398" height="35"/>
+                                                    <rect key="frame" x="8" y="8" width="398" height="28"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e7r-CR-IOX">
-                                                            <rect key="frame" x="152.5" y="0.0" width="93" height="35"/>
+                                                            <rect key="frame" x="152.5" y="0.0" width="93" height="28"/>
                                                             <state key="normal" title="Button"/>
                                                             <buttonConfiguration key="configuration" style="plain" title="End Shift">
                                                                 <fontDescription key="titleFontDescription" type="system" pointSize="17"/>
@@ -746,17 +746,17 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="MRQ-AH-z84">
-                                        <rect key="frame" x="0.0" y="1196" width="414" height="51"/>
+                                        <rect key="frame" x="0.0" y="1161" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MRQ-AH-z84" id="aux-HX-zdg">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="51"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="WKM-NL-6Wx">
-                                                    <rect key="frame" x="8" y="8" width="398" height="35"/>
+                                                    <rect key="frame" x="8" y="8" width="398" height="28"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Pu-9Q-DkA">
-                                                            <rect key="frame" x="147" y="0.0" width="104.5" height="35"/>
+                                                            <rect key="frame" x="147" y="0.0" width="104.5" height="28"/>
                                                             <state key="normal" title="Button"/>
                                                             <buttonConfiguration key="configuration" style="plain" title="Add Notes">
                                                                 <fontDescription key="titleFontDescription" type="system" pointSize="17"/>
@@ -1449,7 +1449,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="bow-GZ-9nH" secondAttribute="bottom" constant="10" id="imx-bQ-5w8"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1486,7 +1486,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="p0e-5w-jkZ" secondAttribute="trailing" constant="8" id="rfc-og-VIw"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="OJj-am-C7r">
                                         <rect key="frame" x="0.0" y="283" width="414" height="38.5"/>
@@ -1519,7 +1519,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="CoB-fT-HJt" secondAttribute="bottom" constant="8" id="whV-DU-EG6"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="XHq-Ou-B2Z">
                                         <rect key="frame" x="0.0" y="321.5" width="414" height="38.5"/>
@@ -1555,7 +1555,7 @@
                                                 <constraint firstItem="BIk-ZY-8hJ" firstAttribute="leading" secondItem="WCG-ef-2Zf" secondAttribute="leading" constant="20" id="jkr-Dy-fYO"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="ctG-Mk-Dvp">
                                         <rect key="frame" x="0.0" y="360" width="414" height="38.5"/>
@@ -1591,7 +1591,7 @@
                                                 <constraint firstItem="yjB-Kh-Y8z" firstAttribute="leading" secondItem="fwM-JJ-gBO" secondAttribute="leading" constant="20" id="xiY-nV-yMB"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <connections>
                                             <segue destination="tbQ-jg-hwg" kind="show" identifier="ViewGender" id="4PU-gg-c19"/>
                                         </connections>
@@ -1636,7 +1636,7 @@
                                                 <constraint firstItem="IJX-TO-BIP" firstAttribute="top" secondItem="z95-Oc-QcD" secondAttribute="top" constant="5" id="uom-ey-J8s"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="plA-m5-bJq">
                                         <rect key="frame" x="0.0" y="495.5" width="414" height="47"/>
@@ -1674,7 +1674,7 @@
                                                 <constraint firstItem="hkp-Oy-xLL" firstAttribute="leading" secondItem="dJ8-sM-ZD8" secondAttribute="leading" constant="20" id="nkn-wy-p7q"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="9KA-TW-abj">
                                         <rect key="frame" x="0.0" y="542.5" width="414" height="38.5"/>
@@ -1710,7 +1710,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="oTK-cx-df2" secondAttribute="bottom" constant="8" id="kNR-u3-OFb"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="pZ1-At-Yny">
                                         <rect key="frame" x="0.0" y="581" width="414" height="38.5"/>
@@ -1746,7 +1746,7 @@
                                                 <constraint firstItem="ZJl-4x-IWx" firstAttribute="top" secondItem="ZlC-BB-Q3R" secondAttribute="top" constant="8" id="qp5-ww-loj"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1786,7 +1786,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="b9o-PG-ZhY" secondAttribute="bottom" constant="8" id="hnp-le-qOk"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="ZL8-va-WXk">
                                         <rect key="frame" x="0.0" y="708" width="414" height="38.5"/>
@@ -1822,7 +1822,7 @@
                                                 <constraint firstItem="Iu6-bx-lMs" firstAttribute="leading" secondItem="pTv-gw-IZJ" secondAttribute="leading" constant="20" id="Sy3-GT-AzL"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1859,7 +1859,7 @@
                                                 <constraint firstItem="3hH-8w-0rM" firstAttribute="centerY" secondItem="Eve-LC-mn9" secondAttribute="centerY" id="bzq-Ev-hYE"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -2241,7 +2241,7 @@
                                                 <constraint firstItem="8J1-Y7-uKB" firstAttribute="leading" secondItem="2jp-8h-f24" secondAttribute="leadingMargin" id="vVY-it-uQD"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -2278,7 +2278,7 @@
                                                 <constraint firstItem="xu3-Dt-ZFM" firstAttribute="top" secondItem="V1p-H8-5eM" secondAttribute="top" constant="8" id="sMO-qJ-nuU"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="UAc-Ay-sMB">
                                         <rect key="frame" x="0.0" y="283" width="414" height="38.5"/>
@@ -2311,7 +2311,7 @@
                                                 <constraint firstItem="Wua-z7-KLD" firstAttribute="top" secondItem="8Hc-If-vnG" secondAttribute="top" constant="8" id="qKc-GT-Zth"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="PJO-YS-glx">
                                         <rect key="frame" x="0.0" y="321.5" width="414" height="38.5"/>
@@ -2347,7 +2347,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="ykh-Ez-4Dy" secondAttribute="bottom" constant="8" id="v70-vd-lBO"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="Pfa-wA-PAm">
                                         <rect key="frame" x="0.0" y="360" width="414" height="38.5"/>
@@ -2383,7 +2383,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="ZWt-jA-ml5" secondAttribute="trailing" constant="8" id="y3E-2l-bEq"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <connections>
                                             <segue destination="7Vv-4f-4Vm" kind="show" identifier="ViewGender" id="31C-wK-MI9"/>
                                         </connections>
@@ -2426,7 +2426,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="Egd-xO-mca" secondAttribute="trailing" constant="8" id="v9R-dc-A7k"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="ZQr-s8-mVz">
                                         <rect key="frame" x="0.0" y="487" width="414" height="38.5"/>
@@ -2462,7 +2462,7 @@
                                                 <constraint firstItem="fWH-JO-hMa" firstAttribute="leading" secondItem="fcY-u4-UcI" secondAttribute="leading" constant="20" id="mHM-Sb-trc"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -2504,7 +2504,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="puO-0n-ipd" secondAttribute="bottom" constant="5" id="yPm-QU-X8a"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="EIf-Yu-GvV">
                                         <rect key="frame" x="0.0" y="622.5" width="414" height="47"/>
@@ -2542,7 +2542,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="al8-2S-z0N" secondAttribute="bottom" constant="5" id="KKw-bl-CX9"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="B6A-tK-V9e">
                                         <rect key="frame" x="0.0" y="669.5" width="414" height="38.5"/>
@@ -2578,7 +2578,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="rzh-uH-oAk" secondAttribute="bottom" constant="8" id="fYe-WO-uAH"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="LGS-Uz-4IK">
                                         <rect key="frame" x="0.0" y="708" width="414" height="38.5"/>
@@ -2614,7 +2614,7 @@
                                                 <constraint firstItem="puE-UC-gwO" firstAttribute="leading" secondItem="Qhv-ad-Am6" secondAttribute="leading" constant="20" id="wYj-dP-Xgk"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -2650,7 +2650,7 @@
                                                 <constraint firstItem="gW8-QH-LAl" firstAttribute="centerX" secondItem="OkL-Mv-Tls" secondAttribute="centerX" id="ODq-pP-YL4"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
